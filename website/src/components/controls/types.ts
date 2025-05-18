@@ -160,8 +160,8 @@ export interface BulletColorsControlConfig {
 
 export interface ScaleControlConfig {
     type: 'scale'
+    allowedTypes: string[]
     isOpenedByDefault?: boolean
-    allowedTypes?: string[]
     disabledProps?: Partial<Record<ScaleType, KeysOfUnion<ScaleSpec>[]>>
 }
 

@@ -40,6 +40,7 @@ export function ChoicesControl<Value extends string | boolean = string>({
                 options={property.control.choices}
                 value={value}
                 onChange={handleUpdate}
+                isDisabled={property.control.disabled}
             />
         </Control>
     )

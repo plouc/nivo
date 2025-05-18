@@ -6,16 +6,6 @@ import { ScaleControlConfig, ControlContext, KeysOfUnion } from '../types'
 import { PropertyHeader, Help, Cell, Toggle } from '../ui'
 import { ControlsGroup } from '../ControlsGroup'
 
-interface ScaleControlProps {
-    id: string
-    property: ChartPropertyWithControl<ScaleControlConfig>
-    flavors: Flavor[]
-    currentFlavor: Flavor
-    value: ScaleSpec
-    onChange: (value: Record<string, unknown>) => void
-    context?: ControlContext
-}
-
 const SCALE_PROP_ROUND: Omit<ChartProperty, 'group'> = {
     name: 'round',
     key: 'round',
@@ -75,14 +65,14 @@ const SCALE_PROP_MAX: Omit<ChartProperty, 'group'> = {
 }
 
 // @todo: add all scale types
-const propsByScaleType: Partial<Record<ScaleType, Omit<ChartProperty, 'group'>[]>> = {
+const SCALE_PROPS_BY_TYPE: Partial<Record<ScaleType, Omit<ChartProperty, 'group'>[]>> = {
     linear: [SCALE_PROP_NICE, SCALE_PROP_ROUND, SCALE_PROP_MIN, SCALE_PROP_MAX, SCALE_PROP_REVERSE],
     band: [SCALE_PROP_ROUND],
     symlog: [SCALE_PROP_NICE, SCALE_PROP_ROUND, SCALE_PROP_REVERSE],
 }
 
 // @todo: add all scale types
-const defaultsByScaleType: Partial<Record<ScaleType, Partial<ScaleSpec>>> = {
+const SCALE_DEFAULTS_BY_TYPE: Partial<Record<ScaleType, Partial<ScaleSpec>>> = {
     linear: {
         type: 'linear',
         min: 'auto',
@@ -101,7 +91,44 @@ const defaultsByScaleType: Partial<Record<ScaleType, Partial<ScaleSpec>>> = {
         type: 'symlog',
         nice: true,
         round: true,
+        reverse: false,
     },
+}
+
+const SCALE_CHOICES: {
+    value: ScaleType
+    label: ScaleType
+}[] = [
+    {
+        value: 'linear',
+        label: 'linear',
+    },
+    {
+        value: 'band',
+        label: 'band',
+    },
+    {
+        value: 'log',
+        label: 'log',
+    },
+    {
+        value: 'symlog',
+        label: 'symlog',
+    },
+    {
+        value: 'point',
+        label: 'point',
+    },
+]
+
+interface ScaleControlProps {
+    id: string
+    property: ChartPropertyWithControl<ScaleControlConfig>
+    flavors: Flavor[]
+    currentFlavor: Flavor
+    value: ScaleSpec
+    onChange: (value: Record<string, unknown>) => void
+    context?: ControlContext
 }
 
 export const ScaleControl = memo(
@@ -120,10 +147,26 @@ export const ScaleControl = memo(
             property.control.disabledProps || {}
         const excludedPropsForType = excludedProps[value.type] || []
 
-        const defaults = defaultsByScaleType[value.type]
+        const defaults = SCALE_DEFAULTS_BY_TYPE[value.type]
 
-        const subProps: ChartProperty[] = []
-        propsByScaleType[value.type]!.forEach(prop => {
+        const scaleChoices = SCALE_CHOICES.filter(({ value }) =>
+            property.control.allowedTypes.includes(value)
+        )
+        const subProps: ChartProperty[] = [
+            {
+                name: 'type',
+                key: 'type',
+                group: property.group,
+                type: 'string',
+                help: `The [scale](self:/guides/scales/) type.`,
+                control: {
+                    type: 'choices',
+                    choices: scaleChoices,
+                    disabled: scaleChoices.length === 1,
+                },
+            },
+        ]
+        SCALE_PROPS_BY_TYPE[value.type]!.forEach(prop => {
             if (excludedPropsForType.includes(prop.key as KeysOfUnion<ScaleSpec>)) {
                 return
             }
@@ -148,12 +191,27 @@ export const ScaleControl = memo(
             }
         }, [value])
 
-        console.log({
-            value,
-            subProps,
-            defaults,
-            latestValueByType: latestValueByType.current,
-        })
+        const handleChange = (newValue: ScaleSpec) => {
+            const newType = newValue.type
+            if (newType === value.type) {
+                onChange(newValue as Record<string, unknown>)
+                return
+            }
+
+            const latestValue = latestValueByType.current[newType]
+            if (latestValue) {
+                onChange(latestValue)
+                return
+            }
+
+            const defaultValue = SCALE_DEFAULTS_BY_TYPE[newType]
+            if (defaultValue) {
+                onChange(defaultValue)
+                return
+            }
+
+            onChange(newValue as Record<string, unknown>)
+        }
 
         const newContext = {
             path: [...(context ? context.path : []), property.key || property.name] as string[],
@@ -173,7 +231,7 @@ export const ScaleControl = memo(
                         currentFlavor={currentFlavor}
                         controls={subProps}
                         settings={value}
-                        onChange={onChange}
+                        onChange={handleChange}
                         context={newContext}
                     />
                 )}
