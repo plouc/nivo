@@ -11,7 +11,7 @@ export const TextInput = memo(({ unit, isNumber = false, ...props }: TextInputPr
 
     return (
         <Container>
-            <InputElement type="text" hasUnit={hasUnit} isNumber={isNumber} {...props} />
+            <InputElement type="text" $hasUnit={hasUnit} $isNumber={isNumber} {...props} />
             {hasUnit && <Unit>{unit}</Unit>}
         </Container>
     )
@@ -37,20 +37,20 @@ const Unit = styled.span`
 `
 
 const InputElement = styled.input<{
-    hasUnit: boolean
-    isNumber: boolean
+    $hasUnit: boolean
+    $isNumber: boolean
 }>`
     height: 100%;
     width: 100%;
     font-size: 12px;
     padding: 0 7px;
-    padding-right: ${({ hasUnit }) => (hasUnit ? 26 : 7)}px;
+    padding-right: ${({ $hasUnit }) => ($hasUnit ? 26 : 7)}px;
     border-radius: 1px;
     background: ${({ theme }) => theme.colors.inputBackground};
     border: 1px solid ${({ theme }) => theme.colors.border};
     cursor: pointer;
     color: inherit;
-    text-align: ${({ isNumber }) => (isNumber ? 'right' : 'left')};
+    text-align: ${({ $isNumber }) => ($isNumber ? 'right' : 'left')};
 
     &:focus {
         outline: 0;

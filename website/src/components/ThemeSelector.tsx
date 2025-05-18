@@ -31,7 +31,7 @@ const ThemeSelector = () => {
         <ToggleContainer>
             <ToggleItem
                 id="lightTheme"
-                isActive={themeId === 'light'}
+                $isActive={themeId === 'light'}
                 onClick={() => setTheme('light')}
             >
                 light
@@ -44,7 +44,7 @@ const ThemeSelector = () => {
             />
             <ToggleItem
                 id="darkTheme"
-                isActive={themeId === 'dark'}
+                $isActive={themeId === 'dark'}
                 onClick={() => setTheme('dark')}
             >
                 dark
@@ -65,11 +65,11 @@ const ToggleContainer = styled.div`
 `
 
 const ToggleItem = styled.label<{
-    isActive: boolean
+    $isActive: boolean
 }>`
     font-size: 0.9rem;
     text-align: center;
     font-weight: 500;
     cursor: pointer;
-    opacity: ${({ isActive }) => (isActive ? 1 : 0.6)};
+    opacity: ${({ $isActive }) => ($isActive ? 1 : 0.6)};
 `

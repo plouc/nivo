@@ -47,7 +47,7 @@ const props: ChartProperty[] = [
     {
         key: 'keys',
         group: 'Base',
-        help: 'Keys to use to determine each serie.',
+        help: 'Keys to use to determine each series, these keys should point to a numeric value.',
         type: 'string[]',
         flavors: allFlavors,
         required: false,
@@ -88,54 +88,34 @@ const props: ChartProperty[] = [
     {
         key: 'valueScale',
         group: 'Base',
-        type: 'object',
-        help: 'Value scale configuration, supports `linear`, and `symlog` types.',
+        type: 'ScaleSpec',
+        help: `
+            Value [scale](self:/guides/scales/) configuration,
+            supports [linear](self:/guides/scales/#linear-scale),
+            and symlog types.
+        `,
         defaultValue: svgDefaultProps.valueScale,
         flavors: allFlavors,
         required: false,
         control: {
             type: 'scale',
-            isOpenedByDefault: true,
             allowedTypes: ['linear', 'symlog'],
         },
     },
     {
         key: 'indexScale',
         group: 'Base',
-        type: 'object',
-        help: 'Index scale configuration, supports `band` type only.',
+        type: 'BandScaleSpec',
+        help: `
+            Index [scale](self:/guides/scales/) configuration,
+            supports [band](self:/guides/scales/#band-scale) type only.
+        `,
         defaultValue: svgDefaultProps.indexScale,
         flavors: allFlavors,
         required: false,
         control: {
             type: 'scale',
-            isOpenedByDefault: true,
             allowedTypes: ['band'],
-            // props: [
-            //     {
-            //         key: 'type',
-            //         help: `Scale type.`,
-            //         type: 'string',
-            //         required: true,
-            //         flavors: ['svg', 'canvas', 'api'],
-            //         control: {
-            //             type: 'choices',
-            //             disabled: true,
-            //             choices: ['band'].map(v => ({
-            //                 label: v,
-            //                 value: v,
-            //             })),
-            //         },
-            //     },
-            //     {
-            //         key: 'round',
-            //         required: true,
-            //         flavors: ['svg', 'canvas', 'api'],
-            //         help: 'Toggle index scale (for bar width) rounding.',
-            //         type: 'boolean',
-            //         control: { type: 'switch' },
-            //     },
-            // ],
         },
     },
     {

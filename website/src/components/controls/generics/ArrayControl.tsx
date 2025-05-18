@@ -94,7 +94,7 @@ function NonMemoizedArrayControl<Item = object>({
             </Header>
             {value.map((item, index) => (
                 <Fragment key={index}>
-                    <SubHeader isOpened={activeItems.includes(index)} onClick={toggle(index)}>
+                    <SubHeader $isOpened={activeItems.includes(index)} onClick={toggle(index)}>
                         <Title>
                             {getItemTitle !== undefined
                                 ? getItemTitle(index, item)
@@ -139,7 +139,7 @@ const Title = styled.div`
 `
 
 const SubHeader = styled(Cell)<{
-    isOpened: boolean
+    $isOpened: boolean
 }>`
     cursor: pointer;
     font-weight: 600;
@@ -159,7 +159,7 @@ const SubHeader = styled(Cell)<{
     }
 
     ${Title} {
-        ${({ isOpened, theme }) => (isOpened ? `color: ${theme.colors.text};` : '')}
+        ${({ $isOpened, theme }) => ($isOpened ? `color: ${theme.colors.text};` : '')}
     }
 `
 

@@ -75,7 +75,7 @@ export const MarginControl = ({
                     onBlur={handleBlur}
                 />
                 <BoxCell>
-                    <Box side={side} />
+                    <Box $side={side} />
                 </BoxCell>
                 <Label htmlFor={`${id}-bottom`}>bottom</Label>
                 <TextInput
@@ -123,19 +123,19 @@ const BoxCell = styled.div`
 `
 
 const Box = styled.div<{
-    side: Side | null
+    $side: Side | null
 }>`
     width: 100%;
     height: 100%;
     max-width: 80px;
     margin-left: 12px;
     border: 2px solid ${({ theme }) => theme.colors.border};
-    ${({ side, theme }) => {
-        if (side === null) return ''
+    ${({ $side, theme }) => {
+        if ($side === null) return ''
 
         return `
-            border-${side}-color: ${theme.colors.accent};
-            border-${side}-width: 3px;
+            border-${$side}-color: ${theme.colors.accent};
+            border-${$side}-width: 3px;
         `
     }}
 `

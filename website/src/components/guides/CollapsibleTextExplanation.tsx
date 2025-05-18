@@ -41,7 +41,8 @@ const Header = styled.div`
     user-select: none;
 
     svg {
-        opacity: 0.35;
+        color: ${({ theme }) => theme.colors.accent};
+        opacity: 0.5;
         margin-right: 9px;
     }
 
@@ -49,7 +50,6 @@ const Header = styled.div`
         color: ${({ theme }) => theme.colors.text};
 
         svg {
-            color: ${({ theme }) => theme.colors.textLight};
             opacity: 1;
         }
     }

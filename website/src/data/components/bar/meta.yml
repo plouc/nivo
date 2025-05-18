@@ -44,14 +44,7 @@ Bar:
     below the x axis (or y axis if using horizontal layout).
     The bar item component can be customized to render any valid SVG element, it
     will receive current bar style, data and event handlers,
-    the storybook offers an [example](storybook:bar--custom-bar-item).
-    See the [dedicated guide](self:/guides/legends) on how to setup
-    legends for this component.
-    However it requires an extra property for each legend configuration you pass to
-    `legends` property: `dataFrom`, it defines how to compute
-    legend's data and accept `indexes` or `keys`.
-    `indexes` is suitable for simple bar chart with a single data serie
-    while `keys` may be used if you have several ones (groups).
+    there's an example in [storybook](storybook:bar--custom-bar-item).
 BarCanvas:
   package: '@nivo/bar'
   tags:

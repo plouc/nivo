@@ -2,7 +2,7 @@ import React, { memo, useMemo, useState, useCallback, useRef } from 'react'
 import styled from 'styled-components'
 import { ScaleSpec, ScaleType } from '@nivo/scales'
 import { ChartProperty, Flavor } from '../../../types'
-import { ScaleControlConfig, ControlContext } from '../types'
+import { ScaleControlConfig, ControlContext, KeysOfUnion } from '../types'
 import { PropertyHeader, Help, Cell, Toggle } from '../ui'
 import { ControlsGroup } from '../ControlsGroup'
 
@@ -47,9 +47,37 @@ const SCALE_PROP_REVERSE: Omit<ChartProperty, 'group'> = {
     },
 }
 
+const SCALE_PROP_MIN: Omit<ChartProperty, 'group'> = {
+    key: 'min',
+    name: 'min',
+    type: `number | 'auto'`,
+    help: `Minimum value, if \`auto\`, it's inferred from the data.`,
+    control: {
+        type: 'switchableRange',
+        disabledValue: 'auto',
+        defaultValue: 0,
+        min: -2000,
+        max: 2000,
+    },
+}
+
+const SCALE_PROP_MAX: Omit<ChartProperty, 'group'> = {
+    key: 'max',
+    name: 'max',
+    help: `Maximum value, if \`auto\`, it's inferred from the data.`,
+    type: `number | 'auto'`,
+    control: {
+        type: 'switchableRange',
+        disabledValue: 'auto',
+        defaultValue: 1200,
+        min: -2000,
+        max: 2000,
+    },
+}
+
 // @todo: add all scale types
 const propsByScaleType: Partial<Record<ScaleType, Omit<ChartProperty, 'group'>[]>> = {
-    linear: [SCALE_PROP_NICE, SCALE_PROP_ROUND, SCALE_PROP_REVERSE],
+    linear: [SCALE_PROP_NICE, SCALE_PROP_ROUND, SCALE_PROP_MIN, SCALE_PROP_MAX, SCALE_PROP_REVERSE],
     band: [SCALE_PROP_ROUND],
     symlog: [SCALE_PROP_NICE, SCALE_PROP_ROUND, SCALE_PROP_REVERSE],
 }
@@ -97,19 +125,28 @@ export const ScaleControl = memo(
 
         const value = { ..._value }
 
+        const excludedProps: NonNullable<ScaleControlConfig['disabledProps']> =
+            config.disabledProps || {}
+        const excludedPropsForType = excludedProps[value.type] || []
+
         const defaults = defaultsByScaleType[value.type]
-        let subProps: ChartProperty[] = propsByScaleType[value.type]!.map(prop => {
+
+        const subProps: ChartProperty[] = []
+        propsByScaleType[value.type]!.forEach(prop => {
+            if (excludedPropsForType.includes(prop.key as KeysOfUnion<ScaleSpec>)) {
+                return
+            }
+
             const propValue = (value as Record<string, unknown>)[prop.key]
             if (propValue === undefined) {
                 ;(value as any)[prop.key] = (defaults as Record<string, unknown>)[prop.key]
             }
 
-            return {
+            subProps.push({
                 ...prop,
                 group: property.group,
-            }
+            })
         })
-        subProps = [...subProps]
 
         useMemo(() => {
             latestValueByType.current = {
@@ -133,7 +170,7 @@ export const ScaleControl = memo(
 
         return (
             <>
-                <Header isOpened={isOpened} onClick={toggle}>
+                <Header $isOpened={isOpened} onClick={toggle}>
                     <PropertyHeader {...property} context={context} />
                     <Help>{property.help}</Help>
                     <Toggle isOpened={isOpened} />
@@ -161,7 +198,7 @@ const Title = styled.div`
 `
 
 const Header = styled(Cell)<{
-    isOpened: boolean
+    $isOpened: boolean
 }>`
     cursor: pointer;
     border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
@@ -179,6 +216,6 @@ const Header = styled(Cell)<{
     }
 
     ${Title} {
-        ${({ isOpened, theme }) => (isOpened ? `color: ${theme.colors.accent};` : '')}
+        ${({ $isOpened, theme }) => ($isOpened ? `color: ${theme.colors.accent};` : '')}
     }
 `

@@ -25,7 +25,7 @@ interface ActionsLoggerProps {
 
 export const ActionsLogger = ({ actions, isFullWidth = false }: ActionsLoggerProps) => {
     return (
-        <Wrapper isFullWidth={isFullWidth}>
+        <Wrapper $isFullWidth={isFullWidth}>
             <Header>Actions Logs</Header>
             {actions.length === 0 && (
                 <EmptyContainer>
@@ -41,15 +41,15 @@ export const ActionsLogger = ({ actions, isFullWidth = false }: ActionsLoggerPro
 }
 
 const Wrapper = styled.div<{
-    isFullWidth: boolean
+    $isFullWidth: boolean
 }>`
     position: fixed;
     right: 0;
     bottom: 0;
     --innerWidth: calc(100% - ${({ theme }) => theme.dimensions.miniNavWidth}px);
     --partialWidth: calc(var(--innerWidth) * 0.55);
-    ${({ isFullWidth, theme }) => {
-        if (isFullWidth) {
+    ${({ $isFullWidth, theme }) => {
+        if ($isFullWidth) {
             return `
                 width: var(--partialWidth);
             `
@@ -73,8 +73,8 @@ const Wrapper = styled.div<{
             bottom: 0;
             --innerHeight: calc(100% - ${({ theme }) => theme.dimensions.headerHeight}px);
             height: calc(var(--innerHeight) * 0.4);
-            ${({ isFullWidth, theme }) => {
-                if (isFullWidth) {
+            ${({ $isFullWidth, theme }) => {
+                if ($isFullWidth) {
                     return `width: 55%;`
                 }
 

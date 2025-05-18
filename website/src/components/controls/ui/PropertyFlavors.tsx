@@ -12,7 +12,7 @@ export const PropertyFlavors = memo(({ flavors, supportedFlavors }: PropertyFlav
         <Container>
             <Label>support</Label>
             {flavors.map(flavor => (
-                <Flavor key={flavor} isSupported={supportedFlavors.includes(flavor)}>
+                <Flavor key={flavor} $isSupported={supportedFlavors.includes(flavor)}>
                     {flavor}
                 </Flavor>
             ))}
@@ -33,16 +33,16 @@ const Label = styled.span`
     margin-right: 9px;
 `
 
-const Flavor = styled.span<{ isSupported: boolean }>`
+const Flavor = styled.span<{ $isSupported: boolean }>`
     font-size: 11px;
     line-height: 1em;
-    font-weight: ${({ isSupported }) => (isSupported ? 600 : 400)};
+    font-weight: ${({ $isSupported }) => ($isSupported ? 600 : 400)};
     padding: 3px 8px 5px;
     border: 1px solid ${({ theme }) => theme.colors.border};
     border-right-width: 0;
-    text-decoration: ${({ isSupported }) => (isSupported ? 'normal' : 'line-through')};
-    color: ${({ isSupported, theme }) =>
-        isSupported ? theme.colors.text : theme.colors.textLight};
+    text-decoration: ${({ $isSupported }) => ($isSupported ? 'normal' : 'line-through')};
+    color: ${({ $isSupported, theme }) =>
+        $isSupported ? theme.colors.text : theme.colors.textLight};
 
     &:last-child {
         border-right-width: 1px;

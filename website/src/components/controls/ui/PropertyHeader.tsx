@@ -6,12 +6,14 @@ import isNumber from 'lodash/isNumber.js'
 import isBoolean from 'lodash/isBoolean.js'
 import isFunction from 'lodash/isFunction.js'
 import styled from 'styled-components'
+import { LuAsterisk } from 'react-icons/lu'
+import { MdSubdirectoryArrowRight } from 'react-icons/md'
 import { ChartProperty, Flavor } from '../../../types'
 import { ControlContext } from '../types'
 
 const getDefaultValue = (value: any) => {
     if (isPlainObject(value)) {
-        return `${JSON.stringify(value)}`
+        return <code className="code-object">{JSON.stringify(value)}</code>
     } else if (isArray(value)) {
         const elements = value.reduce((acc, v, i) => {
             acc.push(React.cloneElement(getDefaultValue(v), { key: i }))
@@ -71,12 +73,22 @@ export const PropertyHeader = ({
         }
     }
 
+    const isNested = context ? context.path.length > 0 : false
+
     return (
-        <Container>
+        <Container $isNested={isNested}>
+            {isNested && (
+                <NestedIndicator>
+                    <MdSubdirectoryArrowRight />
+                </NestedIndicator>
+            )}
             <Label htmlFor={id}>{label}</Label>
+            {required && (
+                <Required>
+                    <LuAsterisk />
+                </Required>
+            )}
             {propertyType && <Type>{propertyType}</Type>}
-            {required && <Required>required</Required>}
-            {!required && <Optional>optional</Optional>}
             {defaultValue !== undefined && (
                 <>
                     <Default>default:</Default>
@@ -87,8 +99,16 @@ export const PropertyHeader = ({
     )
 }
 
-const Container = styled.div`
+const Container = styled.div<{
+    $isNested: boolean
+}>`
+    position: relative;
     margin-bottom: 7px;
+    padding-left: ${({ $isNested }) => ($isNested ? '20px' : '0')};
+
+    code.code-object {
+        font-size: 12px;
+    }
 `
 
 const Label = styled.label`
@@ -96,6 +116,15 @@ const Label = styled.label`
     white-space: nowrap;
     font-weight: 600;
     color: ${({ theme }) => theme.colors.text};
+`
+
+const NestedIndicator = styled.span`
+    position: absolute;
+    top: 1px;
+    left: -3px;
+    display: inline-flex;
+    font-size: 20px;
+    opacity: 0.35;
 `
 
 const LabelParentPath = styled.span`
@@ -112,17 +141,16 @@ const Type = styled.span`
 
 const Required = styled.span`
     display: inline-block;
-    white-space: nowrap;
-    margin-left: 9px;
-    color: ${({ theme }) => theme.colors.text};
-`
+    width: 10px;
+    height: 1em;
+    position: relative;
+    color: ${({ theme }) => theme.colors.accent};
+    font-size: 12px;
 
-const Optional = styled.span`
-    display: inline-block;
-    white-space: nowrap;
-    margin-left: 9px;
-    color: ${({ theme }) => theme.colors.text};
-    font-style: italic;
+    svg {
+        position: absolute;
+        top: -4px;
+    }
 `
 
 const Default = styled.span`

@@ -17,7 +17,7 @@ interface StoriesProps {
 
 export const Stories = ({ isFullWidth = false, stories }: StoriesProps) => {
     return (
-        <Wrapper isFullWidth={isFullWidth}>
+        <Wrapper $isFullWidth={isFullWidth}>
             <Header>Recipes</Header>
             {stories.map((story, i) => (
                 <StoriesItem
@@ -35,15 +35,15 @@ export const Stories = ({ isFullWidth = false, stories }: StoriesProps) => {
 }
 
 const Wrapper = styled.div<{
-    isFullWidth: boolean
+    $isFullWidth: boolean
 }>`
     position: fixed;
     bottom: 0;
     --innerHeight: calc(100% - ${({ theme }) => theme.dimensions.headerHeight}px);
     height: calc(var(--innerHeight) * 0.4);
     background: ${({ theme }) => theme.colors.cardAltBackground};
-    ${({ isFullWidth, theme }) => {
-        if (isFullWidth) {
+    ${({ $isFullWidth, theme }) => {
+        if ($isFullWidth) {
             return `
                 --innerWidth: calc(100% - ${theme.dimensions.miniNavWidth}px);
                 width: calc(var(--innerWidth) * 0.55);
@@ -68,8 +68,8 @@ const Wrapper = styled.div<{
             height: calc(var(--innerHeight) * 0.4);
             left: 45%;
             bottom: 0;
-            ${({ isFullWidth }) => {
-                if (isFullWidth) {
+            ${({ $isFullWidth }) => {
+                if ($isFullWidth) {
                     return `
                         width: calc(100% * 0.55);
                     `

@@ -54,8 +54,8 @@ interface GroupHeaderProps {
 const GroupHeader = ({ name, isOpen, toggle }: GroupHeaderProps) => {
     return (
         <HeaderContainer onClick={toggle}>
-            <HeaderTitle isOpen={isOpen}>{name}</HeaderTitle>
-            <HeaderIndicator isOpen={isOpen}>
+            <HeaderTitle $isOpen={isOpen}>{name}</HeaderTitle>
+            <HeaderIndicator $isOpen={isOpen}>
                 <FaChevronRight />
             </HeaderIndicator>
         </HeaderContainer>
@@ -69,15 +69,15 @@ const Container = styled.div`
     }
 `
 
-const HeaderTitle = styled.span<{ isOpen: boolean }>`
+const HeaderTitle = styled.span<{ $isOpen: boolean }>`
     font-weight: 700;
     text-transform: uppercase;
     font-size: 13px;
     color: white;
-    opacity: ${({ isOpen }) => (isOpen ? 1 : 0.7)};
+    opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0.7)};
 `
 
-const HeaderIndicator = styled.span<{ isOpen: boolean }>`
+const HeaderIndicator = styled.span<{ $isOpen: boolean }>`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,8 +86,8 @@ const HeaderIndicator = styled.span<{ isOpen: boolean }>`
     border-radius: 100%;
     font-size: 12px;
     color: white;
-    transform: ${({ isOpen }) => (isOpen ? `rotate(90deg)` : `rotate(0deg)`)};
-    opacity: ${({ isOpen }) => (isOpen ? 1 : 0.6)};
+    transform: ${({ $isOpen }) => ($isOpen ? `rotate(90deg)` : `rotate(0deg)`)};
+    opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0.6)};
 `
 
 const HeaderContainer = styled.div`

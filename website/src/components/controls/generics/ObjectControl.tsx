@@ -48,7 +48,7 @@ export const ObjectControl = memo(
 
         return (
             <>
-                <Header isOpened={isOpened} onClick={toggle}>
+                <Header $isOpened={isOpened} onClick={toggle}>
                     <PropertyHeader {...property} context={context} />
                     <Help>{property.help}</Help>
                     <Toggle isOpened={isOpened} />
@@ -76,7 +76,7 @@ const Title = styled.div`
 `
 
 const Header = styled(Cell)<{
-    isOpened: boolean
+    $isOpened: boolean
 }>`
     cursor: pointer;
     border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
@@ -94,6 +94,6 @@ const Header = styled(Cell)<{
     }
 
     ${Title} {
-        ${({ isOpened, theme }) => (isOpened ? `color: ${theme.colors.accent};` : '')}
+        ${({ $isOpened, theme }) => ($isOpened ? `color: ${theme.colors.accent};` : '')}
     }
 `

@@ -173,19 +173,19 @@ export const InheritedColorControl = ({
             <PropertyHeader {...property} />
             <TypeSelector>
                 <TypeSelectorItem
-                    isActive={type === 'inherit'}
+                    $isActive={type === 'inherit'}
                     onClick={() => handleTypeChange('inherit')}
                 >
                     inherit
                 </TypeSelectorItem>
                 <TypeSelectorItem
-                    isActive={type === 'theme'}
+                    $isActive={type === 'theme'}
                     onClick={() => handleTypeChange('theme')}
                 >
                     theme
                 </TypeSelectorItem>
                 <TypeSelectorItem
-                    isActive={type === 'custom'}
+                    $isActive={type === 'custom'}
                     onClick={() => handleTypeChange('custom')}
                 >
                     custom
@@ -204,18 +204,18 @@ const TypeSelector = styled.div`
 `
 
 const TypeSelectorItem = styled.span<{
-    isActive: boolean
+    $isActive: boolean
 }>`
     cursor: pointer;
     padding: 5px 9px;
     text-align: center;
-    font-weight: ${({ isActive }) => (isActive ? 600 : 400)};
-    background: ${({ isActive, theme }) =>
-        isActive ? theme.colors.cardBackground : theme.colors.background};
-    color: ${({ isActive, theme }) => (isActive ? theme.colors.accent : theme.colors.textLight)};
+    font-weight: ${({ $isActive }) => ($isActive ? 600 : 400)};
+    background: ${({ $isActive, theme }) =>
+        $isActive ? theme.colors.cardBackground : theme.colors.background};
+    color: ${({ $isActive, theme }) => ($isActive ? theme.colors.accent : theme.colors.textLight)};
     border: 1px solid ${({ theme }) => theme.colors.border};
     border-left-width: 0;
-    box-shadow: ${({ isActive }) => (isActive ? 'none' : '0 1px 1px rgba(0, 0, 0, 0.1) inset')};
+    box-shadow: ${({ $isActive }) => ($isActive ? 'none' : '0 1px 1px rgba(0, 0, 0, 0.1) inset')};
 
     &:first-child {
         border-left-width: 1px;
@@ -228,7 +228,7 @@ const TypeSelectorItem = styled.span<{
     }
 
     &:hover {
-        color: ${({ isActive, theme }) => (isActive ? theme.colors.accent : theme.colors.text)};
+        color: ${({ $isActive, theme }) => ($isActive ? theme.colors.accent : theme.colors.text)};
         box-shadow: none;
     }
 `
