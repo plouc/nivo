@@ -1,6 +1,7 @@
-import React, { PropsWithChildren, useState } from 'react'
+import React, { PropsWithChildren, useCallback, useState } from 'react'
 import styled, { useTheme } from 'styled-components'
-import { FaCameraRetro } from 'react-icons/fa'
+import { FaCameraRetro, FaRegCopy, FaCheck } from 'react-icons/fa'
+import { useCopyToClipboard } from '../../lib/useCopyToClipboard'
 import media from '../../theming/mediaQueries'
 import { Highlight } from '../Highlight'
 import { CodeBlock } from '../CodeBlock'
@@ -40,6 +41,13 @@ export const ComponentTabs = <D extends any = any>({
         availableTabs = availableTabs.filter(t => t !== 'data')
     }
 
+    const [codeCopied, copyCode] = useCopyToClipboard()
+    const handleCodeCopy = useCallback(async () => {
+        await copyCode(code)
+    }, [copyCode, code])
+
+    const [dataCopied, copyData] = useCopyToClipboard()
+
     let content
     if (currentTab === 'chart') {
         content = (
@@ -49,15 +57,43 @@ export const ComponentTabs = <D extends any = any>({
         )
     } else if (currentTab === 'code') {
         content = (
-            <Code role="tabpanel">
-                <Highlight code={code} language="jsx" />
-            </Code>
+            <>
+                <Code role="tabpanel">
+                    <Highlight code={code} language="jsx" />
+                </Code>
+                <CopyButton onClick={handleCodeCopy} $copied={codeCopied}>
+                    {!codeCopied && <FaRegCopy />}
+                    {codeCopied && (
+                        <>
+                            <span>code</span>
+                            <FaCheck />
+                        </>
+                    )}
+                </CopyButton>
+            </>
         )
     } else if (availableTabs.includes('data') && currentTab === 'data') {
+        const dataJson = JSON.stringify(data, null, '  ')
         content = (
-            <Code>
-                <CodeBlock>{JSON.stringify(data, null, '  ')}</CodeBlock>
-            </Code>
+            <>
+                <Code role="tabpanel">
+                    <CodeBlock>{dataJson}</CodeBlock>
+                </Code>
+                <CopyButton
+                    onClick={async () => {
+                        await copyData(dataJson)
+                    }}
+                    $copied={dataCopied}
+                >
+                    {!dataCopied && <FaRegCopy />}
+                    {dataCopied && (
+                        <>
+                            <span>data</span>
+                            <FaCheck />
+                        </>
+                    )}
+                </CopyButton>
+            </>
         )
     }
 
@@ -79,7 +115,7 @@ export const ComponentTabs = <D extends any = any>({
                                 aria-posinset={index + 1}
                                 aria-selected={isCurrent}
                                 className="no-select"
-                                isCurrent={isCurrent}
+                                $isCurrent={isCurrent}
                                 onClick={() => setCurrentTab(tab)}
                                 onMouseEnter={() => setHoverTab(tab)}
                                 onMouseLeave={() => setHoverTab(null)}
@@ -187,7 +223,7 @@ const Nav = styled.nav`
 `
 
 const NavItem = styled.span<{
-    isCurrent: boolean
+    $isCurrent: boolean
 }>`
     cursor: pointer;
     height: 46px;
@@ -196,8 +232,8 @@ const NavItem = styled.span<{
     padding-left: 46px;
     padding-right: 14px;
     padding-top: 11px;
-    background: ${({ isCurrent, theme }) =>
-        isCurrent ? theme.colors.cardBackground : 'transparent'};
+    background: ${({ $isCurrent, theme }) =>
+        $isCurrent ? theme.colors.cardBackground : 'transparent'};
 
     &:hover {
         color: ${({ theme }) => theme.colors.text};
@@ -287,4 +323,36 @@ const Code = styled.div`
     bottom: 0;
     width: 100%;
     overflow: auto;
+`
+
+const CopyButton = styled.span<{
+    $copied?: boolean
+}>`
+    position: absolute;
+    z-index: 10;
+    top: 58px;
+    right: 12px;
+    height: 32px;
+    width: ${({ $copied }) => ($copied ? 'auto' : '32px')};
+    padding: ${({ $copied }) => ($copied ? '0 6px 0 12px' : 0)};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 2px;
+    background-color: ${({ theme }) => theme.colors.cardAltBackground};
+    color: ${({ theme }) => theme.colors.textLight};
+    cursor: pointer;
+
+    svg {
+        font-size: 18px;
+        margin-left: ${({ $copied }) => ($copied ? '9px' : 0)};
+    }
+
+    &:hover {
+        svg {
+            color: ${({ theme }) => theme.colors.accent};
+        }
+    }
 `
