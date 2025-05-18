@@ -1,4 +1,3 @@
-import { ScaleBandSpec, ScaleSpec } from '@nivo/scales'
 import { InheritedColorConfig, OrdinalColorScaleConfig } from '@nivo/colors'
 import {
     BarCommonProps,
@@ -19,8 +18,8 @@ export const commonDefaultProps: Omit<BarCommonProps<BarDatum>, 'data' | 'theme'
     reverse: false,
     minValue: 'auto' as const,
     maxValue: 'auto' as const,
-    valueScale: { type: 'linear', nice: true } as ScaleSpec,
-    indexScale: { type: 'band', round: true } as ScaleBandSpec,
+    valueScale: { type: 'linear', nice: true, round: false },
+    indexScale: { type: 'band', round: false },
     padding: 0.1,
     innerPadding: 0,
     enableGridX: false,
