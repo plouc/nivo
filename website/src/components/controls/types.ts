@@ -155,6 +155,12 @@ export interface BulletColorsControlConfig {
     type: 'bullet_colors'
 }
 
+export interface ScaleControlConfig {
+    type: 'scale'
+    isOpenedByDefault?: boolean
+    allowedTypes?: string[]
+}
+
 export type ControlConfig =
     | SwitchControlAttrs
     | RangeControlConfig
@@ -182,6 +188,7 @@ export type ControlConfig =
     | ColorInterpolatorsControlConfig
     | BulletColorsControlConfig
     | CartesianOrientationControlConfig
+    | ScaleControlConfig
 
 export interface ControlContext {
     path: string[]
