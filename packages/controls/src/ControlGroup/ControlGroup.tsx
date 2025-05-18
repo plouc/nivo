@@ -140,7 +140,7 @@ const ControlSwitcher = memo(
 
             default:
                 throw new Error(
-                    // @ts-expect-error
+                    // @ts-expect-error this could happen at runtime
                     `invalid control type: ${controlConfig!.type} for property: ${property.name}`
                 )
         }

@@ -27,6 +27,7 @@ export const Switch = memo(({ id, value, onChange, colors = {} }: SwitchProps) =
                 onChange={handleChange}
                 colors={colors}
             />
+            {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
             <label htmlFor={`${id}.switch`} />
         </Wrapper>
     )

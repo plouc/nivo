@@ -263,7 +263,7 @@ const InnerBarCanvas = <D extends BarDatum>({
         canvasEl.current.width = outerWidth * pixelRatio
         canvasEl.current.height = outerHeight * pixelRatio
 
-        const ctx = canvasEl.current?.getContext('2d')!
+        const ctx = canvasEl.current.getContext('2d')!
 
         ctx.scale(pixelRatio, pixelRatio)
 
