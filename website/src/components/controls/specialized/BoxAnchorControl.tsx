@@ -34,20 +34,21 @@ const Rect = styled.rect`
 `
 
 const Dot = styled.circle<{
-    isSelected: boolean
+    $isSelected: boolean
 }>`
-    fill: ${({ isSelected, theme }) => (isSelected ? theme.colors.accent : theme.colors.textLight)};
+    fill: ${({ $isSelected, theme }) =>
+        $isSelected ? theme.colors.accent : theme.colors.textLight};
 `
 
 const DotOutline = styled.circle<{
-    isSelected: boolean
+    $isSelected: boolean
 }>`
     fill: red;
     fill-opacity: 0;
     stroke-width: 2px;
-    stroke: ${({ isSelected, theme }) =>
-        isSelected ? theme.colors.accent : theme.colors.textLight};
-    stroke-opacity: ${({ isSelected }) => (isSelected ? 1 : 0)};
+    stroke: ${({ $isSelected, theme }) =>
+        $isSelected ? theme.colors.accent : theme.colors.textLight};
+    stroke-opacity: ${({ $isSelected }) => ($isSelected ? 1 : 0)};
 
     &:hover {
         stroke-opacity: 1;
@@ -99,9 +100,9 @@ export const BoxAnchorControl = ({
                                     key={anchor[0]}
                                     transform={`translate(${anchor[1]},${anchor[2]})`}
                                 >
-                                    <Dot isSelected={isSelected} r={isSelected ? 3 : 2} />
+                                    <Dot $isSelected={isSelected} r={isSelected ? 3 : 2} />
                                     <DotOutline
-                                        isSelected={isSelected}
+                                        $isSelected={isSelected}
                                         r={outlineRadius}
                                         style={{
                                             cursor: 'pointer',

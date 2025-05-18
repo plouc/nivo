@@ -1,6 +1,9 @@
 import { AnnotationMatcher } from '@nivo/annotations'
+import { ScaleType, ScaleSpec } from '@nivo/scales'
 import { ChartProperty } from '../../types'
 import { Orientation } from './specialized'
+
+export type KeysOfUnion<T> = T extends T ? keyof T : never
 
 export interface SwitchControlAttrs {
     type: 'switch'
@@ -159,6 +162,7 @@ export interface ScaleControlConfig {
     type: 'scale'
     isOpenedByDefault?: boolean
     allowedTypes?: string[]
+    disabledProps?: Partial<Record<ScaleType, KeysOfUnion<ScaleSpec>[]>>
 }
 
 export type ControlConfig =

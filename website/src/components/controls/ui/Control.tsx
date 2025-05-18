@@ -26,14 +26,10 @@ export const Control = ({
     const [showDescription, setShowDescription] = useState(false)
     const toggle = useCallback(() => setShowDescription(flag => !flag), [setShowDescription])
 
-    let isPropertySupported = true
     let showFlavors = false
     if (Array.isArray(supportedFlavors)) {
         if (intersection(flavors, supportedFlavors).length < flavors.length) {
             showFlavors = true
-        }
-        if (!supportedFlavors.includes(currentFlavor)) {
-            isPropertySupported = false
         }
     }
 
@@ -46,7 +42,7 @@ export const Control = ({
     }
 
     return (
-        <Container id={id} isPropertySupported={isPropertySupported}>
+        <Container id={id}>
             {description !== undefined && (
                 <Toggle onClick={toggle}>
                     {showDescription && <MdKeyboardArrowDown size={18} />}
@@ -62,7 +58,7 @@ export const Control = ({
     )
 }
 
-const Container = styled(Cell)<{ isPropertySupported: boolean }>`
+const Container = styled(Cell)`
     border-bottom: 1px solid ${({ theme }) => theme.colors.borderLight};
 
     &:last-child {

@@ -13,9 +13,9 @@ interface RadioProps {
 
 export const Radio = memo(({ options, columns = 2, value, onChange }: RadioProps) => {
     return (
-        <Container columns={columns}>
+        <Container $columns={columns}>
             {options.map(option => (
-                <Item isSelected={option.value === value} key={option.value}>
+                <Item $isSelected={option.value === value} key={option.value}>
                     <input
                         type="radio"
                         value={option.value}
@@ -30,11 +30,11 @@ export const Radio = memo(({ options, columns = 2, value, onChange }: RadioProps
 })
 
 const Container = styled.div<{
-    columns: number
+    $columns: number
 }>`
     display: grid;
     align-items: center;
-    grid-template-columns: repeat(${({ columns }) => columns}, 1fr);
+    grid-template-columns: repeat(${({ $columns }) => $columns}, 1fr);
     border: 1px solid ${({ theme }) => theme.colors.border};
     font-size: 14px;
     border-right-width: 0;
@@ -42,20 +42,22 @@ const Container = styled.div<{
     max-width: 320px;
 `
 
-const Item = styled.label<{ isSelected: boolean }>`
+const Item = styled.label<{ $isSelected: boolean }>`
     cursor: pointer;
     padding: 5px 10px;
     white-space: nowrap;
     text-align: center;
-    font-weight: ${({ isSelected }) => (isSelected ? 500 : 400)};
-    background: ${({ isSelected, theme }) =>
-        isSelected ? theme.colors.cardBackground : theme.colors.background};
-    color: ${({ isSelected, theme }) => (isSelected ? theme.colors.text : theme.colors.textLight)};
+    font-weight: ${({ $isSelected }) => ($isSelected ? 500 : 400)};
+    background: ${({ $isSelected, theme }) =>
+        $isSelected ? theme.colors.cardBackground : theme.colors.background};
+    color: ${({ $isSelected, theme }) =>
+        $isSelected ? theme.colors.text : theme.colors.textLight};
     border: 1px solid ${({ theme }) => theme.colors.border};
     border-top-width: 0;
     border-left-width: 0;
     user-select: none;
-    box-shadow: ${({ isSelected }) => (isSelected ? 'none' : '0 1px 1px rgba(0, 0, 0, 0.1) inset')};
+    box-shadow: ${({ $isSelected }) =>
+        $isSelected ? 'none' : '0 1px 1px rgba(0, 0, 0, 0.1) inset'};
 
     &:hover {
         color: ${({ theme }) => theme.colors.text};

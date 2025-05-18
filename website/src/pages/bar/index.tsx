@@ -21,7 +21,7 @@ const initialProperties: UnmappedBarSvgProps = {
         bottom: 50,
         left: 60,
     },
-    valueFormat: { format: '', enabled: false },
+    valueFormat: { format: '>-$', enabled: false },
     // Patterns should be disabled by default, otherwise the code
     // becomes too complex for a simple example.
     // defs: [
@@ -67,7 +67,7 @@ const initialProperties: UnmappedBarSvgProps = {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: 'country',
+        legend: 'country (indexBy)',
         legendPosition: 'middle',
         legendOffset: 32,
         truncateTickAt: 0,

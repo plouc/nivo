@@ -25,7 +25,7 @@ export const Switch = memo(({ id, value, onChange, colors = {} }: SwitchProps) =
                 type="checkbox"
                 checked={value}
                 onChange={handleChange}
-                colors={colors}
+                $colors={colors}
             />
             <label htmlFor={`${id}.switch`} />
         </Wrapper>
@@ -39,7 +39,7 @@ const Wrapper = styled.span`
 `
 
 const Input = styled.input<{
-    colors: SwitchProps['colors']
+    $colors: SwitchProps['colors']
 }>`
     position: absolute;
     margin-left: -9999px;
@@ -54,7 +54,7 @@ const Input = styled.input<{
         padding: 2px;
         width: 36px;
         height: 18px;
-        background-color: ${({ colors }) => colors?.off || '#e98473'};
+        background-color: ${({ $colors }) => $colors?.off || '#e98473'};
         border-radius: 9px;
         transition:
             border-color 120ms,
@@ -69,14 +69,14 @@ const Input = styled.input<{
         left: 3px;
         width: 12px;
         height: 12px;
-        background-color: ${({ colors, theme }) => colors?.dot || theme.colors.cardBackground};
+        background-color: ${({ $colors, theme }) => $colors?.dot || theme.colors.cardBackground};
         border-radius: 6px;
         transform: translate3d(0, 0, 0);
         transition: transform 120ms;
     }
 
     &:checked + label {
-        background-color: ${({ colors }) => colors?.on || '#6dc6b7'};
+        background-color: ${({ $colors }) => $colors?.on || '#6dc6b7'};
     }
 
     &:checked + label:after {

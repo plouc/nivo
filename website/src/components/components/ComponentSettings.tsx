@@ -89,8 +89,8 @@ export function ComponentSettings<Settings = any>({
 
     return (
         <Container>
-            <SearchContainer isSearching={isSearching}>
-                <SearchInputContainer isSearching={isSearching}>
+            <SearchContainer $isSearching={isSearching}>
+                <SearchInputContainer $isSearching={isSearching}>
                     <SearchInput
                         type="text"
                         value={searchTerm}
@@ -146,19 +146,19 @@ const Container = styled.div`
     color: ${({ theme }) => theme.colors.text};
 `
 
-const SearchContainer = styled.div<{ isSearching: boolean }>`
+const SearchContainer = styled.div<{ $isSearching: boolean }>`
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: ${({ theme }) => theme.colors.cardBackground};
-    padding: 8px ${({ isSearching }) => (isSearching ? 30 : 16)}px 8px 30px;
+    padding: 8px ${({ $isSearching }) => ($isSearching ? 30 : 16)}px 8px 30px;
     border-top: 1px solid ${({ theme }) => theme.colors.border};
 `
 
-const SearchInputContainer = styled.div<{ isSearching: boolean }>`
+const SearchInputContainer = styled.div<{ $isSearching: boolean }>`
     flex: 1;
     position: relative;
-    margin-right: ${({ isSearching }) => (isSearching ? 0 : 12)}px;
+    margin-right: ${({ $isSearching }) => ($isSearching ? 0 : 12)}px;
 `
 
 const SearchIcon = styled.span`
