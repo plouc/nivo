@@ -155,9 +155,6 @@ const generateHorizontalGroupedBars = <D extends BarDatum>(
  */
 export const generateGroupedBars = <D extends BarDatum>({
     layout,
-    minValue,
-    maxValue,
-    reverse,
     width,
     height,
     padding = 0,
@@ -170,15 +167,12 @@ export const generateGroupedBars = <D extends BarDatum>({
     Required<BarSvgProps<D>>,
     | 'data'
     | 'height'
+    | 'valueScale'
     | 'indexScale'
     | 'innerPadding'
     | 'keys'
     | 'layout'
-    | 'maxValue'
-    | 'minValue'
     | 'padding'
-    | 'reverse'
-    | 'valueScale'
     | 'width'
 > & {
     formatValue: (value: number) => string
@@ -201,14 +195,7 @@ export const generateGroupedBars = <D extends BarDatum>({
         otherAxis
     )
 
-    const scaleSpec = {
-        max: maxValue,
-        min: minValue,
-        reverse,
-        ...valueScale,
-    }
-
-    const clampMin = scaleSpec.min === 'auto' ? clampToZero : (value: number) => value
+    const clampMin = valueScale.min === 'auto' ? clampToZero : (value: number) => value
 
     const values = data
         .reduce<number[]>((acc, entry) => [...acc, ...keys.map(k => entry[k] as number)], [])
@@ -217,7 +204,7 @@ export const generateGroupedBars = <D extends BarDatum>({
     const max = zeroIfNotFinite(Math.max(...values))
 
     const scale = computeScale(
-        scaleSpec as any,
+        valueScale,
         { all: values, min, max },
         axis === 'x' ? width : height,
         axis
@@ -225,11 +212,12 @@ export const generateGroupedBars = <D extends BarDatum>({
 
     const [xScale, yScale] = layout === 'vertical' ? [indexScale, scale] : [scale, indexScale]
 
+    // As we use extra inner padding between the bars, we need to adjust the bandwidth.
     const bandwidth = (indexScale.bandwidth() - innerPadding * (keys.length - 1)) / keys.length
     const params = [
         { ...props, data, keys, innerPadding, xScale, yScale } as Params<D, any, any>,
         bandwidth,
-        scaleSpec.reverse,
+        valueScale.reverse ?? false,
         scale(0) ?? 0,
     ] as const
 

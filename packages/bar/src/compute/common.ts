@@ -59,7 +59,7 @@ export type BarLabelLayout = {
  */
 export function useComputeLabelLayout<D extends BarDatum>(
     layout: BarCommonProps<D>['layout'] = commonDefaultProps.layout,
-    reverse: BarCommonProps<D>['reverse'] = commonDefaultProps.reverse,
+    reverse: boolean,
     labelPosition: BarCommonProps<D>['labelPosition'] = commonDefaultProps.labelPosition,
     labelOffset: BarCommonProps<D>['labelOffset'] = commonDefaultProps.labelOffset
 ): (width: number, height: number) => BarLabelLayout {

@@ -48,15 +48,13 @@ export const barMapping = {
         valueScale: Joi.object()
             .keys({
                 type: Joi.any().valid('linear'),
+                reverse: Joi.boolean(),
             })
             .allow(null),
 
         groupMode: Joi.any().valid('grouped', 'stacked'),
         layout: Joi.any().valid('horizontal', 'vertical'),
-        reverse: Joi.boolean(),
 
-        minValue: Joi.alternatives().try(Joi.any().valid('auto'), Joi.number()).required(),
-        maxValue: Joi.alternatives().try(Joi.any().valid('auto'), Joi.number()).required(),
         padding: Joi.number(),
         innerPadding: Joi.number(),
 

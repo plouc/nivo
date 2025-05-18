@@ -86,9 +86,6 @@ const InnerBarCanvas = <D extends BarDatum>({
     height,
     groupMode,
     layout,
-    reverse,
-    minValue,
-    maxValue,
     valueScale,
     indexScale,
     padding,
@@ -164,11 +161,8 @@ const InnerBarCanvas = <D extends BarDatum>({
         labelTextColor,
         groupMode,
         layout,
-        reverse,
         data,
         keys,
-        minValue,
-        maxValue,
         margin,
         width: innerWidth,
         height: innerHeight,
@@ -255,7 +249,12 @@ const InnerBarCanvas = <D extends BarDatum>({
     )
 
     const formatValue = useValueFormatter(valueFormat)
-    const computeLabelLayout = useComputeLabelLayout(layout, reverse, labelPosition, labelOffset)
+    const computeLabelLayout = useComputeLabelLayout(
+        layout,
+        valueScale?.reverse ?? false,
+        labelPosition,
+        labelOffset
+    )
 
     useEffect(() => {
         if (!canvasEl.current) return
@@ -379,7 +378,6 @@ const InnerBarCanvas = <D extends BarDatum>({
         renderBar,
         xScale,
         yScale,
-        reverse,
         shouldRenderBarLabel,
         theme,
         width,

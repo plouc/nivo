@@ -285,7 +285,7 @@ describe('legends', () => {
                 ]}
                 keys={['A', 'B']}
                 layout="vertical"
-                reverse={true}
+                valueScale={{ type: 'linear', reverse: true }}
                 legends={[
                     {
                         dataFrom: 'keys',
@@ -342,13 +342,13 @@ describe('legends', () => {
             <Bar
                 width={500}
                 height={300}
+                valueScale={{ type: 'linear', reverse: true }}
                 data={[
                     { id: 'one', A: 10, B: 13 },
                     { id: 'two', A: 12, B: 9 },
                 ]}
                 keys={['A', 'B']}
                 layout="horizontal"
-                reverse={true}
                 legends={[
                     {
                         dataFrom: 'keys',

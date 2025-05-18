@@ -70,11 +70,12 @@ export const getLegendData = <RawDatum extends BarDatum>({
     layout,
     legendLabel,
     reverse,
-}: Pick<Required<BarSvgProps<RawDatum>>, 'layout' | 'groupMode' | 'reverse'> & {
+}: Pick<Required<BarSvgProps<RawDatum>>, 'layout' | 'groupMode'> & {
     bars: BarsWithHidden<RawDatum>
     direction: BarLegendProps['direction']
     from: BarLegendProps['dataFrom']
     legendLabel: BarSvgProps<RawDatum>['legendLabel']
+    reverse: boolean
 }) => {
     const getLegendLabel = getPropertyAccessor(
         legendLabel ?? (from === 'indexes' ? 'indexValue' : 'id')

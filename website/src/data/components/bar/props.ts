@@ -119,56 +119,6 @@ const props: ChartProperty[] = [
         },
     },
     {
-        key: 'reverse',
-        group: 'Base',
-        help: 'Reverse bars, starts on top instead of bottom for vertical layout and right instead of left for horizontal one.',
-        type: 'boolean',
-        required: false,
-        flavors: allFlavors,
-        defaultValue: svgDefaultProps.reverse,
-        control: { type: 'switch' },
-    },
-    {
-        key: 'minValue',
-        group: 'Base',
-        help: 'Minimum value.',
-        description: `
-            Minimum value, if 'auto',
-            will use min value from the provided data.
-        `,
-        required: false,
-        flavors: allFlavors,
-        defaultValue: svgDefaultProps.minValue,
-        type: `number | 'auto'`,
-        control: {
-            type: 'switchableRange',
-            disabledValue: 'auto',
-            defaultValue: -1000,
-            min: -1000,
-            max: 0,
-        },
-    },
-    {
-        key: 'maxValue',
-        group: 'Base',
-        help: 'Maximum value.',
-        description: `
-            Maximum value, if 'auto',
-            will use max value from the provided data.
-        `,
-        required: false,
-        flavors: allFlavors,
-        defaultValue: svgDefaultProps.maxValue,
-        type: `number | 'auto'`,
-        control: {
-            type: 'switchableRange',
-            disabledValue: 'auto',
-            defaultValue: 1000,
-            min: 0,
-            max: 1000,
-        },
-    },
-    {
         key: 'valueFormat',
         group: 'Base',
         help: 'Optional formatter for values.',
