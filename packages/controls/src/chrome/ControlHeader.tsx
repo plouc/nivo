@@ -24,7 +24,7 @@ const getDefaultValue = (value: any) => {
 
         return <span>[{elements}]</span>
     } else if (isString(value)) {
-        return <code className="code-string">'{value}'</code>
+        return <code className="code-string">&lsquo;{value}&rsquo;</code>
     } else if (isNumber(value)) {
         return <code className="code-number">{value}</code>
     } else if (isBoolean(value)) {

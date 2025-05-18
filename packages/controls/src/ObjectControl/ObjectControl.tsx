@@ -24,7 +24,7 @@ export const ObjectControl = memo(({ property, context, value, onChange }: Objec
                 ...prop,
                 group,
             })),
-        [props]
+        [props, group]
     )
 
     const newContext = {
