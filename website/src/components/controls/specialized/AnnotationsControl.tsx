@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useMemo } from 'react'
 import omit from 'lodash/omit.js'
 import { AnnotationMatcher } from '@nivo/annotations'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartProperty, ChartPropertyWithControl, Flavor } from '../../../types'
 import { AnnotationsControlConfig, ArrayControlConfig, ControlContext } from '../types'
 import { ArrayControl } from '../generics'
 
@@ -23,10 +23,9 @@ const fixAnnotation = (annotation: AnnotationMatcher<any>): AnnotationMatcher<an
 
 interface AnnotationsControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<AnnotationsControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
-    config: AnnotationsControlConfig
     value: AnnotationMatcher<any>[]
     onChange: (annotations: AnnotationMatcher<any>[]) => void
     context?: ControlContext
@@ -39,10 +38,11 @@ export const AnnotationsControl = memo(
         flavors,
         currentFlavor,
         value,
-        config: { createDefaults },
         onChange,
         context,
     }: AnnotationsControlProps) => {
+        const { createDefaults } = property.control
+
         const arrayProperty: Omit<ChartProperty, 'control'> & {
             control: ArrayControlConfig<AnnotationMatcher<any>>
         } = useMemo(

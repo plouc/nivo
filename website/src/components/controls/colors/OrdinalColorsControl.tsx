@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 import { ColorSchemeId } from '@nivo/colors'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { ControlContext, OrdinalColorsControlConfig } from '../types'
-import { Control, PropertyHeader, Help, Select } from '../ui'
+import { Control, Select } from '../ui'
 import {
     ColorSchemeSelectOption,
     ColorSchemeSelectValue,
@@ -13,10 +13,9 @@ export type OrdinalColorOption = ReturnType<typeof useOrdinalColorSchemes>[numbe
 
 interface OrdinalColorsControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<OrdinalColorsControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
-    config: OrdinalColorsControlConfig
     value: { scheme: ColorSchemeId }
     onChange: (value: { scheme: ColorSchemeId }) => void
     context?: ControlContext
@@ -44,12 +43,11 @@ export const OrdinalColorsControl = ({
     return (
         <Control
             id={id}
-            description={property.description}
+            property={property}
             flavors={flavors}
             currentFlavor={currentFlavor}
-            supportedFlavors={property.flavors}
+            context={context}
         >
-            <PropertyHeader {...property} context={context} />
             <Select<OrdinalColorOption>
                 options={options}
                 onChange={handleChange}
@@ -60,7 +58,6 @@ export const OrdinalColorsControl = ({
                     Option: ColorSchemeSelectOption,
                 }}
             />
-            <Help>{property.help}</Help>
         </Control>
     )
 }

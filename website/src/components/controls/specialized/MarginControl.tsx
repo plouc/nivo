@@ -1,19 +1,18 @@
 import React, { ChangeEvent, useCallback, useState } from 'react'
 import styled from 'styled-components'
 import { Box as BoxType } from '@nivo/core'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { ControlContext, MarginControlConfig } from '../types'
-import { Control, PropertyHeader, Help, TextInput } from '../ui'
+import { Control, TextInput } from '../ui'
 
 type Side = keyof BoxType
 
 interface MarginControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<MarginControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
     value: BoxType
-    config: MarginControlConfig
     onChange: (value: BoxType) => void
     context?: ControlContext
 }
@@ -47,12 +46,11 @@ export const MarginControl = ({
     return (
         <Control
             id={id}
-            description={property.description}
+            property={property}
             flavors={flavors}
             currentFlavor={currentFlavor}
-            supportedFlavors={property.flavors}
+            context={context}
         >
-            <PropertyHeader {...property} context={context} />
             <Grid>
                 <Label htmlFor={`${id}-top`}>top</Label>
                 <TextInput
@@ -98,7 +96,6 @@ export const MarginControl = ({
                     onBlur={handleBlur}
                 />
             </Grid>
-            <Help>{property.help}</Help>
         </Control>
     )
 }

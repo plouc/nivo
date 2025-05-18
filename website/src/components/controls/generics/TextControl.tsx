@@ -1,30 +1,20 @@
 import React, { memo, useCallback, ChangeEvent } from 'react'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { ControlContext, TextControlConfig } from '../types'
-import { Control, PropertyHeader, Help, TextInput } from '../ui'
+import { Control, TextInput } from '../ui'
 
 interface TextControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<TextControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
     value: string | number
     onChange: (value: string) => void
-    config: TextControlConfig
     context?: ControlContext
 }
 
 export const TextControl = memo(
-    ({
-        id,
-        property,
-        flavors,
-        currentFlavor,
-        value,
-        onChange,
-        config,
-        context,
-    }: TextControlProps) => {
+    ({ id, property, flavors, currentFlavor, value, onChange, context }: TextControlProps) => {
         const handleUpdate = useCallback(
             (event: ChangeEvent<HTMLInputElement>) => onChange(event.target.value),
             [onChange]
@@ -33,20 +23,18 @@ export const TextControl = memo(
         return (
             <Control
                 id={id}
-                description={property.description}
+                property={property}
                 flavors={flavors}
                 currentFlavor={currentFlavor}
-                supportedFlavors={property.flavors}
+                context={context}
             >
-                <PropertyHeader id={id} {...property} context={context} />
                 <TextInput
                     id={id}
                     type="text"
                     value={value}
                     onChange={handleUpdate}
-                    disabled={config.disabled === true}
+                    disabled={property.control.disabled === true}
                 />
-                <Help>{property.help}</Help>
             </Control>
         )
     }

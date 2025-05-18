@@ -13,7 +13,10 @@ export interface ChartMeta {
 
 export type FlavorAwareChartPropertyAttribute<T> = T | Partial<Record<Flavor, T>>
 
-export interface ChartProperty<Settings = any> {
+export interface ChartProperty<
+    C extends ControlConfig = ControlConfig,
+    Settings = Record<string, unknown>,
+> {
     key: string
     name?: string
     group: string
@@ -34,8 +37,16 @@ export interface ChartProperty<Settings = any> {
     // not used at the moment, indicate that a property is just used
     // for the demo and not part of the component props.
     excludeFromDoc?: boolean
-    control?: ControlConfig
+    // When there's no control, the property is non-interactive.
+    control?: C
     when?: (settings: Settings) => boolean
+}
+
+export type ChartPropertyWithControl<
+    C extends ControlConfig,
+    Settings = Record<string, unknown>,
+> = Omit<ChartProperty<C, Settings>, 'control'> & {
+    control: C
 }
 
 export interface ChartPropertiesGroup {

@@ -1,12 +1,11 @@
 import React, { memo, useCallback, useMemo, useState, ChangeEvent } from 'react'
 import styled from 'styled-components'
 import { formatSpecifier as parseFormat, FormatSpecifier } from 'd3-format'
-// @ts-ignore
 import { components } from 'react-select'
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { ControlContext, ValueFormatControlConfig } from '../types'
-import { Control, PropertyHeader, Help, TextInput, Switch, Select } from '../ui'
+import { Control, TextInput, Switch, Select } from '../ui'
 
 interface Option<Value = string> {
     value: Value
@@ -166,10 +165,9 @@ const Option = (props: any) => (
 
 interface ValueFormatControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<ValueFormatControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
-    config: ValueFormatControlConfig
     value: { format: string; enabled: boolean }
     onChange: (value: { format: string; enabled: boolean }) => void
     context?: ControlContext
@@ -255,12 +253,11 @@ export const ValueFormatControl = memo(
         return (
             <Control
                 id={id}
-                description={property.description}
+                property={property}
                 flavors={flavors}
                 currentFlavor={currentFlavor}
-                supportedFlavors={property.flavors}
+                context={context}
             >
-                <PropertyHeader id={id} {...property} context={context} />
                 <MainControls>
                     <Switch value={value.enabled} id={`${id}-enable`} onChange={handleSwitch} />
                     <label
@@ -365,7 +362,6 @@ export const ValueFormatControl = memo(
                         <label htmlFor={`${id}trim.switch`}>trim trailing zeros</label>
                     </SubControls>
                 )}
-                <Help>{property.help}</Help>
             </Control>
         )
     }

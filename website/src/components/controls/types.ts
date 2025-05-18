@@ -5,7 +5,7 @@ import { Orientation } from './specialized'
 
 export type KeysOfUnion<T> = T extends T ? keyof T : never
 
-export interface SwitchControlAttrs {
+export interface SwitchControlConfig {
     type: 'switch'
 }
 
@@ -166,7 +166,7 @@ export interface ScaleControlConfig {
 }
 
 export type ControlConfig =
-    | SwitchControlAttrs
+    | SwitchControlConfig
     | RangeControlConfig
     | MotionConfigControlConfig
     | BoxAnchorControlConfig

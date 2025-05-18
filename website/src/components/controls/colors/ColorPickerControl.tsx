@@ -1,14 +1,13 @@
 import React, { useCallback, ChangeEvent } from 'react'
-import { Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { ColorPickerControlConfig, ControlContext } from '../types'
-import { Control, PropertyHeader, Help } from '../ui'
+import { Control } from '../ui'
 
 interface ColorPickerControlProps {
     id: string
-    property: any
+    property: ChartPropertyWithControl<ColorPickerControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
-    config: ColorPickerControlConfig
     value: string
     onChange: (value: string) => void
     context?: ControlContext
@@ -33,18 +32,16 @@ export const ColorPickerControl = ({
     return (
         <Control
             id={id}
-            description={property.description}
+            property={property}
             flavors={flavors}
             currentFlavor={currentFlavor}
-            supportedFlavors={property.flavors}
+            context={context}
         >
-            <PropertyHeader id={id} {...property} context={context} />
             <div>
                 <input type="color" id={id} onChange={handleChange} value={value} />
                 &nbsp;&nbsp;&nbsp;
                 <code className="code code-string">{value}</code>
             </div>
-            <Help>{property.help}</Help>
         </Control>
     )
 }

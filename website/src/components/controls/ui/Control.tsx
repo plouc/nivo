@@ -2,43 +2,46 @@ import React, { useState, useCallback, PropsWithChildren } from 'react'
 import intersection from 'lodash/intersection.js'
 import styled from 'styled-components'
 import { MdKeyboardArrowRight, MdKeyboardArrowDown } from 'react-icons/md'
-import { Flavor, FlavorAwareChartPropertyAttribute } from '../../../types'
+import { ChartProperty, Flavor } from '../../../types'
+import { ControlContext } from '../types'
+import { PropertyHeader } from './PropertyHeader'
+import { Help } from './Help'
 import { PropertyDescription } from './PropertyDescription'
 import { PropertyFlavors } from './PropertyFlavors'
 import { Cell } from './styled'
 
 interface ControlProps {
     id: string
-    description?: FlavorAwareChartPropertyAttribute<string>
+    property: ChartProperty
     flavors: Flavor[]
     currentFlavor: Flavor
-    supportedFlavors?: Flavor[]
+    context?: ControlContext
 }
 
 export const Control = ({
     id,
-    description: _description,
+    property,
     flavors,
     currentFlavor,
-    supportedFlavors,
+    context,
     children,
 }: PropsWithChildren<ControlProps>) => {
     const [showDescription, setShowDescription] = useState(false)
     const toggle = useCallback(() => setShowDescription(flag => !flag), [setShowDescription])
 
     let showFlavors = false
-    if (Array.isArray(supportedFlavors)) {
-        if (intersection(flavors, supportedFlavors).length < flavors.length) {
+    if (Array.isArray(property.flavors)) {
+        if (intersection(flavors, property.flavors).length < flavors.length) {
             showFlavors = true
         }
     }
 
     let description: string | undefined = undefined
-    if (typeof _description === 'string') {
-        description = _description
-    } else if (typeof _description === 'object') {
+    if (typeof property.description === 'string') {
+        description = property.description
+    } else if (typeof property.description === 'object') {
         // If an object is provided, it means it depends on the current flavor.
-        description = _description[currentFlavor]
+        description = property.description[currentFlavor]
     }
 
     return (
@@ -49,10 +52,12 @@ export const Control = ({
                     {!showDescription && <MdKeyboardArrowRight size={18} />}
                 </Toggle>
             )}
+            <PropertyHeader {...property} context={context} />
             {children}
             {showFlavors && (
-                <PropertyFlavors flavors={flavors} supportedFlavors={supportedFlavors!} />
+                <PropertyFlavors flavors={flavors} supportedFlavors={property.flavors!} />
             )}
+            <Help>{property.help}</Help>
             {description && showDescription && <PropertyDescription description={description} />}
         </Container>
     )

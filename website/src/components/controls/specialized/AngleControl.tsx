@@ -1,8 +1,8 @@
 import React, { memo, useCallback, ChangeEvent } from 'react'
 import styled from 'styled-components'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { AngleControlConfig, ControlContext } from '../types'
-import { Control, PropertyHeader, Help, TextInput } from '../ui'
+import { Control, TextInput } from '../ui'
 
 const size = 36
 const center = size / 2
@@ -10,30 +10,20 @@ const markerSize = 6
 
 interface AngleControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<AngleControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
     value: number
-    config: AngleControlConfig
     onChange: (value: number) => void
     context?: ControlContext
 }
 
 export const AngleControl = memo(
-    ({
-        id,
-        property,
-        flavors,
-        currentFlavor,
-        value,
-        config,
-        onChange,
-        context,
-    }: AngleControlProps) => {
-        const start = config.start || 0
-        const min = config.min || 0
-        const max = config.max || 360
-        const marker = config.marker || 'radius'
+    ({ id, property, flavors, currentFlavor, value, onChange, context }: AngleControlProps) => {
+        const start = property.control.start || 0
+        const min = property.control.min || 0
+        const max = property.control.max || 360
+        const marker = property.control.marker || 'radius'
 
         const handleChange = useCallback(
             (event: ChangeEvent<HTMLInputElement>) => {
@@ -48,12 +38,11 @@ export const AngleControl = memo(
         return (
             <Control
                 id={id}
-                description={property.description}
+                property={property}
                 flavors={flavors}
                 currentFlavor={currentFlavor}
-                supportedFlavors={property.flavors}
+                context={context}
             >
-                <PropertyHeader id={id} {...property} context={context} />
                 <Row>
                     <TextInput
                         id={id}
@@ -75,7 +64,6 @@ export const AngleControl = memo(
                     </svg>
                     <input type="range" value={value} onChange={handleChange} min={min} max={max} />
                 </Row>
-                <Help>{property.help}</Help>
             </Control>
         )
     }

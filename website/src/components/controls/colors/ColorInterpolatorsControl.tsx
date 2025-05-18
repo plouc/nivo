@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 import { ColorInterpolatorId } from '@nivo/colors'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { ControlContext, ColorInterpolatorsControlConfig } from '../types'
-import { Control, PropertyHeader, Help, Select } from '../ui'
+import { Control, Select } from '../ui'
 import {
     ColorSchemeSelectOption,
     ColorSchemeSelectValue,
@@ -13,10 +13,9 @@ export type ColorInterpolatorOption = ReturnType<typeof useColorInterpolators>[n
 
 interface OrdinalColorsControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<ColorInterpolatorsControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
-    config: ColorInterpolatorsControlConfig
     value: ColorInterpolatorId
     onChange: (value: ColorInterpolatorId) => void
     context?: ControlContext
@@ -42,12 +41,11 @@ export const ColorInterpolatorsControl = ({
     return (
         <Control
             id={id}
-            description={property.description}
+            property={property}
             flavors={flavors}
             currentFlavor={currentFlavor}
-            supportedFlavors={property.flavors}
+            context={context}
         >
-            <PropertyHeader {...property} context={context} />
             <Select<ColorInterpolatorOption>
                 options={options}
                 onChange={handleChange}
@@ -59,7 +57,6 @@ export const ColorInterpolatorsControl = ({
                     Option: ColorSchemeSelectOption,
                 }}
             />
-            <Help>{property.help}</Help>
         </Control>
     )
 }

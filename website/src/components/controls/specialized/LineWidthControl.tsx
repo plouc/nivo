@@ -1,33 +1,23 @@
 import React, { memo, useCallback, ChangeEvent } from 'react'
 import styled from 'styled-components'
-import { ChartProperty, Flavor } from '../../../types'
+import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { ControlContext, LineWidthControlConfig } from '../types'
-import { Control, PropertyHeader, Help, TextInput } from '../ui'
+import { Control, TextInput } from '../ui'
 
 const size = 24
 
 interface LineWidthControlProps {
     id: string
-    property: ChartProperty
+    property: ChartPropertyWithControl<LineWidthControlConfig>
     flavors: Flavor[]
     currentFlavor: Flavor
-    config: LineWidthControlConfig
     value: number
     onChange: (value: number) => void
     context?: ControlContext
 }
 
 export const LineWidthControl = memo(
-    ({
-        id,
-        property,
-        flavors,
-        currentFlavor,
-        value,
-        context,
-        onChange,
-        config,
-    }: LineWidthControlProps) => {
+    ({ id, property, flavors, currentFlavor, value, context, onChange }: LineWidthControlProps) => {
         const handleChange = useCallback(
             (event: ChangeEvent<HTMLInputElement>) => {
                 onChange(Number(event.target.value))
@@ -38,12 +28,11 @@ export const LineWidthControl = memo(
         return (
             <Control
                 id={id}
-                description={property.description}
+                property={property}
                 flavors={flavors}
                 currentFlavor={currentFlavor}
-                supportedFlavors={property.flavors}
+                context={context}
             >
-                <PropertyHeader id={id} {...property} context={context} />
                 <Row>
                     <TextInput value={value} onChange={handleChange} unit="px" isNumber={true} />
                     <svg width={size} height={size}>
@@ -62,10 +51,9 @@ export const LineWidthControl = memo(
                         onChange={handleChange}
                         min={0}
                         max={20}
-                        step={config.step}
+                        step={property.control.step}
                     />
                 </Row>
-                <Help>{property.help}</Help>
             </Control>
         )
     }

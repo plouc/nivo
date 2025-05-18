@@ -1,8 +1,36 @@
 import React, { memo, useCallback } from 'react'
 import get from 'lodash/get.js'
 import snakeCase from 'lodash/snakeCase.js'
-import { ChartProperty, Flavor } from '../../types'
-import { ControlContext } from './types'
+import { ChartProperty, ChartPropertyWithControl, Flavor } from '../../types'
+import {
+    AngleControlConfig,
+    AnnotationsControlConfig,
+    BlendModeControlConfig,
+    BoxAnchorControlConfig,
+    BulletColorsControlConfig,
+    CartesianOrientationControlConfig,
+    ChoicesControlConfig,
+    ColorInterpolatorsControlConfig,
+    ColorPickerControlConfig,
+    ContinuousColorsControlConfig,
+    ControlContext,
+    InheritedColorControlConfig,
+    LineWidthControlConfig,
+    MarginControlConfig,
+    MotionConfigControlConfig,
+    NumberArrayControlConfig,
+    ObjectControlConfig,
+    OpacityControlConfig,
+    OrdinalColorsControlConfig,
+    QuantizeColorsControlConfig,
+    RadioControlConfig,
+    RangeControlConfig,
+    ScaleControlConfig,
+    SwitchableRangeControlConfig,
+    SwitchControlConfig,
+    TextControlConfig,
+    ValueFormatControlConfig,
+} from './types'
 import {
     ArrayControl,
     ObjectControl,
@@ -135,8 +163,8 @@ const ControlSwitcher = memo(
                         currentFlavor={currentFlavor}
                         value={value}
                         config={controlConfig}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -144,13 +172,12 @@ const ControlSwitcher = memo(
                 return (
                     <ObjectControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<ObjectControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -158,13 +185,12 @@ const ControlSwitcher = memo(
                 return (
                     <ChoicesControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<ChoicesControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -172,13 +198,12 @@ const ControlSwitcher = memo(
                 return (
                     <RadioControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<RadioControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -186,13 +211,12 @@ const ControlSwitcher = memo(
                 return (
                     <RangeControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<RangeControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -200,12 +224,12 @@ const ControlSwitcher = memo(
                 return (
                     <SwitchControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<SwitchControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -213,13 +237,14 @@ const ControlSwitcher = memo(
                 return (
                     <SwitchableRangeControl
                         id={id}
-                        property={property}
+                        property={
+                            property as ChartPropertyWithControl<SwitchableRangeControlConfig>
+                        }
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -227,13 +252,12 @@ const ControlSwitcher = memo(
                 return (
                     <TextControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<TextControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -241,13 +265,12 @@ const ControlSwitcher = memo(
                 return (
                     <InheritedColorControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<InheritedColorControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -255,13 +278,12 @@ const ControlSwitcher = memo(
                 return (
                     <BoxAnchorControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<BoxAnchorControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -269,13 +291,12 @@ const ControlSwitcher = memo(
                 return (
                     <MarginControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<MarginControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -283,13 +304,12 @@ const ControlSwitcher = memo(
                 return (
                     <MotionConfigControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<MotionConfigControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -297,13 +317,12 @@ const ControlSwitcher = memo(
                 return (
                     <OpacityControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<OpacityControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -311,13 +330,12 @@ const ControlSwitcher = memo(
                 return (
                     <LineWidthControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<LineWidthControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -325,13 +343,12 @@ const ControlSwitcher = memo(
                 return (
                     <NumberArrayControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<NumberArrayControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -339,13 +356,12 @@ const ControlSwitcher = memo(
                 return (
                     <QuantizeColorsControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<QuantizeColorsControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -353,13 +369,12 @@ const ControlSwitcher = memo(
                 return (
                     <OrdinalColorsControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<OrdinalColorsControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -367,13 +382,12 @@ const ControlSwitcher = memo(
                 return (
                     <ColorPickerControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<ColorPickerControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -381,13 +395,12 @@ const ControlSwitcher = memo(
                 return (
                     <AngleControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<AngleControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -395,13 +408,12 @@ const ControlSwitcher = memo(
                 return (
                     <BlendModeControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<BlendModeControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -409,13 +421,12 @@ const ControlSwitcher = memo(
                 return (
                     <ValueFormatControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<ValueFormatControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -423,13 +434,12 @@ const ControlSwitcher = memo(
                 return (
                     <AnnotationsControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<AnnotationsControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -437,13 +447,14 @@ const ControlSwitcher = memo(
                 return (
                     <ContinuousColorsControl
                         id={id}
-                        property={property}
+                        property={
+                            property as ChartPropertyWithControl<ContinuousColorsControlConfig>
+                        }
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -451,13 +462,14 @@ const ControlSwitcher = memo(
                 return (
                     <ColorInterpolatorsControl
                         id={id}
-                        property={property}
+                        property={
+                            property as ChartPropertyWithControl<ColorInterpolatorsControlConfig>
+                        }
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -465,13 +477,12 @@ const ControlSwitcher = memo(
                 return (
                     <BulletColorsControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<BulletColorsControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -479,13 +490,14 @@ const ControlSwitcher = memo(
                 return (
                     <CartesianOrientationControl
                         id={id}
-                        property={property}
+                        property={
+                            property as ChartPropertyWithControl<CartesianOrientationControlConfig>
+                        }
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
@@ -493,18 +505,18 @@ const ControlSwitcher = memo(
                 return (
                     <ScaleControl
                         id={id}
-                        property={property}
+                        property={property as ChartPropertyWithControl<ScaleControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
-                        config={controlConfig}
                         value={value}
-                        context={context}
                         onChange={handleChange}
+                        context={context}
                     />
                 )
 
             default:
                 throw new Error(
+                    // @ts-expect-error this can happen at runtime.
                     `invalid control type: ${controlConfig!.type} for property: ${property.name}`
                 )
         }
