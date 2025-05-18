@@ -23,6 +23,7 @@ import {
     LineWidthControl,
     MarginControl,
     MotionConfigControl,
+    ScaleControl,
     ValueFormatControl,
 } from './specialized'
 import {
@@ -477,6 +478,20 @@ const ControlSwitcher = memo(
             case 'cartesianOrientation':
                 return (
                     <CartesianOrientationControl
+                        id={id}
+                        property={property}
+                        flavors={flavors}
+                        currentFlavor={currentFlavor}
+                        config={controlConfig}
+                        value={value}
+                        context={context}
+                        onChange={handleChange}
+                    />
+                )
+
+            case 'scale':
+                return (
+                    <ScaleControl
                         id={id}
                         property={property}
                         flavors={flavors}
