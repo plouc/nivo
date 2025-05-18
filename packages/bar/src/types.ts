@@ -16,7 +16,7 @@ import {
 import { PartialTheme, TextStyle } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScale, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
-import { AnyScale, ScaleSpec, ScaleBandSpec } from '@nivo/scales'
+import { AnyScale, ScaleLinearSpec, ScaleSymlogSpec, ScaleBandSpec } from '@nivo/scales'
 import { SpringValues } from '@react-spring/web'
 import { BarLabelLayout } from './compute/common'
 
@@ -209,7 +209,7 @@ export type BarCommonProps<D extends BarDatum> = {
     margin?: Box
     innerPadding: number
     padding: number
-    valueScale: ScaleSpec
+    valueScale: ScaleLinearSpec | ScaleSymlogSpec
     indexScale: ScaleBandSpec
     enableGridX: boolean
     gridXValues?: GridValues<string | number>
