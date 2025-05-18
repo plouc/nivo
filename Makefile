@@ -239,7 +239,7 @@ website-deps-up: ##@2 website interactive upgrade of website's dependencies
 
 website: ##@2 website start website in dev mode
 	@echo "${YELLOW}Starting website dev server${RESET}"
-	@cd website && pnpm start
+	@cd website && pnpm dev
 
 website-build: ##@2 website build website
 	@echo "${YELLOW}Building website${RESET}"

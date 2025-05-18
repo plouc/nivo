@@ -50,7 +50,7 @@
         "@types/d3-scale": "^4.0.8",
         "@types/d3-shape": "^2.0.0",
         "@types/react-helmet": "^6.1.4",
-        "babel-plugin-styled-components": "^2.0.2",
+        "babel-plugin-styled-components": "^2.1.4",
         "d3-format": "^1.4.4",
         "d3-sankey": "^0.12.3",
         "d3-scale": "^4.0.2",
@@ -76,11 +76,11 @@
         "react-icons": "^5.5.0",
         "react-markdown": "^10.1.0",
         "react-select": "^5.10.1",
-        "styled-components": "^6.1.18"
+        "styled-components": "^6.1.18",
+        "use-debounce": "^10.0.4"
     },
     "scripts": {
-        "develop": "gatsby develop",
-        "start": "gatsby develop",
+        "dev": "NODE_OPTIONS=--max-old-space-size=8192 gatsby develop",
         "build": "NODE_OPTIONS=--max-old-space-size=8192 gatsby build",
         "serve": "gatsby serve",
         "clean": "gatsby clean",
