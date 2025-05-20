@@ -90,9 +90,11 @@ const props: ChartProperty[] = [
         group: 'Base',
         type: 'ScaleSpec',
         help: `
-            Value [scale](self:/guides/scales/) configuration,
-            supports [linear](self:/guides/scales/#linear-scale),
-            and symlog types.
+            Value scale configuration. Supports [linear](self:/guides/scales/#linear-scale),
+            and [symlog](self:/guides/scales/#symlog-scale) scales.
+
+            Please refer to our [guide](self:/guides/scales/)
+            to help you pick the right scale for your data.
         `,
         defaultValue: svgDefaultProps.valueScale,
         flavors: allFlavors,
@@ -100,22 +102,6 @@ const props: ChartProperty[] = [
         control: {
             type: 'scale',
             allowedTypes: ['linear', 'symlog'],
-        },
-    },
-    {
-        key: 'indexScale',
-        group: 'Base',
-        type: 'BandScaleSpec',
-        help: `
-            Index [scale](self:/guides/scales/) configuration,
-            supports [band](self:/guides/scales/#band-scale) type only.
-        `,
-        defaultValue: svgDefaultProps.indexScale,
-        flavors: allFlavors,
-        required: false,
-        control: {
-            type: 'scale',
-            allowedTypes: ['band'],
         },
     },
     {
@@ -133,6 +119,22 @@ const props: ChartProperty[] = [
         flavors: allFlavors,
         type: 'string | (value: number) => string | number',
         control: { type: 'valueFormat' },
+    },
+    {
+        key: 'indexScale',
+        group: 'Base',
+        type: 'BandScaleSpec',
+        help: `
+            Index [scale](self:/guides/scales/) configuration,
+            supports [band](self:/guides/scales/#band-scale) type only.
+        `,
+        defaultValue: svgDefaultProps.indexScale,
+        flavors: allFlavors,
+        required: false,
+        control: {
+            type: 'scale',
+            allowedTypes: ['band'],
+        },
     },
     {
         key: 'padding',

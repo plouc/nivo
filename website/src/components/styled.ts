@@ -15,6 +15,13 @@ export const DescriptionBlock = styled.div`
         line-height: 1.3em;
     }
 
+    p,
+    ul {
+        code {
+            font-size: 0.92em;
+        }
+    }
+
     ${media.tablet`
         & {
             margin: 0 15px 50px;

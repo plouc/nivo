@@ -1,28 +1,8 @@
 import React, { useCallback, useState, ChangeEvent } from 'react'
 import styled from 'styled-components'
-import pick from 'lodash/pick.js'
 import { ControlContext, SwitchableRangeControlConfig } from '../types'
 import { ChartPropertyWithControl, Flavor } from '../../../types'
 import { Control, TextInput, Switch } from '../ui'
-
-const SwitchRow = styled.div`
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-
-    & > *:first-child {
-        margin-right: 9px;
-    }
-`
-
-const RangeRow = styled.div`
-    display: grid;
-    grid-template-columns: 60px auto;
-    grid-column-gap: 9px;
-    align-items: center;
-    max-width: 240px;
-    margin-bottom: 5px;
-`
 
 interface SwitchableRangeControlProps {
     id: string
@@ -43,10 +23,10 @@ export const SwitchableRangeControl = ({
     onChange,
     context,
 }: SwitchableRangeControlProps) => {
-    const [isSliderEnabled, setIsSliderEnabled] = useState(value !== property.control.disabledValue)
-    const [sliderValue, setSliderValue] = useState(
-        value === property.control.disabledValue ? property.control.defaultValue : value
-    )
+    const { disabledValue, defaultValue, min, max, step } = property.control
+
+    const [isSliderEnabled, setIsSliderEnabled] = useState(value !== disabledValue)
+    const [sliderValue, setSliderValue] = useState(value === disabledValue ? defaultValue : value)
 
     const handleSliderUpdate = useCallback(
         (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,10 +43,10 @@ export const SwitchableRangeControl = ({
                 onChange(Number(sliderValue))
             } else {
                 setIsSliderEnabled(false)
-                onChange(property.control.disabledValue)
+                onChange(disabledValue)
             }
         },
-        [onChange, property.control.disabledValue, sliderValue, setIsSliderEnabled]
+        [onChange, disabledValue, sliderValue, setIsSliderEnabled]
     )
 
     return (
@@ -83,31 +63,51 @@ export const SwitchableRangeControl = ({
                     value={!isSliderEnabled}
                     onChange={handleSwitchUpdate}
                 />
-                <span
-                    style={{
-                        color: isSliderEnabled ? '#bbbbbb' : 'inherit',
-                    }}
-                >
-                    {property.control.disabledValue}
-                </span>
+                <DisabledValue $isCurrent={!isSliderEnabled}>{disabledValue}</DisabledValue>
             </SwitchRow>
-            {isSliderEnabled && (
-                <RangeRow>
-                    <TextInput
-                        value={value}
-                        unit={property.control.unit}
-                        isNumber={true}
-                        disabled={true}
-                    />
-                    <input
-                        id={`${id}.slider`}
-                        type="range"
-                        value={sliderValue}
-                        onChange={handleSliderUpdate}
-                        {...pick(property.control, ['min', 'max', 'step'])}
-                    />
-                </RangeRow>
-            )}
+            <RangeRow $isEnabled={isSliderEnabled}>
+                <TextInput
+                    value={sliderValue}
+                    unit={property.control.unit}
+                    isNumber={true}
+                    disabled={true}
+                />
+                <input
+                    id={`${id}.slider`}
+                    type="range"
+                    value={sliderValue}
+                    onChange={handleSliderUpdate}
+                    min={min}
+                    max={max}
+                    step={step}
+                    disabled={!isSliderEnabled}
+                />
+            </RangeRow>
         </Control>
     )
 }
+
+const SwitchRow = styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+
+    & > *:first-child {
+        margin-right: 9px;
+    }
+`
+
+const DisabledValue = styled.span<{ $isCurrent?: boolean }>`
+    opacity: ${({ $isCurrent }) => ($isCurrent ? 1 : 0.35)};
+    font-weight: 500;
+`
+
+const RangeRow = styled.div<{ $isEnabled?: boolean }>`
+    display: grid;
+    grid-template-columns: 60px auto;
+    grid-column-gap: 9px;
+    align-items: center;
+    max-width: 240px;
+    margin-bottom: 5px;
+    opacity: ${({ $isEnabled }) => ($isEnabled ? 1 : 0.75)};
+`
