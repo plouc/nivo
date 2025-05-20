@@ -1,8 +1,25 @@
 import { scaleLog } from 'd3-scale'
 import { ComputedSerieAxis, ScaleAxis, ScaleLog, ScaleLogSpec } from './types'
 
+export const logScaleDefaults: Required<ScaleLogSpec> = {
+    type: 'log',
+    base: 10,
+    min: 'auto',
+    max: 'auto',
+    round: false,
+    reverse: false,
+    nice: true,
+}
+
 export const createLogScale = (
-    { base = 10, min = 'auto', max = 'auto' }: ScaleLogSpec,
+    {
+        base = logScaleDefaults.base,
+        min = logScaleDefaults.min,
+        max = logScaleDefaults.max,
+        round = logScaleDefaults.round,
+        reverse = logScaleDefaults.reverse,
+        nice = logScaleDefaults.nice,
+    }: ScaleLogSpec,
     data: ComputedSerieAxis<number>,
     size: number,
     axis: ScaleAxis
@@ -43,11 +60,18 @@ export const createLogScale = (
         maxValue = max
     }
 
-    const scale = scaleLog<number, number>()
-        .domain([minValue, maxValue])
-        .rangeRound(axis === 'x' ? [0, size] : [size, 0])
-        .base(base)
-        .nice()
+    const scale = scaleLog<number, number>().base(base)
+
+    const range = axis === 'x' ? [0, size] : [size, 0]
+    if (round === true) scale.rangeRound(range)
+    else scale.range(range)
+
+    if (reverse === true) scale.domain([maxValue, minValue])
+    else scale.domain([minValue, maxValue])
+
+    if (nice === true) scale.nice()
+    // @ts-expect-error not sure why this is not working, it's available for symlog.
+    else if (typeof nice === 'number') scale.nice(nice)
 
     const typedScale = scale as ScaleLog
     typedScale.type = 'log'

@@ -1,3 +1,4 @@
+export * from './averageHeightByAge'
 export * from './countryCodes'
 export * from './names'
 export * from './programmingLanguages'

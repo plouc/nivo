@@ -2,14 +2,24 @@ import { NumberValue, scaleTime, scaleUtc } from 'd3-scale'
 import { createDateNormalizer } from './timeHelpers'
 import { ComputedSerieAxis, ScaleTime, ScaleTimeSpec } from './types'
 
+export const timeScaleDefaults: Required<ScaleTimeSpec> = {
+    type: 'time',
+    format: 'native',
+    precision: 'millisecond',
+    min: 'auto',
+    max: 'auto',
+    useUTC: true,
+    nice: false,
+}
+
 export const createTimeScale = <Input extends Date | NumberValue>(
     {
-        format = 'native',
-        precision = 'millisecond',
-        min = 'auto',
-        max = 'auto',
-        useUTC = true,
-        nice = false,
+        format = timeScaleDefaults.format,
+        precision = timeScaleDefaults.precision,
+        min = timeScaleDefaults.min,
+        max = timeScaleDefaults.max,
+        useUTC = timeScaleDefaults.useUTC,
+        nice = timeScaleDefaults.nice,
     }: ScaleTimeSpec,
     data: ComputedSerieAxis<string | Date>,
     size: number

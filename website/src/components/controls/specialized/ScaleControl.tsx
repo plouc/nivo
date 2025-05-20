@@ -1,6 +1,13 @@
 import React, { memo, useMemo, useState, useCallback, useRef } from 'react'
 import styled from 'styled-components'
-import { ScaleSpec, ScaleType } from '@nivo/scales'
+import {
+    ScaleSpec,
+    ScaleType,
+    linearScaleDefaults,
+    bandScaleDefaults,
+    logScaleDefaults,
+    symlogScaleDefaults,
+} from '@nivo/scales'
 import { ChartProperty, ChartPropertyWithControl, Flavor } from '../../../types'
 import { ScaleControlConfig, ControlContext, KeysOfUnion } from '../types'
 import { PropertyHeader, Help, Cell, Toggle } from '../ui'
@@ -30,7 +37,7 @@ const SCALE_PROP_REVERSE: Omit<ChartProperty, 'group'> = {
     name: 'reverse',
     key: 'reverse',
     type: 'boolean',
-    help: `Reverse the scale.`,
+    help: `Reverse the scale output range (e.g. x/y position).`,
     control: {
         type: 'switch',
     },
@@ -64,35 +71,37 @@ const SCALE_PROP_MAX: Omit<ChartProperty, 'group'> = {
     },
 }
 
+const SCALE_PROP_CLAMP: Omit<ChartProperty, 'group'> = {
+    key: 'clamp',
+    name: 'clamp',
+    help: `For any input outside the domain, clamp the output to the nearest endpoint.`,
+    type: `boolean`,
+    control: {
+        type: 'switch',
+    },
+}
+
 // @todo: add all scale types
 const SCALE_PROPS_BY_TYPE: Partial<Record<ScaleType, Omit<ChartProperty, 'group'>[]>> = {
-    linear: [SCALE_PROP_NICE, SCALE_PROP_ROUND, SCALE_PROP_MIN, SCALE_PROP_MAX, SCALE_PROP_REVERSE],
-    band: [SCALE_PROP_ROUND],
+    linear: [
+        SCALE_PROP_NICE,
+        SCALE_PROP_ROUND,
+        SCALE_PROP_MIN,
+        SCALE_PROP_MAX,
+        SCALE_PROP_REVERSE,
+        SCALE_PROP_CLAMP,
+    ],
+    band: [SCALE_PROP_NICE, SCALE_PROP_ROUND, SCALE_PROP_REVERSE],
+    log: [SCALE_PROP_NICE, SCALE_PROP_ROUND, SCALE_PROP_REVERSE],
     symlog: [SCALE_PROP_NICE, SCALE_PROP_ROUND, SCALE_PROP_REVERSE],
 }
 
 // @todo: add all scale types
 const SCALE_DEFAULTS_BY_TYPE: Partial<Record<ScaleType, Partial<ScaleSpec>>> = {
-    linear: {
-        type: 'linear',
-        min: 'auto',
-        max: 'auto',
-        stacked: false,
-        reverse: false,
-        clamp: false,
-        nice: false,
-        round: true,
-    },
-    band: {
-        type: 'band',
-        round: false,
-    },
-    symlog: {
-        type: 'symlog',
-        nice: true,
-        round: true,
-        reverse: false,
-    },
+    linear: linearScaleDefaults,
+    band: bandScaleDefaults,
+    log: logScaleDefaults,
+    symlog: symlogScaleDefaults,
 }
 
 const SCALE_CHOICES: {

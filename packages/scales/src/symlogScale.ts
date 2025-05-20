@@ -1,14 +1,24 @@
 import { scaleSymlog } from 'd3-scale'
 import { ComputedSerieAxis, ScaleAxis, ScaleSymlog, ScaleSymlogSpec } from './types'
 
+export const symlogScaleDefaults: Required<ScaleSymlogSpec> = {
+    type: 'symlog',
+    constant: 1,
+    min: 'auto',
+    max: 'auto',
+    round: false,
+    reverse: false,
+    nice: true,
+}
+
 export const createSymlogScale = (
     {
-        constant = 1,
-        min = 'auto',
-        max = 'auto',
-        round = true,
-        reverse = false,
-        nice = true,
+        constant = symlogScaleDefaults.constant,
+        min = symlogScaleDefaults.min,
+        max = symlogScaleDefaults.max,
+        round = symlogScaleDefaults.round,
+        reverse = symlogScaleDefaults.reverse,
+        nice = symlogScaleDefaults.nice,
     }: ScaleSymlogSpec,
     data: ComputedSerieAxis<number>,
     size: number,

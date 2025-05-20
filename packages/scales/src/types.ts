@@ -49,9 +49,7 @@ export type Scale<Input, Output> = ScaleTypeToScale<Input, Output>[keyof ScaleTy
 
 export type ScaleLinearSpec = {
     type: 'linear'
-    // default to `auto`
     min?: 'auto' | number
-    // default to `auto`
     max?: 'auto' | number
     stacked?: boolean
     reverse?: boolean
@@ -61,18 +59,17 @@ export type ScaleLinearSpec = {
 }
 export interface ScaleLinear<Output> extends D3ScaleLinear<number, Output, never> {
     type: 'linear'
-    // default to `false`
     stacked: boolean
 }
 
 export interface ScaleLogSpec {
     type: 'log'
-    // default to `10`
     base?: number
-    // default to `auto`
     min?: 'auto' | number
-    // default to `auto`
     max?: 'auto' | number
+    round?: boolean
+    reverse?: boolean
+    nice?: boolean | number
 }
 export interface ScaleLog extends D3ScaleLogarithmic<number, number> {
     type: 'log'
@@ -80,17 +77,11 @@ export interface ScaleLog extends D3ScaleLogarithmic<number, number> {
 
 export interface ScaleSymlogSpec {
     type: 'symlog'
-    // default to `1`
     constant?: number
-    // default to `auto`
     min?: 'auto' | number
-    // default to `auto`
     max?: 'auto' | number
-    // default to `true`
     round?: boolean
-    // default to `false`
     reverse?: boolean
-    // default to `true`
     nice?: boolean | number
 }
 export interface ScaleSymlog extends D3ScaleSymLog<number, number> {
@@ -114,17 +105,11 @@ export interface ScaleBand<Input extends StringValue> extends D3ScaleBand<Input>
 
 export type ScaleTimeSpec = {
     type: 'time'
-    // default to `native`
     format?: 'native' | string
-    // default to `millisecond`
     precision?: TIME_PRECISION
-    // default to `auto`
     min?: 'auto' | Date | string
-    // default to `auto`
     max?: 'auto' | Date | string
-    // default to `true`
     useUTC?: boolean
-    // default to `false`
     nice?: boolean
 }
 
