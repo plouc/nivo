@@ -633,6 +633,8 @@ describe('annotations', () => {
         const wrapper = mount(
             <ScatterPlot<TestDatum>
                 {...baseProps}
+                xScale={{ type: 'linear', round: true, nice: false }}
+                yScale={{ type: 'linear', round: true, nice: false }}
                 markers={[
                     { axis: 'x', value: 22.5, legend: 'x marker' },
                     { axis: 'y', value: 15.5, legend: 'y marker' },
