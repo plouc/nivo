@@ -17,6 +17,8 @@ import { BarLegends } from './BarLegends'
 import { useBar } from './hooks'
 import { svgDefaultProps } from './defaults'
 import {
+    BarAnnotationMatcher,
+    BarBorderColor,
     BarComponent,
     BarCustomLayerProps,
     BarDatum,
@@ -66,14 +68,15 @@ const InnerBar = <D extends BarDatum = BarDatum, I extends BarIndex = string>({
     labelPosition = svgDefaultProps.labelPosition,
     labelOffset = svgDefaultProps.labelOffset,
     markers = svgDefaultProps.markers,
-    colorBy,
     colors,
+    colorBy,
     defs = svgDefaultProps.defs,
+    // @ts-expect-error the typings for SVG fill are not easy to get right.
     fill = svgDefaultProps.fill,
     borderRadius = svgDefaultProps.borderRadius,
     borderWidth = svgDefaultProps.borderWidth,
-    borderColor,
-    annotations = svgDefaultProps.annotations,
+    borderColor = svgDefaultProps.borderColor as BarBorderColor<D, I>,
+    annotations = svgDefaultProps.annotations as BarAnnotationMatcher<D, I>[],
     legendLabel,
     tooltipLabel,
     valueFormat,

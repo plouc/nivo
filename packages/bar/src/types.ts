@@ -33,6 +33,8 @@ export type BarIndex = string | number | Date
 export type BarValue = number | null
 // Default datum type for the bar chart.
 export type BarDatum = Record<string, unknown>
+export type BarBorderColor<D extends BarDatum = BarDatum, I extends BarIndex = string> = InheritedColorConfig<ComputedBarDatumWithValue<D, I>>
+export type BarAnnotationMatcher<D extends BarDatum = BarDatum, I extends BarIndex = string> = AnnotationMatcher<ComputedBarDatum<D, I>>
 
 export interface DataProps<D extends BarDatum> {
     data: readonly D[]
@@ -261,7 +263,7 @@ export type BarCommonProps<D extends BarDatum = BarDatum, I extends BarIndex = s
     gridXValues?: GridValues<string | number>
     enableGridY: boolean
     gridYValues?: GridValues<string | number>
-    borderColor: InheritedColorConfig<ComputedBarDatumWithValue<D>>
+    borderColor: BarBorderColor<D, I>
     borderRadius: number
     borderWidth: number
     enableLabel: boolean
@@ -369,6 +371,6 @@ export type BarCanvasPropsWithDefaults<
     Dimensions
 
 export type BarAnnotationsProps<D extends BarDatum = BarDatum, I extends BarIndex = string> = {
-    annotations: readonly AnnotationMatcher<ComputedBarDatum<D, I>>[]
+    annotations: readonly BarAnnotationMatcher<D, I>[]
     bars: readonly ComputedBarDatum<D, I>[]
 }

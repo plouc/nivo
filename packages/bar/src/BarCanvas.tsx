@@ -30,6 +30,7 @@ import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import {
+    BarAnnotationMatcher,
     BarCanvasCustomLayerProps,
     BarCanvasLayer,
     BarCanvasProps,
@@ -113,7 +114,7 @@ const InnerBarCanvas = <D extends BarDatum = BarDatum, I extends BarIndex = stri
     borderRadius = canvasDefaultProps.borderRadius,
     borderWidth = canvasDefaultProps.borderWidth,
     borderColor,
-    annotations = canvasDefaultProps.annotations,
+    annotations = canvasDefaultProps.annotations as BarAnnotationMatcher<D, I>[],
     legendLabel,
     tooltipLabel,
     valueFormat,
