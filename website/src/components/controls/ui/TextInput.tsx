@@ -2,20 +2,24 @@ import React, { memo, InputHTMLAttributes } from 'react'
 import styled from 'styled-components'
 
 type TextInputProps = {
+    type?: 'text' | 'number'
+    // We often use a text input to enter a number.
     isNumber?: boolean
     unit?: 'px' | '°' | 'ms'
 } & InputHTMLAttributes<HTMLInputElement>
 
-export const TextInput = memo(({ unit, isNumber = false, ...props }: TextInputProps) => {
-    const hasUnit = !!unit
+export const TextInput = memo(
+    ({ type = 'text', unit, isNumber = false, ...props }: TextInputProps) => {
+        const hasUnit = !!unit
 
-    return (
-        <Container>
-            <InputElement type="text" $hasUnit={hasUnit} $isNumber={isNumber} {...props} />
-            {hasUnit && <Unit>{unit}</Unit>}
-        </Container>
-    )
-})
+        return (
+            <Container>
+                <InputElement type={type} $hasUnit={hasUnit} $isNumber={isNumber} {...props} />
+                {hasUnit && <Unit>{unit}</Unit>}
+            </Container>
+        )
+    }
+)
 
 const Container = styled.div`
     position: relative;

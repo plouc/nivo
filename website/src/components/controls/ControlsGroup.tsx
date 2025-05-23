@@ -6,6 +6,7 @@ import {
     AngleControlConfig,
     AnnotationsControlConfig,
     BlendModeControlConfig,
+    BorderRadiusControlConfig,
     BoxAnchorControlConfig,
     BulletColorsControlConfig,
     CartesianOrientationControlConfig,
@@ -46,6 +47,7 @@ import {
 import {
     AngleControl,
     AnnotationsControl,
+    BorderRadiusControl,
     BoxAnchorControl,
     CartesianOrientationControl,
     LineWidthControl,
@@ -506,6 +508,19 @@ const ControlSwitcher = memo(
                     <ScaleControl
                         id={id}
                         property={property as ChartPropertyWithControl<ScaleControlConfig>}
+                        flavors={flavors}
+                        currentFlavor={currentFlavor}
+                        value={value}
+                        onChange={handleChange}
+                        context={context}
+                    />
+                )
+
+            case 'borderRadius':
+                return (
+                    <BorderRadiusControl
+                        id={id}
+                        property={property as ChartPropertyWithControl<BorderRadiusControlConfig>}
                         flavors={flavors}
                         currentFlavor={currentFlavor}
                         value={value}

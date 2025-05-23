@@ -6,7 +6,7 @@ import { Flavor, ChartProperty } from '../types'
 export const themeProperty = (flavors: Flavor[]): ChartProperty => ({
     key: 'theme',
     group: 'Style',
-    type: 'Theme',
+    type: 'PartialTheme',
     required: false,
     help: 'Define style for common elements such as labels, axes…',
     flavors,

@@ -1,35 +1,20 @@
 import upperFirst from 'lodash/upperFirst.js'
 import { ChartProperty, Flavor } from '../../types'
 
-const positions = [
-    {
-        position: 'top',
-        orientations: ['top', 'bottom'],
-    },
-    {
-        position: 'right',
-        orientations: ['left', 'right'],
-    },
-    {
-        position: 'bottom',
-        orientations: ['top', 'bottom'],
-    },
-    {
-        position: 'left',
-        orientations: ['left', 'right'],
-    },
-]
+const DEFAULT_POSITIONS = ['top', 'right', 'bottom', 'left']
 
 export const axes = ({
     flavors,
+    positions = DEFAULT_POSITIONS,
     exclude = [],
 }: {
     flavors: Flavor[]
+    positions?: string[]
     exclude?: string[]
 }): ChartProperty[] =>
     positions
-        .filter(axis => !exclude.includes(axis.position))
-        .reduce((properties: any[], { position }) => {
+        .filter(position => !exclude.includes(position))
+        .reduce((properties: any[], position) => {
             const axisKey = upperFirst(position)
 
             return [

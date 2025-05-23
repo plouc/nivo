@@ -240,10 +240,7 @@ const props: ChartProperty[] = [
         defaultValue: commonDefaultProps.borderRadius,
         group: 'Style',
         control: {
-            type: 'range',
-            unit: 'px',
-            min: 0,
-            max: 36,
+            type: 'borderRadius',
         },
     },
     {
