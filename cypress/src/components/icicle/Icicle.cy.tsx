@@ -223,12 +223,16 @@ const testNode = (expectedNode: ExpectedNode) => {
             `translate(${expectedNode.rect.x},${expectedNode.rect.y})`
         )
 
-        if (expectedNode.rect.width !== undefined) {
-            node.should('have.attr', 'width', expectedNode.rect.width)
-        }
-        if (expectedNode.rect.height !== undefined) {
-            node.should('have.attr', 'height', expectedNode.rect.height)
-        }
+        node.its('0')
+            .invoke('getBBox')
+            .then((bbox: DOMRect) => {
+                if (expectedNode?.rect?.width !== undefined) {
+                    expect(bbox.width).to.equal(expectedNode.rect.width)
+                }
+                if (expectedNode?.rect?.height !== undefined) {
+                    expect(bbox.height).to.equal(expectedNode.rect.height)
+                }
+            })
     }
 
     if (expectedNode.color) {
