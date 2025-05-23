@@ -165,6 +165,11 @@ export interface ScaleControlConfig {
     disabledProps?: Partial<Record<ScaleType, KeysOfUnion<ScaleSpec>[]>>
 }
 
+export interface BorderRadiusControlConfig {
+    type: 'borderRadius'
+    max?: number
+}
+
 export type ControlConfig =
     | SwitchControlConfig
     | RangeControlConfig
@@ -193,6 +198,7 @@ export type ControlConfig =
     | BulletColorsControlConfig
     | CartesianOrientationControlConfig
     | ScaleControlConfig
+    | BorderRadiusControlConfig
 
 export interface ControlContext {
     path: string[]
