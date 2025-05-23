@@ -10,7 +10,7 @@ import { BarItem } from './BarItem'
 import { BarTooltip } from './BarTooltip'
 import { renderBar } from './renderBar'
 
-export const commonDefaultProps: Omit<BarCommonProps<BarDatum>, 'data' | 'theme'> = {
+export const commonDefaultProps: Omit<BarCommonProps, 'data' | 'theme'> = {
     indexBy: 'id',
     keys: ['value'],
     groupMode: 'stacked' as const,
@@ -35,37 +35,35 @@ export const commonDefaultProps: Omit<BarCommonProps<BarDatum>, 'data' | 'theme'
     borderColor: { from: 'color' } as InheritedColorConfig<any>,
     isInteractive: true,
     tooltip: BarTooltip,
-    tooltipLabel: (datum: ComputedDatum<BarDatum>) => `${datum.id} - ${datum.indexValue}`,
+    tooltipLabel: (datum: ComputedDatum) => `${datum.id} - ${datum.indexValue}`,
     legends: [],
     initialHiddenIds: [],
     annotations: [],
-    enableTotals: false,
+    enableTotals: true,
     totalsOffset: 10,
 }
 
-export const svgDefaultProps: Omit<
-    BarSvgPropsWithDefaults<BarDatum>,
-    'data' | 'width' | 'height' | 'theme'
-> = {
-    ...commonDefaultProps,
-    layers: ['grid', 'axes', 'bars', 'totals', 'markers', 'legends', 'annotations'],
-    axisTop: null,
-    axisRight: null,
-    axisBottom: {},
-    axisLeft: {},
-    barComponent: BarItem,
-    defs: [],
-    fill: [],
-    markers: [],
-    animate: true,
-    animateOnMount: false,
-    motionConfig: 'default',
-    role: 'img',
-    isFocusable: false,
-}
+export const svgDefaultProps: Omit<BarSvgPropsWithDefaults, 'data' | 'width' | 'height' | 'theme'> =
+    {
+        ...commonDefaultProps,
+        layers: ['grid', 'axes', 'bars', 'totals', 'markers', 'legends', 'annotations'],
+        axisTop: null,
+        axisRight: null,
+        axisBottom: {},
+        axisLeft: {},
+        barComponent: BarItem,
+        defs: [],
+        fill: [],
+        markers: [],
+        animate: true,
+        animateOnMount: false,
+        motionConfig: 'default',
+        role: 'img',
+        isFocusable: false,
+    }
 
 export const canvasDefaultProps: Omit<
-    BarCanvasPropsWithDefaults<BarDatum>,
+    BarCanvasPropsWithDefaults,
     'data' | 'width' | 'height' | 'theme'
 > = {
     ...commonDefaultProps,

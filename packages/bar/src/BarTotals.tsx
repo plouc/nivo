@@ -1,22 +1,22 @@
 import { useTheme } from '@nivo/theming'
 import { AnimationConfig, animated, useTransition } from '@react-spring/web'
-import { BarCommonProps, BarDatum } from './types'
+import { BarCommonProps, BarDatum, BarIndex } from './types'
 import { svgDefaultProps } from './defaults'
 import { BarTotalsData } from './compute/totals'
 
-interface Props<RawDatum extends BarDatum> {
+interface Props<D extends BarDatum = BarDatum, I extends BarIndex = string> {
     data: BarTotalsData[]
     springConfig: Partial<AnimationConfig>
     animate: boolean
-    layout?: BarCommonProps<RawDatum>['layout']
+    layout?: BarCommonProps<D, I>['layout']
 }
 
-export const BarTotals = <RawDatum extends BarDatum>({
+export const BarTotals = <D extends BarDatum = BarDatum, I extends BarIndex = string>({
     data,
     springConfig,
     animate,
     layout = svgDefaultProps.layout,
-}: Props<RawDatum>) => {
+}: Props<D, I>) => {
     const theme = useTheme()
     const totalsTransition = useTransition<
         BarTotalsData,

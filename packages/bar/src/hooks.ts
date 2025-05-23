@@ -9,12 +9,13 @@ import {
     ComputedBarDatumWithValue,
     LegendData,
     BarLegendProps,
+    BarIndex,
 } from './types'
 import { commonDefaultProps } from './defaults'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
 import { computeBarTotals } from './compute/totals'
 
-export const useBar = <D extends BarDatum>({
+export const useBar = <D extends BarDatum = BarDatum, I extends BarIndex = string>({
     indexBy = commonDefaultProps.indexBy,
     keys = commonDefaultProps.keys,
     label = commonDefaultProps.label,
@@ -43,7 +44,7 @@ export const useBar = <D extends BarDatum>({
     totalsOffset = commonDefaultProps.totalsOffset,
 }: Partial<
     Pick<
-        BarCommonProps<D>,
+        BarCommonProps<D, I>,
         | 'indexBy'
         | 'keys'
         | 'label'
