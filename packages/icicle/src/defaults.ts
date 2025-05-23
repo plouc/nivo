@@ -37,6 +37,8 @@ export const commonDefaultProps: Omit<
     labelSkipHeight: 0,
     labelPaddingX: 0,
     labelPaddingY: 0,
+    labelOffsetX: 0,
+    labelOffsetY: 0,
     labelRotation: 0,
     labelTextColor: { theme: 'labels.text.fill' },
     isInteractive: true,

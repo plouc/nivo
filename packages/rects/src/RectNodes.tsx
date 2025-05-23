@@ -2,7 +2,7 @@ import { useCallback, RefObject, MutableRefObject } from 'react'
 import { to } from '@react-spring/web'
 import { PropertyAccessor, usePropertyAccessor } from '@nivo/core'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
-import { useTheme } from '@nivo/theming'
+import { useTheme, BorderRadius, normalizeBorderRadius } from '@nivo/theming'
 import {
     NodeWithRectAndColor,
     RectTransitionMode,
@@ -17,9 +17,9 @@ export interface RectNodesProps<Node extends NodeWithRectAndColor>
     extends NodeInteractionHandlers<Node> {
     nodes: readonly Node[]
     uid: PropertyAccessor<Node, string>
-    borderRadius: number
+    borderRadius?: BorderRadius
     borderColor: InheritedColorConfig<Node>
-    borderWidth: number
+    borderWidth?: number
     isInteractive: boolean
     transitionMode?: RectTransitionMode
     animateOnMount?: boolean
@@ -33,8 +33,8 @@ export const RectNodes = <Node extends NodeWithRectAndColor>({
     nodes,
     uid,
     component,
-    borderRadius,
-    borderWidth,
+    borderRadius = 0,
+    borderWidth = 0,
     borderColor,
     isInteractive,
     onMouseEnter,
@@ -92,7 +92,7 @@ export const RectNodes = <Node extends NodeWithRectAndColor>({
                             (x, y) => `translate(${x},${y})`
                         ),
                         opacity: transitionProps.progress,
-                        borderRadius,
+                        borderRadius: normalizeBorderRadius(borderRadius),
                         borderWidth,
                     }}
                     isInteractive={isInteractive}

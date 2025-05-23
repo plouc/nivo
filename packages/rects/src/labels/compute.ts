@@ -4,59 +4,66 @@ import { Rect } from '../types'
 import { RectLabelsProps } from './types'
 
 export type AnchorGetter = (rect: Rect) => { x: number; y: number }
-type AnchorGetterFactory = (paddingX?: number, paddingY?: number) => AnchorGetter
+export interface AnchorGetterOptions {
+    isOutside: boolean
+    paddingX: number
+    paddingY: number
+    offsetX: number
+    offsetY: number
+}
+type AnchorGetterFactory = (options: AnchorGetterOptions) => AnchorGetter
 
 export const anchorCenterFactory: AnchorGetterFactory = () => (rect: Rect) => ({
     x: rect.x + rect.width / 2,
     y: rect.y + rect.height / 2,
 })
 export const anchorTopLeftFactory: AnchorGetterFactory =
-    (paddingX = 0, paddingY = 0) =>
+    ({ isOutside, paddingX, paddingY, offsetX, offsetY }) =>
     (rect: Rect) => ({
-        x: rect.x + paddingX,
-        y: rect.y + paddingY,
+        x: rect.x + (isOutside ? -paddingX : paddingX) + offsetX,
+        y: rect.y + (isOutside ? -paddingY : paddingY) + offsetY,
     })
 export const anchorTopFactory: AnchorGetterFactory =
-    (_paddingX = 0, paddingY = 0) =>
+    ({ isOutside, paddingY, offsetX, offsetY }) =>
     (rect: Rect) => ({
-        x: rect.x + rect.width / 2,
-        y: rect.y + paddingY,
+        x: rect.x + rect.width / 2 + offsetX,
+        y: rect.y + (isOutside ? -paddingY : paddingY) + offsetY,
     })
 export const anchorTopRightFactory: AnchorGetterFactory =
-    (paddingX = 0, paddingY = 0) =>
+    ({ isOutside, paddingX, paddingY, offsetX, offsetY }) =>
     (rect: Rect) => ({
-        x: rect.x + rect.width - paddingX,
-        y: rect.y + paddingY,
+        x: rect.x + rect.width + (isOutside ? paddingX : -paddingX) + offsetX,
+        y: rect.y + (isOutside ? -paddingY : paddingY) + offsetY,
     })
 export const anchorRightFactory: AnchorGetterFactory =
-    (paddingX = 0) =>
+    ({ isOutside, paddingX, offsetX, offsetY }) =>
     (rect: Rect) => ({
-        x: rect.x + rect.width - paddingX,
-        y: rect.y + rect.height / 2,
+        x: rect.x + rect.width + (isOutside ? paddingX : -paddingX) + offsetX,
+        y: rect.y + rect.height / 2 + offsetY,
     })
 export const anchorBottomRightFactory: AnchorGetterFactory =
-    (paddingX = 0, paddingY = 0) =>
+    ({ isOutside, paddingX, paddingY, offsetX, offsetY }) =>
     (rect: Rect) => ({
-        x: rect.x + rect.width - paddingX,
-        y: rect.y + rect.height - paddingY,
+        x: rect.x + rect.width + (isOutside ? paddingX : -paddingX) + offsetX,
+        y: rect.y + rect.height + (isOutside ? paddingY : -paddingY) + offsetY,
     })
 export const anchorBottomFactory: AnchorGetterFactory =
-    (_paddingX = 0, paddingY = 0) =>
+    ({ isOutside, paddingY, offsetX, offsetY }) =>
     (rect: Rect) => ({
-        x: rect.x + rect.width / 2,
-        y: rect.y + rect.height - paddingY,
+        x: rect.x + rect.width / 2 + offsetX,
+        y: rect.y + rect.height + (isOutside ? paddingY : -paddingY) + offsetY,
     })
 export const anchorBottomLeftFactory: AnchorGetterFactory =
-    (paddingX = 0, paddingY = 0) =>
+    ({ isOutside, paddingX, paddingY, offsetX, offsetY }) =>
     (rect: Rect) => ({
-        x: rect.x + paddingX,
-        y: rect.y + rect.height - paddingY,
+        x: rect.x + (isOutside ? -paddingX : paddingX) + offsetX,
+        y: rect.y + rect.height + (isOutside ? paddingY : -paddingY) + offsetY,
     })
 export const anchorLeftFactory: AnchorGetterFactory =
-    (paddingX = 0) =>
+    ({ isOutside, paddingX, offsetX, offsetY }) =>
     (rect: Rect) => ({
-        x: rect.x + paddingX,
-        y: rect.y + rect.height / 2,
+        x: rect.x + (isOutside ? -paddingX : paddingX) + offsetX,
+        y: rect.y + rect.height / 2 + offsetY,
     })
 
 const anchorFactoriesMap: Record<BoxAnchor, AnchorGetterFactory> = {
@@ -71,14 +78,15 @@ const anchorFactoriesMap: Record<BoxAnchor, AnchorGetterFactory> = {
     left: anchorLeftFactory,
 }
 
-export const anchorGetter = (anchor: BoxAnchor, paddingX = 0, paddingY = 0) =>
-    anchorFactoriesMap[anchor](paddingX, paddingY)
+export const anchorGetter = (anchor: BoxAnchor, options: AnchorGetterOptions) =>
+    anchorFactoriesMap[anchor](options)
 
 export const getTextLayout = (
     boxAnchor: BoxAnchor,
+    isOutside: boolean,
     align: RectLabelsProps<any>['labelAlign'],
     baseline: RectLabelsProps<any>['labelBaseline']
 ) => ({
-    align: align === 'auto' ? getTextAlignFromBoxAnchor(boxAnchor) : align,
-    baseline: baseline === 'auto' ? getTextBaselineFromBoxAnchor(boxAnchor) : baseline,
+    align: align === 'auto' ? getTextAlignFromBoxAnchor(boxAnchor, isOutside) : align,
+    baseline: baseline === 'auto' ? getTextBaselineFromBoxAnchor(boxAnchor, isOutside) : baseline,
 })

@@ -1,4 +1,5 @@
 import { TextStyle } from './types'
+import { BorderRadiusCorners } from './borderRadius'
 
 export type Engine = 'svg' | 'css' | 'canvas'
 
@@ -80,4 +81,16 @@ export const sanitizeHtmlTextStyle = (
         ...sanitized,
         color: fill,
     }
+}
+
+/**
+ * Render a CSS-compatible border-radius string (e.g. "4px 4px 0 0").
+ */
+export const borderRadiusToCss = ({
+    topLeft,
+    topRight,
+    bottomRight,
+    bottomLeft,
+}: BorderRadiusCorners): string => {
+    return `${topLeft}px ${topRight}px ${bottomRight}px ${bottomLeft}px`
 }

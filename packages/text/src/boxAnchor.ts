@@ -13,6 +13,12 @@ const textAlignByBoxAnchor: Record<BoxAnchor, TextAlign> = {
     left: 'start',
 }
 
+const textAlignOppositeMap: Record<TextAlign, TextAlign> = {
+    start: 'end',
+    center: 'center',
+    end: 'start',
+}
+
 const textBaselineByBoxAnchor: Record<BoxAnchor, TextBaseline> = {
     center: 'center',
     'top-left': 'top',
@@ -25,6 +31,20 @@ const textBaselineByBoxAnchor: Record<BoxAnchor, TextBaseline> = {
     left: 'center',
 }
 
-export const getTextAlignFromBoxAnchor = (anchor: BoxAnchor) => textAlignByBoxAnchor[anchor]
+const textBaselineOppositeMap: Record<TextBaseline, TextBaseline> = {
+    top: 'bottom',
+    center: 'center',
+    bottom: 'top',
+}
 
-export const getTextBaselineFromBoxAnchor = (anchor: BoxAnchor) => textBaselineByBoxAnchor[anchor]
+export const getTextAlignFromBoxAnchor = (anchor: BoxAnchor, isOutside = false) => {
+    const align = textAlignByBoxAnchor[anchor]
+    if (!isOutside) return align
+    return textAlignOppositeMap[align]
+}
+
+export const getTextBaselineFromBoxAnchor = (anchor: BoxAnchor, isOutside = false) => {
+    const baseline = textBaselineByBoxAnchor[anchor]
+    if (!isOutside) return baseline
+    return textBaselineOppositeMap[baseline]
+}

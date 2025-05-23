@@ -25,6 +25,7 @@ export interface RectLabelsProps<Node extends NodeWithRectAndColor> {
     uid: PropertyAccessor<Omit<Node, 'rect'>, string>
     label: PropertyAccessor<Omit<Node, 'rect'>, string>
     labelBoxAnchor: BoxAnchor
+    labelIsOutside: boolean
     labelPaddingX: number
     labelPaddingY: number
     labelAlign: TextAlign | 'auto'
@@ -32,6 +33,8 @@ export interface RectLabelsProps<Node extends NodeWithRectAndColor> {
     labelRotation: number
     labelSkipWidth: number
     labelSkipHeight: number
+    labelOffsetX: number
+    labelOffsetY: number
     labelTextColor: InheritedColorConfig<Omit<Node, 'rect'>>
     labelComponent: RectLabelComponent<Node>
 }

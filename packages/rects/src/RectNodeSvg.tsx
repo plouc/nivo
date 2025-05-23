@@ -1,6 +1,6 @@
 import { forwardRef, Ref, useImperativeHandle, useRef, ReactElement } from 'react'
-import { animated } from '@react-spring/web'
 import { NodeWithRectAndColor, RectNodeComponentProps, RectNodeHandle } from './types'
+import { RoundedRect } from './RoundedRect'
 
 const InnerRectNodeSvg = <Node extends NodeWithRectAndColor>(
     {
@@ -29,13 +29,12 @@ const InnerRectNodeSvg = <Node extends NodeWithRectAndColor>(
     }))
 
     return (
-        <animated.rect
+        <RoundedRect
             ref={elementRef}
             width={style.width}
             height={style.height}
             transform={style.transform}
-            rx={style.borderRadius}
-            ry={style.borderRadius}
+            r={style.borderRadius}
             opacity={style.opacity}
             fill={node.fill || style.color}
             stroke={style.borderColor}
