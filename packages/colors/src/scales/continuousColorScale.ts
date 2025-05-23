@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import isPlainObject from 'lodash/isPlainObject.js'
 import { ScaleDiverging, ScaleQuantize, ScaleSequential, scaleLinear } from 'd3-scale'
 import {
     SequentialColorScaleConfig,
@@ -26,17 +27,24 @@ export type ContinuousColorScaleValues =
     | DivergingColorScaleValues
     | QuantizeColorScaleValues
 
-const isSequentialColorScaleConfig = (
+export const isSequentialColorScaleConfig = (
     config: ContinuousColorScaleConfig
 ): config is SequentialColorScaleConfig => config.type === 'sequential'
 
-const isDivergingColorScaleConfig = (
+export const isDivergingColorScaleConfig = (
     config: ContinuousColorScaleConfig
 ): config is DivergingColorScaleConfig => config.type === 'diverging'
 
-const isQuantizeColorScaleConfig = (
+export const isQuantizeColorScaleConfig = (
     config: ContinuousColorScaleConfig
 ): config is QuantizeColorScaleConfig => config.type === 'quantize'
+
+export const isContinuousColorScale = (config: unknown): config is ContinuousColorScaleConfig => {
+    if (!isPlainObject(config)) return false
+
+    const { type } = config as { type: string }
+    return type === 'sequential' || type === 'diverging' || type === 'quantize'
+}
 
 export const getContinuousColorScale = <Config extends ContinuousColorScaleConfig>(
     config: Config,
