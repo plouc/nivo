@@ -16,10 +16,13 @@ interface RectLabelsProps<Node extends NodeWithRectAndColor> {
     uid: PublicRectLabelProps<Node>['uid']
     label: PublicRectLabelProps<Node>['label']
     boxAnchor: PublicRectLabelProps<Node>['labelBoxAnchor']
+    isOutside?: PublicRectLabelProps<Node>['labelIsOutside']
     align?: PublicRectLabelProps<Node>['labelAlign']
     baseline?: PublicRectLabelProps<Node>['labelBaseline']
     paddingX?: PublicRectLabelProps<Node>['labelPaddingX']
     paddingY?: PublicRectLabelProps<Node>['labelPaddingY']
+    offsetX?: PublicRectLabelProps<Node>['labelOffsetX']
+    offsetY?: PublicRectLabelProps<Node>['labelOffsetY']
     rotation?: PublicRectLabelProps<Node>['labelRotation']
     skipWidth?: PublicRectLabelProps<Node>['labelSkipWidth']
     skipHeight?: PublicRectLabelProps<Node>['labelSkipHeight']
@@ -36,10 +39,13 @@ export const RectLabels = <Node extends NodeWithRectAndColor>({
     uid,
     label: labelAccessor,
     boxAnchor = 'center',
+    isOutside = false,
     align = 'auto',
     baseline = 'auto',
     paddingX = 0,
     paddingY = 0,
+    offsetX = 0,
+    offsetY = 0,
     rotation = 0,
     skipWidth = 0,
     skipHeight = 0,
@@ -55,12 +61,18 @@ export const RectLabels = <Node extends NodeWithRectAndColor>({
     const getTextColor = useInheritedColor(textColor, theme)
 
     const textLayout = useMemo(
-        () => getTextLayout(boxAnchor, align, baseline),
-        [boxAnchor, align, baseline]
+        () => getTextLayout(boxAnchor, isOutside, align, baseline),
+        [boxAnchor, isOutside, align, baseline]
     )
 
     const computedLabels = useMemo(() => {
-        const getAnchor = anchorGetter(boxAnchor, paddingX, paddingY)
+        const getAnchor = anchorGetter(boxAnchor, {
+            isOutside,
+            paddingX,
+            paddingY,
+            offsetX,
+            offsetY,
+        })
 
         return (
             nodes
@@ -85,6 +97,8 @@ export const RectLabels = <Node extends NodeWithRectAndColor>({
         getUid,
         paddingX,
         paddingY,
+        offsetX,
+        offsetY,
         skipWidth,
         skipHeight,
         getLabel,

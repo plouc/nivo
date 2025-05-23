@@ -1,6 +1,13 @@
-import { forwardRef, Ref, useImperativeHandle, useRef, ReactElement } from 'react'
-import { PropsWithChildren } from 'react'
+import {
+    forwardRef,
+    Ref,
+    useImperativeHandle,
+    useRef,
+    ReactElement,
+    PropsWithChildren,
+} from 'react'
 import { animated } from '@react-spring/web'
+import { borderRadiusToCss } from '@nivo/theming'
 import { NodeWithRectAndColor, RectNodeHandle, RectNodeComponentProps } from './types'
 
 const InnerRectNodeHtml = <Node extends NodeWithRectAndColor>(
@@ -30,7 +37,7 @@ const InnerRectNodeHtml = <Node extends NodeWithRectAndColor>(
         },
     }))
 
-    const { x, y, color, transform, progress, ...extraStyle } = style
+    const { x, y, color, borderRadius, transform, progress, ...extraStyle } = style
 
     return (
         <animated.div
@@ -42,6 +49,7 @@ const InnerRectNodeHtml = <Node extends NodeWithRectAndColor>(
                 left: x,
                 top: y,
                 backgroundColor: style.color,
+                borderRadius: borderRadiusToCss(borderRadius),
                 ...extraStyle,
             }}
             onMouseEnter={onMouseEnter}

@@ -10,6 +10,7 @@ import {
 } from 'react'
 import { Interpolation, SpringValue } from '@react-spring/web'
 import { EventMap, InteractionHandlers } from '@nivo/core'
+import { BorderRadiusCorners } from '@nivo/theming'
 
 export interface Rect {
     x: number
@@ -98,7 +99,7 @@ export interface RectNodeComponentProps<Node extends NodeWithRectAndColor> {
         height: Interpolation<number, number>
         color: SpringValue<string>
         opacity: SpringValue<number>
-        borderRadius: number
+        borderRadius: BorderRadiusCorners
         borderWidth: number
         borderColor: SpringValue<string>
     }

@@ -117,7 +117,7 @@ const props: ChartProperty[] = [
         `,
         required: false,
         flavors: allFlavors,
-        type: 'string | (value: number) => string | number',
+        type: 'string | ((value: number) => string)',
         control: { type: 'valueFormat' },
     },
     {

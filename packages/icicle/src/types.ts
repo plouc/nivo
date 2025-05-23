@@ -12,7 +12,7 @@ import {
     InteractionHandlers,
 } from '@nivo/core'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
-import { PartialTheme } from '@nivo/theming'
+import { BorderRadius, PartialTheme } from '@nivo/theming'
 import {
     type Rect,
     RectLabelsProps,
@@ -127,7 +127,7 @@ export type IcicleCommonProps<Datum, Context = DefaultChartContext> = {
     inheritColorFromParent: boolean
     // used if `inheritColorFromParent` is `true`
     childColor: InheritedColorConfig<IcicleNode<Datum>>
-    borderRadius: number
+    borderRadius: BorderRadius
     borderWidth: number
     borderColor: InheritedColorConfig<IcicleNode<Datum>>
     enableLabels: boolean
@@ -137,7 +137,7 @@ export type IcicleCommonProps<Datum, Context = DefaultChartContext> = {
     tooltip: FunctionComponent<IcicleNode<Datum>>
     context: Context
     renderWrapper: boolean
-} & Omit<RectLabelsProps<IcicleNode<Datum>>, 'uid' | 'labelComponent'>
+} & Omit<RectLabelsProps<IcicleNode<Datum>>, 'uid' | 'labelComponent' | 'labelIsOutside'>
 
 type IcicleEventMap = Pick<
     EventMap,
