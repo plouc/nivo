@@ -1,10 +1,11 @@
-import React, { PropsWithChildren, useCallback, useState } from 'react'
+import React, { PropsWithChildren, useCallback, useState, useRef } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { FaCameraRetro, FaRegCopy, FaCheck } from 'react-icons/fa'
 import { useCopyToClipboard } from '../../lib/useCopyToClipboard'
 import media from '../../theming/mediaQueries'
 import { Highlight } from '../Highlight'
 import { CodeBlock } from '../CodeBlock'
+import { ChartCaptureEffect, ChartCaptureEffectHandle } from './ChartCaptureEffect'
 
 type TabType = 'chart' | 'code' | 'data'
 const tabs: TabType[] = ['chart', 'code', 'data']
@@ -35,11 +36,16 @@ export const ComponentTabs = <D extends any = any>({
 
     const [currentTab, setCurrentTab] = useState<TabType>('chart')
     const [hoverTab, setHoverTab] = useState<TabType | null>(null)
-
     let availableTabs = tabs
     if (data === undefined) {
         availableTabs = availableTabs.filter(t => t !== 'data')
     }
+
+    const captureEffectRef = useRef<ChartCaptureEffectHandle>(null)
+    const handleCapture = useCallback(() => {
+        captureEffectRef.current?.trigger()
+        download?.()
+    }, [download, captureEffectRef])
 
     const [codeCopied, copyCode] = useCopyToClipboard()
     const handleCodeCopy = useCallback(async () => {
@@ -53,6 +59,7 @@ export const ComponentTabs = <D extends any = any>({
         content = (
             <Content id="chart" role="tabpanel">
                 {children}
+                <ChartCaptureEffect ref={captureEffectRef} />
             </Content>
         )
     } else if (currentTab === 'code') {
@@ -142,7 +149,7 @@ export const ComponentTabs = <D extends any = any>({
                     {download && currentTab === 'chart' && (
                         <DownloadButton
                             className="no-select"
-                            onClick={download}
+                            onClick={handleCapture}
                             role="button"
                             tabIndex={0}
                         >
