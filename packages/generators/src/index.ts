@@ -325,6 +325,8 @@ export const generateWinesTastes = ({ randMin = 20, randMax = 120 } = {}) => {
     return { data, keys: wines }
 }
 
+export * from './helpers'
+export * from './range'
 export * from './boxplot'
 export * from './bullet'
 export * from './chord'
