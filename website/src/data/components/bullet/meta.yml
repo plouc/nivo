@@ -17,7 +17,8 @@ Bullet:
     - label: support min/max value property
       link: bullet--support-min-max-value-property
   description: |
-    Bullet chart supporting multiple ranges/measures/markers.
-
-    You can fully customize this chart using custom components via
-    `rangeComponent`, `measureComponent` and `markerComponent` properties.
+    A bullet chart is a compact bar‐chart variant that displays
+    a single quantitative measure as a filled bar, overlays a line
+    (or marker) for a target value, and shades background bands
+    to indicate qualitative ranges (e.g. “poor,” “satisfactory,” “good”)
+    all on one axis.

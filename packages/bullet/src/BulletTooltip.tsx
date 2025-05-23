@@ -1,20 +1,13 @@
-import { BulletTooltipProps } from './types'
 import { BasicTooltip } from '@nivo/tooltip'
+import { BulletTooltipComponent } from './types'
 
-export const BulletTooltip = ({ color, v0, v1 }: BulletTooltipProps) => {
+export const BulletTooltip: BulletTooltipComponent = ({ node }) => {
     return (
         <BasicTooltip
-            id={
-                v1 ? (
-                    <span>
-                        <strong>{v0}</strong> to <strong>{v1}</strong>
-                    </span>
-                ) : (
-                    <strong>{v0}</strong>
-                )
-            }
+            id={node.id}
+            value={node.value.formattedValue}
             enableChip={true}
-            color={color}
+            color={node.color}
         />
     )
 }

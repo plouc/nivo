@@ -33,6 +33,7 @@
         "@nivo/colors": "workspace:*",
         "@nivo/core": "workspace:*",
         "@nivo/legends": "workspace:*",
+        "@nivo/rects": "workspace:*",
         "@nivo/scales": "workspace:*",
         "@nivo/text": "workspace:*",
         "@nivo/theming": "workspace:*",

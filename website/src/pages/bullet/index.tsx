@@ -1,49 +1,80 @@
 import React, { Ref } from 'react'
 import { graphql, useStaticQuery, PageProps } from 'gatsby'
-import shuffle from 'lodash/shuffle.js'
-import { ResponsiveBullet, defaultProps } from '@nivo/bullet'
+import omit from 'lodash/omit'
+import { ResponsiveBullet, svgDefaultProps } from '@nivo/bullet'
 import { generateBulletData } from '@nivo/generators'
 import { ComponentTemplate } from '../../components/components/ComponentTemplate'
 import meta from '../../data/components/bullet/meta.yml'
+import { bulletSvgMapper } from '../../data/components/bullet/mapper'
 import { groups } from '../../data/components/bullet/props'
 
-const generateData = () => [
-    generateBulletData('temp.', shuffle([100, 120, 140])[0]),
-    generateBulletData('power', 2, { float: true, measureCount: 2 }),
-    generateBulletData('volume', shuffle([40, 60, 80])[0], { rangeCount: 8 }),
-    generateBulletData('cost', 500000, { measureCount: 2 }),
-    generateBulletData('revenue', shuffle([9, 11, 13])[0], { markerCount: 2 }),
-]
+const rangeIds = ['bad', 'good', 'very good']
+
+let seed = 128
+
+const generateData = () => {
+    seed++
+
+    return generateBulletData({
+        seed,
+        rangeIds,
+        precision: 1,
+        rangeJitter: 0.8,
+        bullets: [
+            {
+                id: 'Q1',
+            },
+            {
+                id: 'Q2',
+                min: -100,
+                max: 40,
+                baseline: -20,
+                precision: 5,
+                rangeIds: ['very bad', ...rangeIds],
+            },
+            {
+                id: 'Q3',
+                max: 60,
+                precision: 2,
+            },
+            {
+                id: 'Q4',
+                max: 200,
+                precision: 10,
+            },
+        ],
+    })
+}
 
 const initialProperties = {
-    minValue: defaultProps.minValue,
-    maxValue: defaultProps.maxValue,
+    ...omit(svgDefaultProps, 'tooltip'),
     margin: {
-        top: 50,
-        right: 90,
-        bottom: 50,
-        left: 90,
+        top: 40,
+        right: 50,
+        bottom: 40,
+        left: 50,
     },
-    layout: defaultProps.layout,
-    reverse: defaultProps.reverse,
-    spacing: 46,
-    titlePosition: defaultProps.titlePosition,
-    titleAlign: 'start',
-    titleOffsetX: -70,
-    titleOffsetY: defaultProps.titleOffsetY,
-    titleRotation: defaultProps.titleRotation,
-    rangeBorderColor: defaultProps.rangeBorderColor,
-    rangeBorderWidth: defaultProps.rangeBorderWidth,
-    measureBorderColor: defaultProps.measureBorderColor,
-    measureBorderWidth: defaultProps.measureBorderWidth,
-    measureSize: 0.2,
-    markerSize: 0.6,
-    axisPosition: defaultProps.axisPosition,
-    rangeColors: defaultProps.rangeColors,
-    measureColors: defaultProps.measureColors,
-    markerColors: defaultProps.markerColors,
-    animate: defaultProps.animate,
-    motionConfig: defaultProps.motionConfig,
+    spacing: 70,
+    rangeBorderWidth: 0.5,
+    valueFormat: { format: '>-$.2f', enabled: false },
+    axisBefore: {
+        enable: false,
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        legend: '',
+        legendOffset: 0,
+        truncateTickAt: 0,
+    },
+    axisAfter: {
+        enable: true,
+        tickSize: 5,
+        tickPadding: 5,
+        tickRotation: 0,
+        legend: '',
+        legendOffset: 0,
+        truncateTickAt: 0,
+    },
 }
 
 const Bullet = ({ location }: PageProps) => {
@@ -70,7 +101,8 @@ const Bullet = ({ location }: PageProps) => {
             currentFlavor="svg"
             properties={groups}
             initialProperties={initialProperties}
-            defaultProperties={defaultProps}
+            defaultProperties={svgDefaultProps}
+            propertiesMapper={bulletSvgMapper}
             generateData={generateData}
             image={image}
             location={location}

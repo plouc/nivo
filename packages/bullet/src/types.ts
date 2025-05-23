@@ -1,214 +1,211 @@
-import * as React from 'react'
-import { Box, Dimensions, Colors, MotionProps } from '@nivo/core'
-import { PartialTheme } from '@nivo/theming'
-import { InheritedColorConfig } from '@nivo/colors'
-import { ScaleLinear } from '@nivo/scales'
-import { SpringValues } from '@react-spring/web'
+import { AriaAttributes, FunctionComponent, MouseEvent } from 'react'
+import {
+    Box,
+    Dimensions,
+    MotionProps,
+    ValueFormat,
+    BoxAnchor,
+    EventMap,
+    InteractionHandlers,
+} from '@nivo/core'
+import { Rect, RectNodeComponent } from '@nivo/rects'
+import { PartialTheme, TextAlign, TextBaseline, BorderRadius } from '@nivo/theming'
+import { AxisProps } from '@nivo/axes'
+import {
+    OrdinalColorScaleConfig,
+    ContinuousColorScaleConfig,
+    InheritedColorConfig,
+} from '@nivo/colors'
+import { ScaleLinear, ScaleLinearSpec, ScaleSymlog, ScaleSymlogSpec } from '@nivo/scales'
 
-export type DatumId = string | number
-export type DatumValue = number
+export type BulletScaleSpec = ScaleLinearSpec | ScaleSymlogSpec
+export type BulletScale = ScaleLinear<number> | ScaleSymlog
 
-export type WithDatumId<R> = R & { id: DatumId }
-
-type Point = {
+export type Point = {
     x: number
     y: number
 }
 
-export interface Datum {
-    id: DatumId
-    title?: React.ReactNode
-    ranges: number[]
-    measures: number[]
-    markers?: number[]
+export interface BulletRangeDatum {
+    id: string
+    value: number
 }
 
-export type EnhancedDatum = Datum & {
-    scale: ScaleLinear<number>
+export interface BulletDatum {
+    id: string
+    value: number
+    baseline?: number
+    target: number
+    range: BulletRangeDatum[]
 }
 
-export interface ComputedRangeDatum {
-    index: number
+export interface BulletNodeBase<D = BulletDatum> {
+    id: string
+    value: number
+    formattedValue: string
+    rect: Rect
+    color: string
+    datum: D
+}
+
+export interface BulletNodeValue extends BulletNodeBase {
     v0: number
     v1: number
-    color: string
 }
 
-export interface ComputedMarkersDatum {
+export interface BulletNodeTarget extends BulletNodeBase {
+    p0: Point
+    p1: Point
+}
+
+export interface BulletNodeRangeItem extends BulletNodeBase<BulletRangeDatum> {
     index: number
-    value: number
-    color: string
+    isFirst: boolean
+    isLast: boolean
+    v0: number
+    v1: number
 }
 
-export type MouseEventHandler<D, T> = (datum: D, event: React.MouseEvent<T>) => void
+export interface BulletNode {
+    id: string
+    datum: BulletDatum
+    index: number
+    scale: BulletScale
+    rect: Rect
+    // value.color
+    color: string
+    value: BulletNodeValue
+    target: BulletNodeTarget
+    range: BulletNodeRangeItem[]
+}
 
-export type CommonBulletProps = Dimensions & {
+export type MouseEventHandler<N> = (node: N, event: MouseEvent) => void
+
+export type BulletLayerId =
+    | 'axes'
+    | 'ranges'
+    | 'values'
+    | 'targets'
+    | 'titles'
+    | 'valueLabels'
+    | 'interactions'
+export type BulletValueComponent = RectNodeComponent<BulletNodeValue>
+export type BulletRangeComponent = RectNodeComponent<BulletNodeRangeItem>
+
+export interface BulletTooltipProps {
+    node: BulletNode
+}
+export type BulletTooltipComponent = FunctionComponent<BulletTooltipProps>
+
+export interface BulletCommonOverrides {
+    valueColor?: OrdinalColorScaleConfig<BulletDatum>
+    targetColor?: OrdinalColorScaleConfig<BulletDatum>
+    rangeColors?: OrdinalColorScaleConfig<BulletRangeDatum> | ContinuousColorScaleConfig
+}
+
+export type BulletPropsOverrides<P> = Record<string, Partial<P>> | ((d: BulletDatum) => Partial<P>)
+
+export type BulletCommonProps = {
     margin: Box
-
     layout: 'horizontal' | 'vertical'
-    reverse: boolean
+    scale: BulletScaleSpec
+    baseline: number
+    valueFormat?: ValueFormat<number>
     spacing: number
-
-    minValue: 'auto' | number
-    maxValue: 'auto' | number
-
-    titlePosition: 'before' | 'after'
-    titleAlign: 'start' | 'middle' | 'end'
+    valueSize: number
+    valuePadding: number
+    valueColor: OrdinalColorScaleConfig<BulletDatum>
+    valueBorderRadius: BorderRadius
+    valueBorderWidth: number
+    valueBorderColor: InheritedColorConfig<BulletNodeValue>
+    targetSize: number
+    targetThickness: number
+    targetColor: OrdinalColorScaleConfig<BulletDatum>
+    targetBorderRadius: BorderRadius
+    rangeSize: number
+    rangeColors: OrdinalColorScaleConfig<BulletDatum['range']> | ContinuousColorScaleConfig
+    rangeBorderRadius: BorderRadius
+    rangeBorderColor: InheritedColorConfig<BulletNodeRangeItem>
+    rangeBorderWidth: number
+    enableTitles: boolean
+    titleAnchor: BoxAnchor
+    titleAlign: TextAlign | 'auto'
+    titleBaseline: TextBaseline | 'auto'
+    titlePaddingX: number
+    titlePaddingY: number
     titleOffsetX: number
     titleOffsetY: number
     titleRotation: number
-    tooltip: React.ComponentType<BulletTooltipProps>
-
-    rangeBorderColor: InheritedColorConfig<ComputedRangeDatum>
-    rangeBorderWidth: number
-    rangeComponent: React.ComponentType<BulletRectsItemProps>
-    rangeColors: Colors
-
-    measureBorderColor: InheritedColorConfig<ComputedRangeDatum>
-    measureBorderWidth: number
-    measureComponent: React.ComponentType<BulletRectsItemProps>
-    measureColors: Colors
-    measureSize: number
-
-    markerComponent: React.ComponentType<BulletMarkersItemProps>
-    markerColors: Colors
-    markerSize: number
-
-    axisPosition: 'before' | 'after'
-
+    enableValueLabels: boolean
+    valueLabelAnchor: BoxAnchor
+    valueLabelIsOutside: boolean
+    valueLabelAlign: TextAlign | 'auto'
+    valueLabelBaseline: TextBaseline | 'auto'
+    valueLabelPaddingX: number
+    valueLabelPaddingY: number
+    valueLabelOffsetX: number
+    valueLabelOffsetY: number
+    valueLabelRotation: number
+    titleColor: InheritedColorConfig<Omit<BulletNode, 'rect'>>
+    overrides?: BulletPropsOverrides<BulletCommonOverrides>
     theme: PartialTheme
-
     isInteractive: boolean
-
-    role: string
+    enableValueTooltip: boolean
+    tooltip: BulletTooltipComponent
+    role?: string
+    ariaLabel?: AriaAttributes['aria-label']
+    ariaLabelledBy?: AriaAttributes['aria-labelledby']
+    ariaDescribedBy?: AriaAttributes['aria-describedby']
 }
 
-export type BulletHandlers = {
-    onRangeClick?: MouseEventHandler<WithDatumId<ComputedRangeDatum>, SVGRectElement>
-    onMeasureClick?: MouseEventHandler<WithDatumId<ComputedRangeDatum>, SVGRectElement>
-    onMarkerClick?: MouseEventHandler<WithDatumId<ComputedMarkersDatum>, SVGLineElement>
+type BulletEventMap = Pick<
+    EventMap,
+    | 'onMouseEnter'
+    | 'onMouseMove'
+    | 'onMouseLeave'
+    | 'onClick'
+    | 'onDoubleClick'
+    | 'onFocus'
+    | 'onBlur'
+    | 'onKeyDown'
+    | 'onWheel'
+    | 'onContextMenu'
+>
+export type BulletInteractionHandlers = InteractionHandlers<BulletNode, BulletEventMap>
+
+export type BulletSvgOverrides = BulletCommonOverrides &
+    Pick<BulletSvgExtraProps, 'axisBefore' | 'axisAfter'>
+
+export interface BulletSvgExtraProps {
+    layers: readonly BulletLayerId[]
+    axisBefore: AxisProps | null
+    axisAfter: AxisProps | null
+    valueComponent: BulletValueComponent
+    rangeComponent: BulletRangeComponent
+    overrides?: BulletPropsOverrides<BulletSvgOverrides>
+    isFocusable: boolean
+    valueBarRole?: string | ((data: BulletDatum) => string)
+    valueBarAriaLabel?: (data: BulletDatum) => AriaAttributes['aria-label']
+    valueBarAriaLabelledBy?: (data: BulletDatum) => AriaAttributes['aria-labelledby']
+    valueBarAriaDescribedBy?: (data: BulletDatum) => AriaAttributes['aria-describedby']
+    valueBarAriaHidden?: (data: BulletDatum) => AriaAttributes['aria-hidden']
+    valueBarAriaDisabled?: (data: BulletDatum) => AriaAttributes['aria-disabled']
 }
 
-export type BulletSvgProps = Partial<CommonBulletProps> &
+export interface BulletDataProps {
+    data: readonly BulletDatum[]
+}
+
+export type BulletSvgProps = BulletDataProps &
+    Partial<BulletCommonProps> &
+    Partial<BulletSvgExtraProps> &
     Dimensions &
-    BulletHandlers &
-    MotionProps & {
-        data: Datum[]
-    }
+    BulletInteractionHandlers &
+    MotionProps
 
-type MouseEventWithDatum<D, Element> = (
-    datum: D,
-    event: React.MouseEvent<Element, MouseEvent>
-) => void
-
-export type BulletRectComputedRect = Point &
-    Dimensions & {
-        data: ComputedRangeDatum
-    }
-
-export type BulletRectAnimatedProps = Point & Dimensions & Pick<ComputedRangeDatum, 'color'>
-
-export type BulletRectsItemProps = Pick<
-    BulletRectsProps,
-    'onMouseEnter' | 'onMouseLeave' | 'onClick'
-> &
-    Point &
-    Dimensions & {
-        animatedProps: SpringValues<BulletRectAnimatedProps>
-        borderColor: string
-        borderWidth: number
-        color: string
-        data: ComputedRangeDatum
-        index: number
-        onMouseMove: BulletRectsProps['onMouseEnter']
-    }
-
-export type BulletMarkersItemProps = Pick<
-    BulletMarkersProps,
-    'onMouseEnter' | 'onMouseLeave' | 'onClick'
-> &
-    Point & {
-        animatedProps: SpringValues<PositionWithColor>
-        size: number
-        rotation: number
-        color: string
-        data: {
-            index: number
-            value: number
-            color: string
-        }
-        onMouseMove: BulletMarkersProps['onMouseEnter']
-    }
-
-export type BulletRectsProps = Pick<CommonBulletProps, 'layout' | 'reverse'> &
+export type BulletSvgPropsWithDefaults = BulletDataProps &
+    BulletCommonProps &
+    BulletSvgExtraProps &
     Dimensions &
-    Point & {
-        animatedProps?: SpringValues<{
-            measuresY: number
-            transform: string
-        }>
-        borderColor: InheritedColorConfig<ComputedRangeDatum>
-        borderWidth: number
-        scale: ScaleLinear<number>
-        data: ComputedRangeDatum[]
-        component: CommonBulletProps['rangeComponent']
-        onMouseEnter: MouseEventWithDatum<ComputedRangeDatum, SVGRectElement>
-        onMouseLeave: MouseEventWithDatum<ComputedRangeDatum, SVGRectElement>
-        onClick: MouseEventWithDatum<ComputedRangeDatum, SVGRectElement>
-    }
-
-export type Position = Point & {
-    size: number
-    rotation: number
-}
-
-export type MarkerWithPosition = ComputedMarkersDatum & {
-    position: Position
-}
-
-export type PositionWithColor = {
-    color: string
-    transform: string
-    x: number
-    y1: number
-    y2: number
-}
-
-export type BulletMarkersProps = Pick<CommonBulletProps, 'layout' | 'reverse'> &
-    Pick<Dimensions, 'height'> & {
-        scale: ScaleLinear<number>
-        markerSize: number
-        markers: ComputedMarkersDatum[]
-        component: CommonBulletProps['markerComponent']
-        onMouseEnter: MouseEventWithDatum<ComputedMarkersDatum, SVGLineElement>
-        onMouseLeave: MouseEventWithDatum<ComputedMarkersDatum, SVGLineElement>
-        onClick: MouseEventWithDatum<ComputedMarkersDatum, SVGLineElement>
-    }
-
-export type BulletItemProps = Omit<
-    CommonBulletProps,
-    | 'outerWidth'
-    | 'outerHeight'
-    | 'margin'
-    | 'spacing'
-    | 'role'
-    | 'minValue'
-    | 'maxValue'
-    | 'measureSize'
-    | 'markerSize'
-    | 'theme'
-    | 'isInteractive'
-> &
-    BulletHandlers &
-    EnhancedDatum &
-    MotionProps &
-    Point & {
-        measureHeight: number
-        markerHeight: number
-    }
-
-export interface BulletTooltipProps {
-    v0: number
-    v1?: number
-    color: string
-}
+    BulletInteractionHandlers &
+    MotionProps

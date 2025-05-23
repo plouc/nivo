@@ -1,0 +1,72 @@
+import { motionDefaultProps, defaultMargin } from '@nivo/core'
+import { RectNodeSvg } from '@nivo/rects'
+import { BulletTooltip } from './BulletTooltip'
+import { BulletCommonProps, BulletSvgPropsWithDefaults } from './types'
+
+export const commonDefaultProps: Omit<BulletCommonProps, 'theme'> = {
+    layout: 'horizontal',
+    spacing: 30,
+    scale: {
+        type: 'linear',
+        min: 'auto',
+        max: 'auto',
+        nice: false,
+    },
+    baseline: 0,
+    valueSize: 0.5,
+    valuePadding: 3,
+    valueColor: '#d6a933',
+    valueBorderRadius: 2,
+    valueBorderWidth: 0,
+    valueBorderColor: { from: 'color', modifiers: [['darker', 1]] },
+    targetSize: 0.8,
+    targetThickness: 4,
+    targetColor: '#ff0000',
+    targetBorderRadius: 0,
+    rangeSize: 1,
+    rangeColors: 'seq:cool',
+    rangeBorderRadius: 0,
+    rangeBorderWidth: 0,
+    rangeBorderColor: { from: 'color', modifiers: [['darker', 1]] },
+    enableTitles: true,
+    titleAnchor: 'left',
+    titleAlign: 'auto',
+    titleBaseline: 'auto',
+    titlePaddingX: 16,
+    titlePaddingY: 16,
+    titleOffsetX: 0,
+    titleOffsetY: 0,
+    titleRotation: 0,
+    titleColor: { theme: 'labels.text.fill' },
+    enableValueLabels: true,
+    valueLabelAnchor: 'right',
+    valueLabelIsOutside: false,
+    valueLabelAlign: 'auto',
+    valueLabelBaseline: 'auto',
+    valueLabelPaddingX: 12,
+    valueLabelPaddingY: 12,
+    valueLabelOffsetX: 0,
+    valueLabelOffsetY: 0,
+    valueLabelRotation: 0,
+    // valueLabelColor: { theme: 'labels.text.fill' },
+    isInteractive: true,
+    enableValueTooltip: true,
+    tooltip: BulletTooltip,
+    margin: defaultMargin,
+    role: 'img',
+}
+
+export const svgDefaultProps: Omit<
+    BulletSvgPropsWithDefaults,
+    'data' | 'width' | 'height' | 'theme'
+> = {
+    ...commonDefaultProps,
+    layers: ['axes', 'ranges', 'values', 'targets', 'titles', 'valueLabels', 'interactions'],
+    axisBefore: null,
+    axisAfter: {},
+    valueComponent: RectNodeSvg,
+    rangeComponent: RectNodeSvg,
+    isFocusable: true,
+    animate: motionDefaultProps.animate,
+    motionConfig: motionDefaultProps.config,
+}
