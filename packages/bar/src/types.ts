@@ -1,4 +1,5 @@
-import { MouseEvent, AriaAttributes, FunctionComponent } from 'react'
+import { AriaAttributes, FunctionComponent } from 'react'
+import { SpringValues } from '@react-spring/web'
 import { AnnotationMatcher } from '@nivo/annotations'
 import { AxisProps, CanvasAxisProps, GridValues } from '@nivo/axes'
 import {
@@ -12,12 +13,13 @@ import {
     ValueFormat,
     WithChartRef,
     ResponsiveProps,
+    EventMap,
+    InteractionHandlers,
 } from '@nivo/core'
 import { PartialTheme, TextStyle } from '@nivo/theming'
 import { InheritedColorConfig, OrdinalColorScale, OrdinalColorScaleConfig } from '@nivo/colors'
 import { LegendProps } from '@nivo/legends'
 import { AnyScale, ScaleLinearSpec, ScaleSymlogSpec, ScaleBandSpec } from '@nivo/scales'
-import { SpringValues } from '@react-spring/web'
 import { BarLabelLayout } from './compute/common'
 
 // We can use any type for the index, but we need to pick
@@ -135,13 +137,13 @@ interface BarCustomLayerBaseProps<D extends BarDatum = BarDatum, I extends BarIn
 
 export interface BarCustomLayerProps<D extends BarDatum = BarDatum, I extends BarIndex = string>
     extends BarCustomLayerBaseProps<D, I>,
-        BarHandlers<D, I> {}
+        BarInteractionHandlers<D, I> {}
 
 export interface BarCanvasCustomLayerProps<
     D extends BarDatum = BarDatum,
     I extends BarIndex = string,
 > extends BarCustomLayerBaseProps<D, I>,
-        BarHandlers<D, I> {}
+        BarInteractionHandlers<D, I> {}
 
 export type BarCanvasCustomLayer<D extends BarDatum = BarDatum, I extends BarIndex = string> = (
     context: CanvasRenderingContext2D,
@@ -164,7 +166,7 @@ export interface BarItemProps<D extends BarDatum = BarDatum, I extends BarIndex 
             BarCommonProps<D, I>,
             'borderRadius' | 'borderWidth' | 'isInteractive' | 'tooltip'
         >,
-        BarHandlers<D, I> {
+        BarInteractionHandlers<D, I> {
     bar: ComputedBarDatum<D, I> & {
         data: {
             value: number
@@ -229,11 +231,23 @@ export type BarTooltipComponent<
     I extends BarIndex = string,
 > = FunctionComponent<BarTooltipProps<D, I>>
 
-export type BarHandlers<D extends BarDatum = BarDatum, I extends BarIndex = string> = {
-    onClick?: (datum: ComputedDatum<D, I> & { color: string }, event: MouseEvent) => void
-    onMouseEnter?: (datum: ComputedDatum<D, I>, event: MouseEvent) => void
-    onMouseLeave?: (datum: ComputedDatum<D, I>, event: MouseEvent) => void
-}
+type BarEventMap = Pick<
+    EventMap,
+    | 'onMouseEnter'
+    | 'onMouseMove'
+    | 'onMouseLeave'
+    | 'onClick'
+    | 'onDoubleClick'
+    | 'onFocus'
+    | 'onBlur'
+    | 'onKeyDown'
+    | 'onWheel'
+    | 'onContextMenu'
+>
+export type BarInteractionHandlers<
+    D extends BarDatum = BarDatum,
+    I extends BarIndex = string,
+> = InteractionHandlers<ComputedDatum<D, I>, BarEventMap>
 
 export type BarCommonProps<D extends BarDatum = BarDatum, I extends BarIndex = string> = {
     indexBy: PropertyAccessor<D, I>
@@ -301,14 +315,16 @@ interface BarSvgExtraProps<D extends BarDatum = BarDatum, I extends BarIndex = s
 export type BarSvgProps<D extends BarDatum = BarDatum, I extends BarIndex = string> = DataProps<D> &
     Partial<BarCommonProps<D, I>> &
     Partial<BarSvgExtraProps<D, I>> &
-    BarHandlers<D, I> &
+    BarInteractionHandlers<D, I> &
     SvgDefsAndFill<ComputedBarDatum<D, I>> &
     Dimensions &
     MotionProps
+
 export type ResponsiveBarSvgProps<
     D extends BarDatum = BarDatum,
     I extends BarIndex = string,
 > = WithChartRef<ResponsiveProps<BarSvgProps<D, I>>, SVGSVGElement>
+
 export type BarSvgPropsWithDefaults<
     D extends BarDatum = BarDatum,
     I extends BarIndex = string,
@@ -335,16 +351,22 @@ export type BarCanvasProps<
 > = DataProps<D> &
     Partial<BarCommonProps<D, I>> &
     Partial<BarCanvasExtraProps<D, I>> &
-    BarHandlers<D, I> &
+    BarInteractionHandlers<D, I> &
     Dimensions
+
 export type ResponsiveBarCanvasProps<
     D extends BarDatum = BarDatum,
     I extends BarIndex = string,
 > = WithChartRef<ResponsiveProps<BarCanvasProps<D, I>>, HTMLCanvasElement>
+
 export type BarCanvasPropsWithDefaults<
     D extends BarDatum = BarDatum,
     I extends BarIndex = string,
-> = DataProps<D> & BarCommonProps<D, I> & BarCanvasExtraProps<D, I> & BarHandlers<D, I> & Dimensions
+> = DataProps<D> &
+    BarCommonProps<D, I> &
+    BarCanvasExtraProps<D, I> &
+    BarInteractionHandlers<D, I> &
+    Dimensions
 
 export type BarAnnotationsProps<D extends BarDatum = BarDatum, I extends BarIndex = string> = {
     annotations: readonly AnnotationMatcher<ComputedBarDatum<D, I>>[]
