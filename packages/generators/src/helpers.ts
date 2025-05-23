@@ -14,7 +14,7 @@ export const applyPrecision = (value: number, decimalPlaces: number): number =>
  * A tiny deterministic PRNG (32-bit). Pass-in any integer seed.
  * Returns a function that yields [0,1] on each call.
  */
-export const mulberry32 = (seed: number = 0): (() => number) => {
+export const mulberry32 = (seed = 0): (() => number) => {
     let t = seed >>> 0
 
     return () => {
