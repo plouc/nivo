@@ -80,7 +80,7 @@ export const generateRange = ({
     // Generate raw fractions including endpoints
     const rawFractions = generateFractions(rawInteriorCount + 2, jitter, random)
     // Extract only interior fractions (drop 0 and 1)
-    let interiorFractions = rawFractions.slice(1, -1)
+    const interiorFractions = rawFractions.slice(1, -1)
 
     // If baseline is interior, drop the fraction closest to baseline
     if (baselineInterior) {

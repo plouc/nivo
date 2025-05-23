@@ -103,6 +103,7 @@ export const RectLabels = <Node extends NodeWithRectAndColor>({
         skipHeight,
         getLabel,
         boxAnchor,
+        isOutside,
         rotation,
         getTextColor,
     ])
