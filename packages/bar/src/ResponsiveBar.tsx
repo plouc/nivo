@@ -1,17 +1,17 @@
 import { forwardRef, Ref, ReactElement } from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
 import { Bar } from './Bar'
-import { BarDatum, ResponsiveBarSvgProps } from './types'
+import { BarDatum, BarIndex, ResponsiveBarSvgProps } from './types'
 
 export const ResponsiveBar = forwardRef(
-    <D extends BarDatum>(
+    <D extends BarDatum = BarDatum, I extends BarIndex = string>(
         {
             defaultWidth,
             defaultHeight,
             onResize,
             debounceResize,
             ...props
-        }: Omit<ResponsiveBarSvgProps<D>, 'ref'>,
+        }: Omit<ResponsiveBarSvgProps<D, I>, 'ref'>,
         ref: Ref<SVGSVGElement>
     ) => (
         <ResponsiveWrapper
@@ -20,7 +20,11 @@ export const ResponsiveBar = forwardRef(
             onResize={onResize}
             debounceResize={debounceResize}
         >
-            {({ width, height }) => <Bar<D> {...props} width={width} height={height} ref={ref} />}
+            {({ width, height }) => (
+                <Bar<D, I> {...props} width={width} height={height} ref={ref} />
+            )}
         </ResponsiveWrapper>
     )
-) as <D extends BarDatum>(props: ResponsiveBarSvgProps<D>) => ReactElement
+) as <D extends BarDatum = BarDatum, I extends BarIndex = string>(
+    props: ResponsiveBarSvgProps<D, I>
+) => ReactElement

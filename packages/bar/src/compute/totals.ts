@@ -1,6 +1,6 @@
 import { AnyScale, ScaleBand } from '@nivo/scales'
 import { commonDefaultProps } from '../defaults'
-import { BarCommonProps, BarDatum, ComputedBarDatum } from '../types'
+import { BarCommonProps, BarDatum, BarIndex, ComputedBarDatum } from '../types'
 
 export interface BarTotalsData {
     key: string
@@ -11,12 +11,12 @@ export interface BarTotalsData {
     animationOffset: number
 }
 
-export const computeBarTotals = <D extends BarDatum>(
-    bars: ComputedBarDatum<D>[],
+export const computeBarTotals = <D extends BarDatum = BarDatum, I extends BarIndex = string>(
+    bars: ComputedBarDatum<D, I>[],
     xScale: ScaleBand<string> | AnyScale,
     yScale: ScaleBand<string> | AnyScale,
-    layout: BarCommonProps<D>['layout'] = commonDefaultProps.layout,
-    groupMode: BarCommonProps<D>['groupMode'] = commonDefaultProps.groupMode,
+    layout: BarCommonProps<D, I>['layout'] = commonDefaultProps.layout,
+    groupMode: BarCommonProps<D, I>['groupMode'] = commonDefaultProps.groupMode,
     totalsOffset: number,
     formatValue: (value: number) => string
 ) => {

@@ -17,9 +17,12 @@ import { BarLegends } from './BarLegends'
 import { useBar } from './hooks'
 import { svgDefaultProps } from './defaults'
 import {
+    BarAnnotationMatcher,
+    BarBorderColor,
     BarComponent,
     BarCustomLayerProps,
     BarDatum,
+    BarIndex,
     BarItemProps,
     BarLayerId,
     BarSvgProps,
@@ -29,12 +32,12 @@ import {
 import { BarTotals } from './BarTotals'
 import { useComputeLabelLayout } from './compute/common'
 
-type InnerBarProps<D extends BarDatum> = Omit<
-    BarSvgProps<D>,
+type InnerBarProps<D extends BarDatum = BarDatum, I extends BarIndex = string> = Omit<
+    BarSvgProps<D, I>,
     'animate' | 'motionConfig' | 'renderWrapper' | 'theme'
 >
 
-const InnerBar = <D extends BarDatum>({
+const InnerBar = <D extends BarDatum = BarDatum, I extends BarIndex = string>({
     data,
     indexBy,
     keys,
@@ -56,7 +59,7 @@ const InnerBar = <D extends BarDatum>({
     gridXValues,
     gridYValues,
     layers = svgDefaultProps.layers as BarLayerId[],
-    barComponent = svgDefaultProps.barComponent as unknown as BarComponent<D>,
+    barComponent = svgDefaultProps.barComponent as unknown as BarComponent<D, I>,
     enableLabel = svgDefaultProps.enableLabel,
     label,
     labelSkipWidth = svgDefaultProps.labelSkipWidth,
@@ -65,19 +68,20 @@ const InnerBar = <D extends BarDatum>({
     labelPosition = svgDefaultProps.labelPosition,
     labelOffset = svgDefaultProps.labelOffset,
     markers = svgDefaultProps.markers,
-    colorBy,
     colors,
+    colorBy,
     defs = svgDefaultProps.defs,
+    // @ts-expect-error the typings for SVG fill are not easy to get right.
     fill = svgDefaultProps.fill,
     borderRadius = svgDefaultProps.borderRadius,
     borderWidth = svgDefaultProps.borderWidth,
-    borderColor,
-    annotations = svgDefaultProps.annotations,
+    borderColor = svgDefaultProps.borderColor as BarBorderColor<D, I>,
+    annotations = svgDefaultProps.annotations as BarAnnotationMatcher<D, I>[],
     legendLabel,
     tooltipLabel,
     valueFormat,
     isInteractive = svgDefaultProps.isInteractive,
-    tooltip = svgDefaultProps.tooltip as BarTooltipComponent<D>,
+    tooltip = svgDefaultProps.tooltip as BarTooltipComponent<D, I>,
     onClick,
     onMouseEnter,
     onMouseLeave,
@@ -96,7 +100,7 @@ const InnerBar = <D extends BarDatum>({
     enableTotals = svgDefaultProps.enableTotals,
     totalsOffset = svgDefaultProps.totalsOffset,
     forwardedRef,
-}: InnerBarProps<D> & {
+}: InnerBarProps<D, I> & {
     forwardedRef: Ref<SVGSVGElement>
 }) => {
     const { animate, config: springConfig } = useMotionConfig()
@@ -120,7 +124,7 @@ const InnerBar = <D extends BarDatum>({
         legendsWithData,
         barTotals,
         getColor,
-    } = useBar<D>({
+    } = useBar<D, I>({
         indexBy,
         label,
         tooltipLabel,
@@ -157,7 +161,7 @@ const InnerBar = <D extends BarDatum>({
     )
 
     const transition = useTransition<
-        ComputedBarDatumWithValue<D>,
+        ComputedBarDatumWithValue<D, I>,
         {
             borderColor: string
             color: string
@@ -169,7 +173,7 @@ const InnerBar = <D extends BarDatum>({
             opacity: number
             transform: string
             width: number
-            textAnchor: BarItemProps<D>['style']['textAnchor']
+            textAnchor: BarItemProps<D, I>['style']['textAnchor']
         }
     >(barsWithValue, {
         keys: bar => bar.key,
@@ -293,7 +297,7 @@ const InnerBar = <D extends BarDatum>({
 
     if (layers.includes('annotations')) {
         layerById.annotations = (
-            <BarAnnotations key="annotations" bars={bars} annotations={annotations} />
+            <BarAnnotations<D, I> key="annotations" bars={bars} annotations={annotations} />
         )
     }
 
@@ -370,7 +374,7 @@ const InnerBar = <D extends BarDatum>({
 
     if (layers.includes('totals') && enableTotals) {
         layerById.totals = (
-            <BarTotals
+            <BarTotals<D, I>
                 key="totals"
                 data={barTotals}
                 springConfig={springConfig}
@@ -380,7 +384,7 @@ const InnerBar = <D extends BarDatum>({
         )
     }
 
-    const layerContext: BarCustomLayerProps<D> = {
+    const layerContext: BarCustomLayerProps<D, I> = {
         ...commonProps,
         margin,
         width,
@@ -425,7 +429,7 @@ const InnerBar = <D extends BarDatum>({
 }
 
 export const Bar = forwardRef(
-    <D extends BarDatum>(
+    <D extends BarDatum = BarDatum, I extends BarIndex = string>(
         {
             isInteractive = svgDefaultProps.isInteractive,
             animate = svgDefaultProps.animate,
@@ -433,7 +437,7 @@ export const Bar = forwardRef(
             theme,
             renderWrapper,
             ...props
-        }: BarSvgProps<D>,
+        }: BarSvgProps<D, I>,
         ref: Ref<SVGSVGElement>
     ) => (
         <Container
@@ -443,7 +447,9 @@ export const Bar = forwardRef(
             renderWrapper={renderWrapper}
             theme={theme}
         >
-            <InnerBar<D> {...props} isInteractive={isInteractive} forwardedRef={ref} />
+            <InnerBar<D, I> {...props} isInteractive={isInteractive} forwardedRef={ref} />
         </Container>
     )
-) as <D extends BarDatum>(props: WithChartRef<BarSvgProps<D>, SVGSVGElement>) => ReactElement
+) as <D extends BarDatum = BarDatum, I extends BarIndex = string>(
+    props: WithChartRef<BarSvgProps<D, I>, SVGSVGElement>
+) => ReactElement

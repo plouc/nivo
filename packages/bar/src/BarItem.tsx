@@ -3,9 +3,9 @@ import { animated, to } from '@react-spring/web'
 import { useTheme } from '@nivo/theming'
 import { useTooltip } from '@nivo/tooltip'
 import { Text } from '@nivo/text'
-import { BarDatum, BarItemProps } from './types'
+import { BarDatum, BarIndex, BarItemProps } from './types'
 
-export const BarItem = <D extends BarDatum>({
+export const BarItem = <D extends BarDatum = BarDatum, I extends BarIndex = string>({
     bar: { data, ...bar },
     style: {
         borderColor,
@@ -34,7 +34,7 @@ export const BarItem = <D extends BarDatum>({
     ariaDescribedBy,
     ariaDisabled,
     ariaHidden,
-}: BarItemProps<D>) => {
+}: BarItemProps<D, I>) => {
     const theme = useTheme()
     const { showTooltipFromEvent, showTooltipAt, hideTooltip } = useTooltip()
 

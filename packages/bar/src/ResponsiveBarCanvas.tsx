@@ -1,17 +1,17 @@
 import { ForwardedRef, forwardRef, ReactElement } from 'react'
 import { ResponsiveWrapper } from '@nivo/core'
-import { BarDatum, ResponsiveBarCanvasProps } from './types'
+import { BarDatum, BarIndex, ResponsiveBarCanvasProps } from './types'
 import { BarCanvas } from './BarCanvas'
 
 export const ResponsiveBarCanvas = forwardRef(
-    <D extends BarDatum>(
+    <D extends BarDatum = BarDatum, I extends BarIndex = string>(
         {
             defaultWidth,
             defaultHeight,
             onResize,
             debounceResize,
             ...props
-        }: Omit<ResponsiveBarCanvasProps<D>, 'ref'>,
+        }: Omit<ResponsiveBarCanvasProps<D, I>, 'ref'>,
         ref: ForwardedRef<HTMLCanvasElement>
     ) => (
         <ResponsiveWrapper
@@ -21,8 +21,10 @@ export const ResponsiveBarCanvas = forwardRef(
             debounceResize={debounceResize}
         >
             {({ width, height }) => (
-                <BarCanvas<D> {...props} width={width} height={height} ref={ref} />
+                <BarCanvas<D, I> {...props} width={width} height={height} ref={ref} />
             )}
         </ResponsiveWrapper>
     )
-) as <D extends BarDatum>(props: ResponsiveBarCanvasProps<D>) => ReactElement
+) as <D extends BarDatum = BarDatum, I extends BarIndex = string>(
+    props: ResponsiveBarCanvasProps<D, I>
+) => ReactElement

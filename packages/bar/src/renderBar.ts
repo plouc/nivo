@@ -1,8 +1,8 @@
 import { roundedRect } from '@nivo/canvas'
 import { drawCanvasText } from '@nivo/text'
-import { BarDatum, RenderBarProps } from './types'
+import { BarDatum, BarIndex, RenderBarProps } from './types'
 
-export const renderBar = <D extends BarDatum>(
+export const renderBar = <D extends BarDatum = BarDatum, I extends BarIndex = string>(
     ctx: CanvasRenderingContext2D,
     {
         bar: { color, height, width, x, y },
@@ -15,7 +15,7 @@ export const renderBar = <D extends BarDatum>(
         labelX,
         labelY,
         textAnchor,
-    }: RenderBarProps<D>
+    }: RenderBarProps<D, I>
 ) => {
     ctx.fillStyle = color
     if (borderWidth > 0) {

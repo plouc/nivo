@@ -30,12 +30,15 @@ import { renderAxesToCanvas, renderGridLinesToCanvas } from '@nivo/axes'
 import { renderLegendToCanvas } from '@nivo/legends'
 import { useTooltip } from '@nivo/tooltip'
 import {
+    BarAnnotationMatcher,
     BarCanvasCustomLayerProps,
     BarCanvasLayer,
     BarCanvasProps,
     BarCanvasRenderer,
     BarCommonProps,
     BarDatum,
+    BarIndex,
+    BarLabel,
     BarTooltipComponent,
     ComputedBarDatum,
 } from './types'
@@ -43,8 +46,8 @@ import { useBar } from './hooks'
 import { BarTotalsData } from './compute/totals'
 import { useComputeLabelLayout } from './compute/common'
 
-const findBarUnderCursor = <D extends BarDatum>(
-    nodes: ComputedBarDatum<D>[],
+const findBarUnderCursor = <D extends BarDatum = BarDatum, I extends BarIndex = string>(
+    nodes: readonly ComputedBarDatum<D, I>[],
     margin: Margin,
     x: number,
     y: number
@@ -55,11 +58,11 @@ const findBarUnderCursor = <D extends BarDatum>(
 
 const isNumber = (value: unknown): value is number => typeof value === 'number'
 
-function renderTotalsToCanvas<D extends BarDatum>(
+function renderTotalsToCanvas<D extends BarDatum = BarDatum, I extends BarIndex = string>(
     ctx: CanvasRenderingContext2D,
-    barTotals: BarTotalsData[],
+    barTotals: readonly BarTotalsData[],
     theme: Theme,
-    layout: BarCommonProps<D>['layout'] = canvasDefaultProps.layout
+    layout: BarCommonProps<D, I>['layout'] = canvasDefaultProps.layout
 ) {
     setCanvasFont(ctx, theme.labels.text)
     ctx.textBaseline = layout === 'vertical' ? 'alphabetic' : 'middle'
@@ -70,14 +73,14 @@ function renderTotalsToCanvas<D extends BarDatum>(
     })
 }
 
-type InnerBarCanvasProps<RawDatum extends BarDatum> = Omit<
-    BarCanvasProps<RawDatum>,
+type InnerBarCanvasProps<D extends BarDatum, I extends BarIndex = string> = Omit<
+    BarCanvasProps<D, I>,
     'renderWrapper' | 'theme'
 > & {
     forwardedRef: Ref<HTMLCanvasElement>
 }
 
-const InnerBarCanvas = <D extends BarDatum>({
+const InnerBarCanvas = <D extends BarDatum = BarDatum, I extends BarIndex = string>({
     data,
     indexBy,
     keys,
@@ -100,10 +103,10 @@ const InnerBarCanvas = <D extends BarDatum>({
     gridYValues,
     labelPosition = canvasDefaultProps.labelPosition,
     labelOffset = canvasDefaultProps.labelOffset,
-    layers = canvasDefaultProps.layers as BarCanvasLayer<D>[],
-    renderBar = canvasDefaultProps.renderBar as unknown as BarCanvasRenderer<D>,
+    layers = canvasDefaultProps.layers as BarCanvasLayer<D, I>[],
+    renderBar = canvasDefaultProps.renderBar as unknown as BarCanvasRenderer<D, I>,
     enableLabel = canvasDefaultProps.enableLabel,
-    label,
+    label = canvasDefaultProps.label as BarLabel<D, I>,
     labelSkipWidth = canvasDefaultProps.labelSkipWidth,
     labelSkipHeight = canvasDefaultProps.labelSkipHeight,
     labelTextColor,
@@ -112,12 +115,12 @@ const InnerBarCanvas = <D extends BarDatum>({
     borderRadius = canvasDefaultProps.borderRadius,
     borderWidth = canvasDefaultProps.borderWidth,
     borderColor,
-    annotations = canvasDefaultProps.annotations,
+    annotations = canvasDefaultProps.annotations as BarAnnotationMatcher<D, I>[],
     legendLabel,
-    tooltipLabel,
+    tooltipLabel = canvasDefaultProps.tooltipLabel as BarLabel<D, I>,
     valueFormat,
     isInteractive = canvasDefaultProps.isInteractive,
-    tooltip = canvasDefaultProps.tooltip as BarTooltipComponent<D>,
+    tooltip = canvasDefaultProps.tooltip as BarTooltipComponent<D, I>,
     onClick,
     onMouseEnter,
     onMouseLeave,
@@ -127,7 +130,7 @@ const InnerBarCanvas = <D extends BarDatum>({
     forwardedRef,
     enableTotals = canvasDefaultProps.enableTotals,
     totalsOffset = canvasDefaultProps.totalsOffset,
-}: InnerBarCanvasProps<D>) => {
+}: InnerBarCanvasProps<D, I>) => {
     const canvasEl = useRef<HTMLCanvasElement | null>(null)
 
     const theme = useTheme()
@@ -150,7 +153,7 @@ const InnerBarCanvas = <D extends BarDatum>({
         legendsWithData,
         barTotals,
         getColor,
-    } = useBar<D>({
+    } = useBar<D, I>({
         indexBy,
         label,
         tooltipLabel,
@@ -181,7 +184,7 @@ const InnerBarCanvas = <D extends BarDatum>({
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     // Using any because return type isn't correct
-    const boundAnnotations: any = useComputedAnnotations({
+    const boundAnnotations: any = useComputedAnnotations<ComputedBarDatum<D, I>>({
         annotations: useAnnotations({
             data: bars,
             annotations,
@@ -198,7 +201,7 @@ const InnerBarCanvas = <D extends BarDatum>({
     })
 
     // We use `any` here until we can figure out the best way to type xScale/yScale
-    const layerContext: BarCanvasCustomLayerProps<D> = useMemo(
+    const layerContext: BarCanvasCustomLayerProps<D, I> = useMemo(
         () => ({
             borderRadius,
             borderWidth,
@@ -468,8 +471,8 @@ const InnerBarCanvas = <D extends BarDatum>({
 }
 
 export const BarCanvas = forwardRef(
-    <RawDatum extends BarDatum>(
-        { isInteractive, renderWrapper, theme, ...props }: BarCanvasProps<RawDatum>,
+    <D extends BarDatum = BarDatum, I extends BarIndex = string>(
+        { isInteractive, renderWrapper, theme, ...props }: BarCanvasProps<D, I>,
         ref: Ref<HTMLCanvasElement>
     ) => (
         <Container
@@ -478,9 +481,9 @@ export const BarCanvas = forwardRef(
             theme={theme}
             animate={false}
         >
-            <InnerBarCanvas<RawDatum> {...props} isInteractive={isInteractive} forwardedRef={ref} />
+            <InnerBarCanvas<D, I> {...props} isInteractive={isInteractive} forwardedRef={ref} />
         </Container>
     )
-) as <RawDatum extends BarDatum>(
-    props: WithChartRef<BarCanvasProps<RawDatum>, HTMLCanvasElement>
+) as <D extends BarDatum = BarDatum, I extends BarIndex = string>(
+    props: WithChartRef<BarCanvasProps<D, I>, HTMLCanvasElement>
 ) => ReactElement

@@ -1,5 +1,6 @@
 import {
     BarDatum,
+    BarIndex,
     BarLegendProps,
     BarSvgProps,
     BarsWithHidden,
@@ -40,10 +41,10 @@ export const getLegendDataForKeys = <RawDatum extends BarDatum>(
     return data
 }
 
-export const getLegendDataForIndexes = <RawDatum extends BarDatum>(
-    bars: BarsWithHidden<RawDatum>,
-    layout: NonNullable<BarSvgProps<RawDatum>['layout']>,
-    getLegendLabel: (datum: LegendLabelDatum<RawDatum>) => string
+export const getLegendDataForIndexes = <D extends BarDatum = BarDatum, I extends BarIndex = string>(
+    bars: BarsWithHidden<D, I>,
+    layout: NonNullable<BarSvgProps<D, I>['layout']>,
+    getLegendLabel: (datum: LegendLabelDatum<D, I>) => string
 ): LegendData[] => {
     const data = uniqBy(
         bars.map(bar => ({
@@ -62,7 +63,7 @@ export const getLegendDataForIndexes = <RawDatum extends BarDatum>(
     return data
 }
 
-export const getLegendData = <RawDatum extends BarDatum>({
+export const getLegendData = <D extends BarDatum = BarDatum, I extends BarIndex = string>({
     bars,
     direction,
     from,
@@ -70,11 +71,11 @@ export const getLegendData = <RawDatum extends BarDatum>({
     layout,
     legendLabel,
     reverse,
-}: Pick<Required<BarSvgProps<RawDatum>>, 'layout' | 'groupMode'> & {
-    bars: BarsWithHidden<RawDatum>
+}: Pick<Required<BarSvgProps<D, I>>, 'layout' | 'groupMode'> & {
+    bars: BarsWithHidden<D, I>
     direction: BarLegendProps['direction']
     from: BarLegendProps['dataFrom']
-    legendLabel: BarSvgProps<RawDatum>['legendLabel']
+    legendLabel: BarSvgProps<D, I>['legendLabel']
     reverse: boolean
 }) => {
     const getLegendLabel = getPropertyAccessor(
@@ -82,8 +83,8 @@ export const getLegendData = <RawDatum extends BarDatum>({
     )
 
     if (from === 'indexes') {
-        return getLegendDataForIndexes(bars, layout, getLegendLabel)
+        return getLegendDataForIndexes<D>(bars, layout, getLegendLabel)
     }
 
-    return getLegendDataForKeys(bars, layout, direction, groupMode, reverse, getLegendLabel)
+    return getLegendDataForKeys<D>(bars, layout, direction, groupMode, reverse, getLegendLabel)
 }
