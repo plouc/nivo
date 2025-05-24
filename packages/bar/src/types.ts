@@ -33,8 +33,30 @@ export type BarIndex = string | number | Date
 export type BarValue = number | null
 // Default datum type for the bar chart.
 export type BarDatum = Record<string, unknown>
-export type BarBorderColor<D extends BarDatum = BarDatum, I extends BarIndex = string> = InheritedColorConfig<ComputedBarDatumWithValue<D, I>>
-export type BarAnnotationMatcher<D extends BarDatum = BarDatum, I extends BarIndex = string> = AnnotationMatcher<ComputedBarDatum<D, I>>
+export type BarIndexBy<
+    D extends BarDatum = BarDatum,
+    I extends BarIndex = string,
+> = PropertyAccessor<D, I>
+export type BarColors<
+    D extends BarDatum = BarDatum,
+    I extends BarIndex = string,
+> = OrdinalColorScaleConfig<ComputedDatum<D, I>>
+export type BarBorderColor<
+    D extends BarDatum = BarDatum,
+    I extends BarIndex = string,
+> = InheritedColorConfig<ComputedBarDatumWithValue<D, I>>
+export type BarLabel<D extends BarDatum = BarDatum, I extends BarIndex = string> = PropertyAccessor<
+    ComputedBarDatum<D, I>,
+    string
+>
+export type BarLabelTextColor<
+    D extends BarDatum = BarDatum,
+    I extends BarIndex = string,
+> = InheritedColorConfig<ComputedBarDatumWithValue<D, I>>
+export type BarAnnotationMatcher<
+    D extends BarDatum = BarDatum,
+    I extends BarIndex = string,
+> = AnnotationMatcher<ComputedBarDatum<D, I>>
 
 export interface DataProps<D extends BarDatum> {
     data: readonly D[]
@@ -74,20 +96,22 @@ export type ComputedBarDatum<D extends BarDatum = BarDatum, I extends BarIndex =
     label: string
 }
 
-export type BarsWithHidden<D extends BarDatum = BarDatum, I extends BarIndex = string> = Array<
-    Partial<{
-        key: string
-        x: number
-        y: number
-        width: number
-        height: number
-        color: string
-    }> & {
-        data: Partial<ComputedDatum<D, I>> & {
-            id: string | number
-            hidden: boolean
+export type BarsWithHidden<D extends BarDatum = BarDatum, I extends BarIndex = string> = Readonly<
+    Array<
+        Partial<{
+            key: string
+            x: number
+            y: number
+            width: number
+            height: number
+            color: string
+        }> & {
+            data: Partial<ComputedDatum<D, I>> & {
+                id: string | number
+                hidden: boolean
+            }
         }
-    }
+    >
 >
 
 export type LegendLabelDatum<D extends BarDatum = BarDatum, I extends BarIndex = string> = Partial<
@@ -252,7 +276,7 @@ export type BarInteractionHandlers<
 > = InteractionHandlers<ComputedDatum<D, I>, BarEventMap>
 
 export type BarCommonProps<D extends BarDatum = BarDatum, I extends BarIndex = string> = {
-    indexBy: PropertyAccessor<D, I>
+    indexBy: BarIndexBy<D, I>
     keys: readonly string[]
     margin?: Box
     innerPadding: number
@@ -267,22 +291,22 @@ export type BarCommonProps<D extends BarDatum = BarDatum, I extends BarIndex = s
     borderRadius: number
     borderWidth: number
     enableLabel: boolean
-    label: PropertyAccessor<ComputedDatum<D, I>, string>
+    label: BarLabel<D, I>
     labelPosition: 'start' | 'middle' | 'end'
     labelOffset: number
     labelFormat?: string | LabelFormatter
     labelSkipWidth: number
     labelSkipHeight: number
-    labelTextColor: InheritedColorConfig<ComputedBarDatumWithValue<D, I>>
+    labelTextColor: BarLabelTextColor<D, I>
     isInteractive: boolean
     tooltip: BarTooltipComponent<D, I>
     valueFormat?: ValueFormat<number>
     legendLabel?: PropertyAccessor<LegendLabelDatum<D, I>, string>
-    tooltipLabel: PropertyAccessor<ComputedDatum<D, I>, string>
+    tooltipLabel: BarLabel<D, I>
     groupMode: 'grouped' | 'stacked'
     layout: 'horizontal' | 'vertical'
     colorBy: 'id' | 'indexValue'
-    colors: OrdinalColorScaleConfig<ComputedDatum<D, I>>
+    colors: BarColors<D, I>
     theme: PartialTheme
     annotations: readonly AnnotationMatcher<ComputedBarDatum<D, I>>[]
     legends: readonly BarLegendProps[]

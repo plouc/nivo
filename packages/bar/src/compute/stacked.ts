@@ -2,7 +2,7 @@ import { Margin } from '@nivo/core'
 import { OrdinalColorScale } from '@nivo/colors'
 import { Scale, ScaleBand, computeScale } from '@nivo/scales'
 import { Series, SeriesPoint, stack, stackOffsetDiverging } from 'd3-shape'
-import { BarDatum, BarSvgProps, ComputedBarDatum, ComputedDatum } from '../types'
+import { BarDatum, BarIndex, BarSvgProps, ComputedBarDatum, ComputedDatum } from '../types'
 import { coerceValue, filterNullValues, getIndexScale, normalizeData } from './common'
 
 type StackDatum<D extends BarDatum> = SeriesPoint<D>
@@ -26,9 +26,9 @@ const filterZerosIfLog = (array: number[], type: string) =>
     type === 'log' ? array.filter(num => num !== 0) : array
 
 /**
- * Generates x/y scales & bars for vertical stacked bar chart.
+ * Generates x/y scales and bars for vertical stacked bar chart.
  */
-const generateVerticalStackedBars = <D extends BarDatum>(
+const generateVerticalStackedBars = <D extends BarDatum = BarDatum, I extends BarIndex = string>(
     {
         formatValue,
         getColor,
@@ -42,7 +42,7 @@ const generateVerticalStackedBars = <D extends BarDatum>(
     }: Params<D, string, number>,
     barWidth: number,
     reverse: boolean
-): ComputedBarDatum<D>[] => {
+): ComputedBarDatum<D, I>[] => {
     const getY = (d: StackDatum<D>) => yScale(d[reverse ? 0 : 1])
     const getHeight = (d: StackDatum<D>, y: number) => (yScale(d[reverse ? 1 : 0]) ?? 0) - y
 
@@ -85,9 +85,9 @@ const generateVerticalStackedBars = <D extends BarDatum>(
 }
 
 /**
- * Generates x/y scales & bars for horizontal stacked bar chart.
+ * Generates x/y scales and bars for horizontal stacked bar chart.
  */
-const generateHorizontalStackedBars = <D extends BarDatum>(
+const generateHorizontalStackedBars = <D extends BarDatum = BarDatum, I extends BarIndex = string>(
     {
         formatValue,
         getColor,
@@ -101,11 +101,11 @@ const generateHorizontalStackedBars = <D extends BarDatum>(
     }: Params<D, number, string>,
     barHeight: number,
     reverse: boolean
-): ComputedBarDatum<D>[] => {
+): ComputedBarDatum<D, I>[] => {
     const getX = (d: StackDatum<D>) => xScale(d[reverse ? 1 : 0])
     const getWidth = (d: StackDatum<D>, x: number) => (xScale(d[reverse ? 0 : 1]) ?? 0) - x
 
-    const bars: ComputedBarDatum<D>[] = []
+    const bars: ComputedBarDatum<D, I>[] = []
     stackedData.forEach(stackedDataItem =>
         yScale.domain().forEach((index, i) => {
             const d = stackedDataItem[i]
@@ -144,9 +144,9 @@ const generateHorizontalStackedBars = <D extends BarDatum>(
 }
 
 /**
- * Generates x/y scales & bars for stacked bar chart.
+ * Generates x/y scales and bars for stacked bar chart.
  */
-export const generateStackedBars = <RawDatum extends BarDatum>({
+export const generateStackedBars = <D extends BarDatum = BarDatum, I extends BarIndex = string>({
     data,
     layout,
     width,
@@ -157,7 +157,7 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
     hiddenIds = [],
     ...props
 }: Pick<
-    Required<BarSvgProps<RawDatum>>,
+    Required<BarSvgProps<D, I>>,
     | 'data'
     | 'height'
     | 'valueScale'
@@ -169,14 +169,14 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
     | 'width'
 > & {
     formatValue: (value: number) => string
-    getColor: OrdinalColorScale<ComputedDatum<RawDatum>>
-    getIndex: (datum: RawDatum) => string
-    getTooltipLabel: (datum: ComputedDatum<RawDatum>) => string
+    getColor: OrdinalColorScale<ComputedDatum<D, I>>
+    getIndex: (datum: D) => I
+    getTooltipLabel: (datum: ComputedBarDatum<D, I>) => string
     margin: Margin
     hiddenIds?: readonly (string | number)[]
 }) => {
     const keys = props.keys.filter(key => !hiddenIds.includes(key))
-    const stackedData = stack<RawDatum, string>().keys(keys).offset(stackOffsetDiverging)(
+    const stackedData = stack<D, string>().keys(keys).offset(stackOffsetDiverging)(
         normalizeData(data, keys)
     )
 
@@ -210,12 +210,12 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
     const innerPadding = props.innerPadding > 0 ? props.innerPadding : 0
     const bandwidth = indexScale.bandwidth()
     const params = [
-        { ...props, innerPadding, stackedData, xScale, yScale } as Params<RawDatum, any, any>,
+        { ...props, innerPadding, stackedData, xScale, yScale } as Params<D, any, any>,
         bandwidth,
         valueScale.reverse ?? false,
     ] as const
 
-    const bars: ComputedBarDatum<RawDatum>[] =
+    const bars: ComputedBarDatum<D, I>[] =
         bandwidth > 0
             ? layout === 'vertical'
                 ? generateVerticalStackedBars(...params)

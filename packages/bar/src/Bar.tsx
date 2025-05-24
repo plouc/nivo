@@ -161,7 +161,7 @@ const InnerBar = <D extends BarDatum = BarDatum, I extends BarIndex = string>({
     )
 
     const transition = useTransition<
-        ComputedBarDatumWithValue<D>,
+        ComputedBarDatumWithValue<D, I>,
         {
             borderColor: string
             color: string
@@ -173,7 +173,7 @@ const InnerBar = <D extends BarDatum = BarDatum, I extends BarIndex = string>({
             opacity: number
             transform: string
             width: number
-            textAnchor: BarItemProps<D>['style']['textAnchor']
+            textAnchor: BarItemProps<D, I>['style']['textAnchor']
         }
     >(barsWithValue, {
         keys: bar => bar.key,
@@ -297,7 +297,7 @@ const InnerBar = <D extends BarDatum = BarDatum, I extends BarIndex = string>({
 
     if (layers.includes('annotations')) {
         layerById.annotations = (
-            <BarAnnotations key="annotations" bars={bars} annotations={annotations} />
+            <BarAnnotations<D, I> key="annotations" bars={bars} annotations={annotations} />
         )
     }
 
@@ -374,7 +374,7 @@ const InnerBar = <D extends BarDatum = BarDatum, I extends BarIndex = string>({
 
     if (layers.includes('totals') && enableTotals) {
         layerById.totals = (
-            <BarTotals
+            <BarTotals<D, I>
                 key="totals"
                 data={barTotals}
                 springConfig={springConfig}

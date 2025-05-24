@@ -1,7 +1,7 @@
 import { Margin } from '@nivo/core'
 import { OrdinalColorScale } from '@nivo/colors'
 import { Scale, ScaleBand, computeScale } from '@nivo/scales'
-import { BarDatum, BarSvgProps, ComputedBarDatum, ComputedDatum } from '../types'
+import { BarDatum, BarIndex, BarSvgProps, ComputedBarDatum, ComputedDatum } from '../types'
 import { coerceValue, filterNullValues, getIndexScale, normalizeData } from './common'
 
 type Params<D extends BarDatum, XScaleInput, YScaleInput> = {
@@ -151,9 +151,9 @@ const generateHorizontalGroupedBars = <D extends BarDatum>(
 }
 
 /**
- * Generates x/y scales & bars for grouped bar chart.
+ * Generates x/y scales and bars for grouped bar chart.
  */
-export const generateGroupedBars = <D extends BarDatum>({
+export const generateGroupedBars = <D extends BarDatum = BarDatum, I extends BarIndex = string>({
     layout,
     width,
     height,
@@ -164,7 +164,7 @@ export const generateGroupedBars = <D extends BarDatum>({
     hiddenIds = [],
     ...props
 }: Pick<
-    Required<BarSvgProps<D>>,
+    Required<BarSvgProps<D, I>>,
     | 'data'
     | 'height'
     | 'valueScale'
@@ -176,9 +176,9 @@ export const generateGroupedBars = <D extends BarDatum>({
     | 'width'
 > & {
     formatValue: (value: number) => string
-    getColor: OrdinalColorScale<ComputedDatum<D>>
-    getIndex: (datum: D) => string
-    getTooltipLabel: (datum: ComputedDatum<D>) => string
+    getColor: OrdinalColorScale<ComputedDatum<D, I>>
+    getIndex: (datum: D) => I
+    getTooltipLabel: (datum: ComputedBarDatum<D, I>) => string
     margin: Margin
     hiddenIds?: readonly (string | number)[]
 }) => {
@@ -221,7 +221,7 @@ export const generateGroupedBars = <D extends BarDatum>({
         scale(0) ?? 0,
     ] as const
 
-    const bars: ComputedBarDatum<D>[] =
+    const bars: ComputedBarDatum<D, I>[] =
         bandwidth > 0
             ? layout === 'vertical'
                 ? generateVerticalGroupedBars(...params)

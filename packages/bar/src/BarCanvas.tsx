@@ -38,6 +38,7 @@ import {
     BarCommonProps,
     BarDatum,
     BarIndex,
+    BarLabel,
     BarTooltipComponent,
     ComputedBarDatum,
 } from './types'
@@ -105,7 +106,7 @@ const InnerBarCanvas = <D extends BarDatum = BarDatum, I extends BarIndex = stri
     layers = canvasDefaultProps.layers as BarCanvasLayer<D, I>[],
     renderBar = canvasDefaultProps.renderBar as unknown as BarCanvasRenderer<D, I>,
     enableLabel = canvasDefaultProps.enableLabel,
-    label,
+    label = canvasDefaultProps.label as BarLabel<D, I>,
     labelSkipWidth = canvasDefaultProps.labelSkipWidth,
     labelSkipHeight = canvasDefaultProps.labelSkipHeight,
     labelTextColor,
@@ -116,7 +117,7 @@ const InnerBarCanvas = <D extends BarDatum = BarDatum, I extends BarIndex = stri
     borderColor,
     annotations = canvasDefaultProps.annotations as BarAnnotationMatcher<D, I>[],
     legendLabel,
-    tooltipLabel,
+    tooltipLabel = canvasDefaultProps.tooltipLabel as BarLabel<D, I>,
     valueFormat,
     isInteractive = canvasDefaultProps.isInteractive,
     tooltip = canvasDefaultProps.tooltip as BarTooltipComponent<D, I>,
@@ -183,7 +184,7 @@ const InnerBarCanvas = <D extends BarDatum = BarDatum, I extends BarIndex = stri
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
     // Using any because return type isn't correct
-    const boundAnnotations: any = useComputedAnnotations({
+    const boundAnnotations: any = useComputedAnnotations<ComputedBarDatum<D, I>>({
         annotations: useAnnotations({
             data: bars,
             annotations,
@@ -200,7 +201,7 @@ const InnerBarCanvas = <D extends BarDatum = BarDatum, I extends BarIndex = stri
     })
 
     // We use `any` here until we can figure out the best way to type xScale/yScale
-    const layerContext: BarCanvasCustomLayerProps<D> = useMemo(
+    const layerContext: BarCanvasCustomLayerProps<D, I> = useMemo(
         () => ({
             borderRadius,
             borderWidth,

@@ -1,13 +1,13 @@
 import { ScaleBandSpec, ScaleBand, computeScale } from '@nivo/scales'
 import { commonDefaultProps } from '../defaults'
-import { BarCommonProps, BarDatum } from '../types'
+import { BarCommonProps, BarDatum, BarIndex } from '../types'
 
 /**
  * Generates indexed scale.
  */
-export const getIndexScale = <D extends BarDatum>(
+export const getIndexScale = <D extends BarDatum = BarDatum, I extends BarIndex = string>(
     data: readonly D[],
-    getIndex: (datum: D) => string,
+    getIndex: (datum: D) => I,
     padding: number,
     indexScale: ScaleBandSpec,
     size: number,
@@ -26,7 +26,10 @@ export const getIndexScale = <D extends BarDatum>(
 /**
  * This method ensures all the provided keys exist in the entire series.
  */
-export const normalizeData = <D extends BarDatum>(data: readonly D[], keys: readonly string[]) =>
+export const normalizeData = <D extends BarDatum = BarDatum>(
+    data: readonly D[],
+    keys: readonly string[]
+) =>
     data.map(
         item =>
             ({
@@ -38,7 +41,7 @@ export const normalizeData = <D extends BarDatum>(data: readonly D[], keys: read
             }) as D
     )
 
-export const filterNullValues = <D extends BarDatum>(data: D) =>
+export const filterNullValues = <D extends BarDatum = BarDatum>(data: D) =>
     Object.keys(data).reduce<Record<string, unknown>>((acc, key) => {
         if (data[key]) {
             acc[key] = data[key]
@@ -57,11 +60,11 @@ export type BarLabelLayout = {
 /**
  * Compute the label position and alignment based on a given position and offset.
  */
-export function useComputeLabelLayout<D extends BarDatum>(
-    layout: BarCommonProps<D>['layout'] = commonDefaultProps.layout,
+export function useComputeLabelLayout<D extends BarDatum = BarDatum, I extends BarIndex = string>(
+    layout: BarCommonProps<D, I>['layout'] = commonDefaultProps.layout,
     reverse: boolean,
-    labelPosition: BarCommonProps<D>['labelPosition'] = commonDefaultProps.labelPosition,
-    labelOffset: BarCommonProps<D>['labelOffset'] = commonDefaultProps.labelOffset
+    labelPosition: BarCommonProps<D, I>['labelPosition'] = commonDefaultProps.labelPosition,
+    labelOffset: BarCommonProps<D, I>['labelOffset'] = commonDefaultProps.labelOffset
 ): (width: number, height: number) => BarLabelLayout {
     return (width: number, height: number) => {
         // If the chart is reversed, we want to make sure the offset is also reversed

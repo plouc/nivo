@@ -10,21 +10,26 @@ import {
     LegendData,
     BarLegendProps,
     BarIndex,
+    BarIndexBy,
+    BarBorderColor,
+    BarLabel,
+    BarColors,
+    BarLabelTextColor,
 } from './types'
 import { commonDefaultProps } from './defaults'
 import { generateGroupedBars, generateStackedBars, getLegendData } from './compute'
 import { computeBarTotals } from './compute/totals'
 
 export const useBar = <D extends BarDatum = BarDatum, I extends BarIndex = string>({
-    indexBy = commonDefaultProps.indexBy,
+    indexBy = commonDefaultProps.indexBy as BarIndexBy<D, I>,
     keys = commonDefaultProps.keys,
-    label = commonDefaultProps.label,
-    tooltipLabel = commonDefaultProps.tooltipLabel,
+    label = commonDefaultProps.label as BarLabel<D, I>,
+    tooltipLabel = commonDefaultProps.tooltipLabel as BarLabel<D, I>,
     valueFormat,
-    colors = commonDefaultProps.colors,
+    colors = commonDefaultProps.colors as BarColors<D, I>,
     colorBy = commonDefaultProps.colorBy,
-    borderColor = commonDefaultProps.borderColor,
-    labelTextColor = commonDefaultProps.labelTextColor,
+    borderColor = commonDefaultProps.borderColor as BarBorderColor<D, I>,
+    labelTextColor = commonDefaultProps.labelTextColor as BarLabelTextColor<D, I>,
     groupMode = commonDefaultProps.groupMode,
     layout = commonDefaultProps.layout,
     data,
@@ -88,11 +93,11 @@ export const useBar = <D extends BarDatum = BarDatum, I extends BarIndex = strin
 
     const theme = useTheme()
     const getColor = useOrdinalColorScale(colors, colorBy)
-    const getBorderColor = useInheritedColor<ComputedBarDatumWithValue<D>>(borderColor, theme)
-    const getLabelColor = useInheritedColor<ComputedBarDatumWithValue<D>>(labelTextColor, theme)
+    const getBorderColor = useInheritedColor(borderColor, theme)
+    const getLabelColor = useInheritedColor(labelTextColor, theme)
 
     const generateBars = groupMode === 'grouped' ? generateGroupedBars : generateStackedBars
-    const { bars, xScale, yScale } = generateBars({
+    const { bars, xScale, yScale } = generateBars<D, I>({
         layout,
         data,
         getIndex,
@@ -113,7 +118,7 @@ export const useBar = <D extends BarDatum = BarDatum, I extends BarIndex = strin
     const barsWithValue = useMemo(
         () =>
             bars
-                .filter((bar): bar is ComputedBarDatumWithValue<D> => bar.data.value !== null)
+                .filter((bar): bar is ComputedBarDatumWithValue<D, I> => bar.data.value !== null)
                 .map((bar, index) => ({
                     ...bar,
                     index,
@@ -146,7 +151,7 @@ export const useBar = <D extends BarDatum = BarDatum, I extends BarIndex = strin
     const legendsWithData: [BarLegendProps, LegendData[]][] = useMemo(
         () =>
             legends.map(legend => {
-                const data = getLegendData({
+                const data = getLegendData<D, I>({
                     bars: legend.dataFrom === 'keys' ? legendData : bars,
                     direction: legend.direction,
                     from: legend.dataFrom,
@@ -162,7 +167,16 @@ export const useBar = <D extends BarDatum = BarDatum, I extends BarIndex = strin
     )
 
     const barTotals = useMemo(
-        () => computeBarTotals(bars, xScale, yScale, layout, groupMode, totalsOffset, formatValue),
+        () =>
+            computeBarTotals<D, I>(
+                bars,
+                xScale,
+                yScale,
+                layout,
+                groupMode,
+                totalsOffset,
+                formatValue
+            ),
         [bars, xScale, yScale, layout, groupMode, totalsOffset, formatValue]
     )
 
