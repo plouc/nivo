@@ -88,6 +88,7 @@ if (!isWatching) {
             format: 'cjs',
             name: `@nivo/${pkg}`,
             sourcemap: true,
+            interop: 'auto',
         },
         plugins: commonPlugins,
     })
