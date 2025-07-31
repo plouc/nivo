@@ -47,7 +47,8 @@
         "@nivo/voronoi": "workspace:*",
         "@react-spring/web": "9.4.5 || ^9.7.2 || ^10.0",
         "@types/d3-shape": "^3.1.6",
-        "d3-shape": "^3.2.0"
+        "d3-shape": "^3.2.0",
+        "lodash": "^4.17.21"
     },
     "peerDependencies": {
         "react": "^16.14 || ^17.0 || ^18.0 || ^19.0"
