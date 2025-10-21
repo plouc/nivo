@@ -112,6 +112,11 @@ const getDatumAxisPosition = <D extends SerieDatum = SerieDatum>(
     return scale(datum.data[axis]) ?? null
 }
 
+const chunkArray = (array: number[], chunkSize: number) =>
+    Array.from({ length: Math.ceil(array.length / chunkSize) }, (_, index) =>
+        array.slice(index * chunkSize, (index + 1) * chunkSize)
+    )
+
 /**
  * Compute x/y d3 scales from an array of data series, and scale specifications.
  *
@@ -235,7 +240,11 @@ export const generateSeriesAxis = <Axis extends ScaleAxis, Value extends ScaleVa
                 v => v
             )
 
-            return { all, min: Math.min(...all), max: Math.max(...all) }
+            return {
+                all,
+                min: Math.min(...chunkArray(all, 10000).map(chunk => Math.min(...chunk))),
+                max: Math.max(...chunkArray(all, 10000).map(chunk => Math.max(...chunk))),
+            }
         }
         case 'time': {
             const all = uniqBy(values as Date[], v => v.getTime())
@@ -293,8 +302,8 @@ export const stackAxis = <S = never, D extends SerieDatum = SerieDatum>(
         })
     })
 
-    xy[axis].minStacked = Math.min(...all)
-    xy[axis].maxStacked = Math.max(...all)
+    xy[axis].minStacked = Math.min(...chunkArray(all, 10000).map(chunk => Math.min(...chunk)))
+    xy[axis].maxStacked = Math.max(...chunkArray(all, 10000).map(chunk => Math.max(...chunk)))
 }
 
 const stackX = <S = never, D extends SerieDatum = SerieDatum>(
