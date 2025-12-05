@@ -26,7 +26,7 @@ import { ComputedNode, DefaultTreeMapDatum, TreeMapCanvasProps, TreeMapCommonPro
 import { canvasDefaultProps } from './defaults'
 
 const findNodeUnderCursor = <Datum extends object>(
-    nodes: ComputedNode<Datum>[],
+    nodes: readonly ComputedNode<Datum>[],
     margin: Margin,
     x: number,
     y: number
