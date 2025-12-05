@@ -180,7 +180,7 @@ export const useTreeMap = <Datum extends object = DefaultTreeMapDatum>({
                 const node = {
                     id: getIdentity(rawNode.data),
                     path,
-                    pathComponents,
+                    pathComponents: pathComponents as readonly string[],
                     data: omit(rawNode.data, 'children'),
                     x: rawNode.x0,
                     y: rawNode.y0,
@@ -269,7 +269,7 @@ export const useTreeMap = <Datum extends object = DefaultTreeMapDatum>({
 }
 
 export const useInteractiveTreeMapNodes = <Datum extends object>(
-    nodes: ComputedNode<Datum>[],
+    nodes: readonly ComputedNode<Datum>[],
     {
         isInteractive,
         onMouseEnter,

@@ -1,7 +1,7 @@
 export interface Datum {
     id: string
     value?: number
-    children?: Datum[]
+    children?: readonly Datum[]
 }
 
 export const defaultData: Datum = {
