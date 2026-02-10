@@ -48,6 +48,8 @@ export const barMapping = {
         valueScale: Joi.object()
             .keys({
                 type: Joi.any().valid('linear'),
+                nice: Joi.boolean(),
+                round: Joi.boolean(),
                 reverse: Joi.boolean(),
             })
             .allow(null),

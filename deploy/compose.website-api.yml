@@ -1,0 +1,22 @@
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: Dockerfile.nivo-api
+    restart: unless-stopped
+    expose:
+      - "3030"
+
+  website:
+    build:
+      context: ..
+      dockerfile: Dockerfile.nivo-website
+      args:
+        # Include /nivo reverse-proxy to the api service.
+        NGINX_CONF: deploy/nginx.website-api.conf
+        GATSBY_NIVO_API_URL: /nivo
+    restart: unless-stopped
+    depends_on:
+      - api
+    ports:
+      - "8080:80"

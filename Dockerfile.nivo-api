@@ -1,0 +1,56 @@
+# syntax=docker/dockerfile:1.7
+#
+# Builds the HTTP rendering API in ./api (monorepo workspace) and serves it on :3030.
+#
+# Build:
+#   docker build -f Dockerfile.nivo-api -t nivo-api:dev .
+#
+# Run:
+#   docker run --rm -p 3030:3030 nivo-api:dev
+#
+FROM node:22-bookworm-slim AS builder
+
+WORKDIR /app
+
+# Avoid downloading large E2E/browser binaries during image build.
+ENV CYPRESS_INSTALL_BINARY=0
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+ENV PUPPETEER_SKIP_DOWNLOAD=1
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
+
+ENV PNPM_HOME=/pnpm
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable && corepack prepare pnpm@10.11.0 --activate
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+COPY tsconfig*.json babel.config.js lerna.json eslint.config.mjs ./
+COPY Makefile ./Makefile
+COPY conf ./conf
+COPY scripts ./scripts
+COPY packages ./packages
+COPY api ./api
+
+RUN pnpm install --frozen-lockfile
+
+# The API depends on workspace packages, so build them first.
+RUN pnpm run pkgs:types:check && pnpm run pkgs:build
+
+# Compile api/app.ts -> api/app.js
+RUN pnpm -C api build
+
+
+FROM node:22-bookworm-slim AS runtime
+
+WORKDIR /app
+ENV NODE_ENV=production
+ENV PORT=3030
+
+# Copy only what the compiled app needs at runtime.
+COPY --from=builder /app/api /app/api
+COPY --from=builder /app/packages /app/packages
+COPY --from=builder /app/node_modules /app/node_modules
+COPY --from=builder /app/package.json /app/package.json
+
+EXPOSE 3030
+CMD ["node", "api/app.js"]
+
