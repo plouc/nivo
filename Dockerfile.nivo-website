@@ -1,0 +1,69 @@
+# syntax=docker/dockerfile:1.7
+#
+# Builds the Gatsby site in ./website (monorepo workspace) and serves it via nginx.
+#
+# Build-time:
+#   docker build -f Dockerfile.nivo-website --build-arg SITE_URL=http://localhost:8080 -t nivo-website:dev .
+#
+# Run:
+#   docker run --rm -p 8080:80 nivo-website:dev
+#
+FROM node:22-bookworm-slim AS builder
+
+WORKDIR /app
+
+# Avoid downloading large E2E/browser binaries during image build.
+ENV CYPRESS_INSTALL_BINARY=0
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+ENV PUPPETEER_SKIP_DOWNLOAD=1
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
+
+# Use the repo's pinned pnpm version via corepack.
+ENV PNPM_HOME=/pnpm
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable && corepack prepare pnpm@10.11.0 --activate
+
+# Copy only what's needed to build the website.
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+COPY tsconfig*.json babel.config.js lerna.json eslint.config.mjs ./
+COPY Makefile ./Makefile
+COPY conf ./conf
+COPY scripts ./scripts
+COPY packages ./packages
+COPY storybook ./storybook
+COPY website ./website
+
+RUN pnpm install --frozen-lockfile
+
+# The website depends on workspace packages, so build them first.
+RUN pnpm run pkgs:types:check && pnpm run pkgs:build
+
+# Gatsby uses SITE_URL during build (see website/gatsby-config.ts).
+ARG SITE_URL=http://localhost:8080
+ENV SITE_URL="$SITE_URL"
+
+# Client-side API base URL for the "HTTP API" demo pages (Gatsby inlines GATSBY_* at build time).
+# Keep WITHOUT a trailing slash.
+# Default to the historical render API (override to use your own).
+ARG GATSBY_NIVO_API_URL=https://nivo-api.herokuapp.com/nivo
+ENV GATSBY_NIVO_API_URL="$GATSBY_NIVO_API_URL"
+
+# Client-side Storybook base URL (also inlined by Gatsby).
+# Keep WITHOUT a trailing slash unless you're using a path-only URL like /storybook/.
+ARG GATSBY_STORYBOOK_URL=/storybook/
+ENV GATSBY_STORYBOOK_URL="$GATSBY_STORYBOOK_URL"
+
+RUN pnpm -C website build
+RUN pnpm --filter storybook build
+
+
+FROM nginx:1.27-alpine AS runtime
+
+COPY --from=builder /app/website/public /usr/share/nginx/html
+COPY --from=builder /app/storybook/storybook-static /usr/share/nginx/html/storybook
+
+# Default to the website-only nginx config; use NGINX_CONF to include an API proxy.
+ARG NGINX_CONF=deploy/nginx.website.conf
+COPY ${NGINX_CONF} /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
