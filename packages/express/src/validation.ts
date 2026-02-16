@@ -10,11 +10,11 @@ export const validate = (
 ) => {
     const { omit: omitProps } = options
 
-        return (req: Request, res: Response, next: NextFunction) => {
-            let data = req.body
-            if (omitProps) {
+    return (req: Request, res: Response, next: NextFunction) => {
+        let data = req.body
+        if (omitProps) {
             data = omit(data, omitProps as any)
-            }
+        }
 
         const { value, error } = schema.validate(data, {
             abortEarly: true,
