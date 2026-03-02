@@ -69,6 +69,9 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
     legends = defaultProps.legends,
     forwardLegendData,
     role = defaultProps.role,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
     forwardedRef,
 }: PieSvgProps<RawDatum> & {
     forwardedRef: Ref<SVGSVGElement>
@@ -212,6 +215,9 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
             margin={margin}
             defs={boundDefs}
             role={role}
+            ariaLabel={ariaLabel}
+            ariaLabelledBy={ariaLabelledBy}
+            ariaDescribedBy={ariaDescribedBy}
             ref={forwardedRef}
         >
             {layers.map((layer, i) => {

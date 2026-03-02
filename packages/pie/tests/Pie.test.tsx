@@ -778,6 +778,35 @@ describe('Pie', () => {
         })
     })
 
+    describe('accessibility', () => {
+        it('should forward aria properties to the SVG element', () => {
+            const instance = create(
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    ariaLabel="AriaLabel"
+                    ariaLabelledBy="AriaLabelledBy"
+                    ariaDescribedBy="AriaDescribedBy"
+                />
+            ).root
+
+            const svg = instance.findByType('svg')
+            expect(svg.props['aria-label']).toBe('AriaLabel')
+            expect(svg.props['aria-labelledby']).toBe('AriaLabelledBy')
+            expect(svg.props['aria-describedby']).toBe('AriaDescribedBy')
+        })
+
+        it('should not set aria properties if not provided', () => {
+            const instance = create(<Pie width={400} height={400} data={sampleData} />).root
+
+            const svg = instance.findByType('svg')
+            expect(svg.props['aria-label']).toBeUndefined()
+            expect(svg.props['aria-labelledby']).toBeUndefined()
+            expect(svg.props['aria-describedby']).toBeUndefined()
+        })
+    })
+
     describe('layers', () => {
         it('should support disabling a layer', () => {
             const instance = create(
