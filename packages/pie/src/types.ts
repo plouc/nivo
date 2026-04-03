@@ -1,3 +1,4 @@
+import { AriaAttributes } from 'react'
 import * as React from 'react'
 import {
     Box,
@@ -146,7 +147,11 @@ export type PieSvgProps<RawDatum> = DataProps<RawDatum> &
         animate?: boolean
         motionConfig?: MotionProps['motionConfig']
         transitionMode?: ArcTransitionMode
-    } & PieSvgCustomComponents<RawDatum>
+    } & PieSvgCustomComponents<RawDatum> & {
+        ariaLabel?: AriaAttributes['aria-label']
+        ariaLabelledBy?: AriaAttributes['aria-labelledby']
+        ariaDescribedBy?: AriaAttributes['aria-describedby']
+    }
 
 export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
     Dimensions &
@@ -157,13 +162,21 @@ export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
         animate: boolean
         motionConfig: MotionProps['motionConfig']
         transitionMode: ArcTransitionMode
-    } & PieSvgCustomComponents<RawDatum>
+    } & PieSvgCustomComponents<RawDatum> & {
+        ariaLabel?: AriaAttributes['aria-label']
+        ariaLabelledBy?: AriaAttributes['aria-labelledby']
+        ariaDescribedBy?: AriaAttributes['aria-describedby']
+    }
 
 export type PieCanvasProps<RawDatum> = DataProps<RawDatum> &
     Dimensions &
     Partial<CommonPieProps<RawDatum>> &
     Pick<PieHandlers<RawDatum, HTMLCanvasElement>, 'onClick' | 'onMouseMove'> & {
         pixelRatio?: number
+    } & {
+        ariaLabel?: AriaAttributes['aria-label']
+        ariaLabelledBy?: AriaAttributes['aria-labelledby']
+        ariaDescribedBy?: AriaAttributes['aria-describedby']
     }
 
 export type CompletePieCanvasProps<RawDatum> = DataProps<RawDatum> &
@@ -171,4 +184,8 @@ export type CompletePieCanvasProps<RawDatum> = DataProps<RawDatum> &
     CommonPieProps<RawDatum> &
     Pick<PieHandlers<RawDatum, HTMLCanvasElement>, 'onClick' | 'onMouseMove'> & {
         pixelRatio: number
+    } & {
+        ariaLabel?: AriaAttributes['aria-label']
+        ariaLabelledBy?: AriaAttributes['aria-labelledby']
+        ariaDescribedBy?: AriaAttributes['aria-describedby']
     }
