@@ -195,7 +195,7 @@ export type CommonLineProps<Series extends LineSeries> = {
     colors: OrdinalColorScaleConfig<Series>
     lineWidth: number
     enablePoints: boolean
-    pointSymbol?: DotsItemSymbolComponent<Point<Series>>
+    pointSymbol?: DotsItemSymbolComponent<Point<Series>['data']>
     pointSize: number
     pointColor: InheritedColorConfig<PointColorContext<Series>>
     pointBorderWidth: number
