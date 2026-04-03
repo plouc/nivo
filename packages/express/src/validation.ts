@@ -12,25 +12,28 @@ export const validate = (
 
     return (req: Request, res: Response, next: NextFunction) => {
         let data = req.body
-        if (omit) {
-            // @ts-expect-error omitProps is not PropertyName[] for simplicity
-            data = omit(data, omitProps)
+        if (omitProps) {
+            data = omit(data, omitProps as any)
         }
 
-        try {
-            // @ts-expect-error no type for req.payload
-            req.payload = schema.validate(data, {
-                abortEarly: true,
-                convert: true,
-            })
-            next()
-        } catch (err: any) {
+        const { value, error } = schema.validate(data, {
+            abortEarly: true,
+            convert: true,
+            // The website API pages send extra UI-only keys; accept and strip anything unknown.
+            allowUnknown: true,
+            stripUnknown: { objects: true },
+        })
+
+        if (error) {
             return res.status(400).json({
-                // @ts-expect-error no type for err
-                errors: err.details.map(({ message, path }) => {
+                errors: error.details.map(({ message, path }) => {
                     return `${message}${path ? ` (${path})` : ''}`
                 }),
             })
         }
+
+        // @ts-expect-error no type for req.payload
+        req.payload = value
+        next()
     }
 }
