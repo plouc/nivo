@@ -41,6 +41,10 @@ export const SankeyLabels = <N extends DefaultNode, L extends DefaultLink>({
                     textAnchor = labelOrientation === 'vertical' ? 'middle' : 'start'
                 } else {
                     x = node.x - labelPadding
+                    // Bounds check for left side
+                    if (x < -width) {
+                        x = node.x - labelPadding
+                    }
                     textAnchor = labelOrientation === 'vertical' ? 'middle' : 'end'
                 }
             } else {
@@ -49,6 +53,12 @@ export const SankeyLabels = <N extends DefaultNode, L extends DefaultLink>({
                     textAnchor = labelOrientation === 'vertical' ? 'middle' : 'end'
                 } else {
                     x = node.x1 + labelPadding
+                    // Bounds check to prevent extreme x values
+                    // If x is more than 2x the width, it's likely a calculation error
+                    // Use node.x + node.width as a fallback
+                    if (x > width * 2) {
+                        x = node.x + node.width + labelPadding
+                    }
                     textAnchor = labelOrientation === 'vertical' ? 'middle' : 'start'
                 }
             }
