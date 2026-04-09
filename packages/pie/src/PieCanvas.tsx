@@ -71,6 +71,9 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
     legends = defaultProps.legends,
     forwardLegendData,
     role,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
     forwardedRef,
 }: PieCanvasProps<RawDatum> & {
     forwardedRef: Ref<HTMLCanvasElement>
@@ -290,6 +293,9 @@ const InnerPieCanvas = <RawDatum extends MayHaveLabel>({
             onMouseLeave={isInteractive ? handleMouseLeave : undefined}
             onClick={isInteractive ? handleClick : undefined}
             role={role}
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
+            aria-describedby={ariaDescribedBy}
         />
     )
 }

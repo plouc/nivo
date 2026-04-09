@@ -11,6 +11,7 @@ import {
 import media from '../../theming/mediaQueries'
 import * as nav from '../../data/nav'
 import { FullNavComponentLink } from './FullNavComponentLink'
+import config from '../../data/config'
 
 export const FullNav = memo(() => {
     return (
@@ -37,7 +38,7 @@ export const FullNav = memo(() => {
                     <InternalLink to="/references/">References</InternalLink>
                     <InternalLink to="/faq/">FAQ</InternalLink>
                     <ExternalLink
-                        href="https://nivo.rocks/storybook/"
+                        href={config.storybookUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                     >

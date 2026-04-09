@@ -1,0 +1,11 @@
+services:
+  website:
+    build:
+      context: ..
+      dockerfile: Dockerfile.nivo-website
+      args:
+        # Serve website+storybook only (no /nivo proxy).
+        NGINX_CONF: deploy/nginx.website.conf
+    restart: unless-stopped
+    ports:
+      - "8080:80"

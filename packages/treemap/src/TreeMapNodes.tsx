@@ -52,7 +52,7 @@ const getEndingAnimatedNodeProps = <Datum extends object>(
 }
 
 interface TreeMapNodesProps<Datum extends object> {
-    nodes: ComputedNode<Datum>[]
+    nodes: readonly ComputedNode<Datum>[]
     nodeComponent: NodeComponent<Datum>
     borderWidth: TreeMapCommonProps<Datum>['borderWidth']
     enableLabel: TreeMapCommonProps<Datum>['enableLabel']

@@ -7,6 +7,7 @@ import media from '../../theming/mediaQueries'
 import ThemeSelector from '../ThemeSelector'
 import * as nav from '../../data/nav'
 import { NavToggleButton } from './NavToggleButton'
+import config from '../../data/config'
 
 interface HeaderNavProps {
     isNavOpen: boolean
@@ -35,7 +36,7 @@ export const HeaderNav = ({ isNavOpen, toggleNav }: HeaderNavProps) => {
                 </HeaderSub>
             </HeaderItem>
             <HeaderExternalLink
-                href="https://nivo.rocks/storybook/"
+                href={config.storybookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
             >

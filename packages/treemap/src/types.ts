@@ -15,13 +15,13 @@ import { TileType } from './tiling'
 export interface DefaultTreeMapDatum {
     id: string
     value?: number
-    children?: DefaultTreeMapDatum[]
+    children?: readonly DefaultTreeMapDatum[]
 }
 
 export interface ComputedNode<Datum extends object> {
     id: string
     path: string
-    pathComponents: string[]
+    pathComponents: readonly string[]
     data: Omit<Datum, 'children'>
     x: number
     y: number
@@ -93,7 +93,7 @@ export type TooltipComponent<Datum extends object> = FunctionComponent<TooltipPr
 export type LayerId = 'nodes'
 
 export interface CustomLayerProps<Datum extends object> {
-    nodes: ComputedNode<Datum>[]
+    nodes: readonly ComputedNode<Datum>[]
 }
 export type CustomSvgLayer<Datum extends object> = FunctionComponent<CustomLayerProps<Datum>>
 export type CustomHtmlLayer<Datum extends object> = FunctionComponent<CustomLayerProps<Datum>>
@@ -176,14 +176,14 @@ export type TreeMapSvgProps<Datum extends object> = Partial<TreeMapCommonProps<D
     Dimensions &
     SvgDefsAndFill<ComputedNode<Datum>> & {
         nodeComponent?: NodeComponent<Datum>
-        layers?: (LayerId | CustomSvgLayer<Datum>)[]
+        layers?: readonly (LayerId | CustomSvgLayer<Datum>)[]
     }
 
 export type TreeMapHtmlProps<Datum extends object> = Partial<TreeMapCommonProps<Datum>> &
     TreeMapDataProps<Datum> &
     Dimensions & {
         nodeComponent?: NodeComponent<Datum>
-        layers?: (LayerId | CustomHtmlLayer<Datum>)[]
+        layers?: readonly (LayerId | CustomHtmlLayer<Datum>)[]
     }
 
 export type TreeMapCanvasProps<Datum extends object> = Partial<
@@ -201,6 +201,6 @@ export type TreeMapCanvasProps<Datum extends object> = Partial<
 > &
     TreeMapDataProps<Datum> &
     Dimensions & {
-        layers?: (LayerId | CustomCanvasLayer<Datum>)[]
+        layers?: readonly (LayerId | CustomCanvasLayer<Datum>)[]
         pixelRatio?: number
     }

@@ -21,7 +21,8 @@ forOwn(chartsMapping, ({ schema }, type: ChartType) => {
         // @ts-expect-error missing type for req
         const props = req.payload
         const id = uuid.v4()
-        const url = `${req.protocol}://${req.get('host')}/r/${id}`
+        // When mounted behind a reverse proxy prefix (e.g. /nivo), include it in the URL.
+        const url = `${req.protocol}://${req.get('host')}${req.baseUrl}/r/${id}`
 
         storage.set(id, {
             type,
