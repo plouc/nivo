@@ -9,7 +9,7 @@ export const linearScaleDefaults: Required<ScaleLinearSpec> = {
     stacked: false,
     reverse: false,
     clamp: false,
-    nice: false,
+    nice: true,
     round: false,
 }
 
