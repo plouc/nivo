@@ -671,20 +671,20 @@ importers:
         specifier: ^4.0.8
         version: 4.0.9
       '@types/d3-time':
-        specifier: ^1.0.10
-        version: 1.1.4
-      '@types/d3-time-format':
-        specifier: ^3.0.0
+        specifier: ^3.0.4
         version: 3.0.4
+      '@types/d3-time-format':
+        specifier: ^4.0.3
+        version: 4.0.3
       d3-scale:
         specifier: ^4.0.2
         version: 4.0.2
       d3-time:
-        specifier: ^1.0.10
-        version: 1.1.0
+        specifier: ^3.1.0
+        version: 3.1.0
       d3-time-format:
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^4.1.0
+        version: 4.1.0
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -5009,9 +5009,6 @@ packages:
 
   '@types/d3-time-format@2.3.4':
     resolution: {integrity: sha512-xdDXbpVO74EvadI3UDxjxTdR6QIxm1FKzEA/+F8tL4GWWUg/hgvBqf6chql64U5A9ZUGWo7pEu4eNlyLwbKdhg==}
-
-  '@types/d3-time-format@3.0.4':
-    resolution: {integrity: sha512-or9DiDnYI1h38J9hxKEsw513+KVuFbEVhl7qdxcaudoiqWWepapUen+2vAriFGexr6W5+P4l9+HJrB39GG+oRg==}
 
   '@types/d3-time-format@4.0.3':
     resolution: {integrity: sha512-5xg9rC+wWL8kdDj153qZcsJ0FWiFt0J5RB6LYUNZjwSnesfblqrI/bJ1wBdJ8OQfncgbJG5+2F+qfqnqyzYxyg==}
@@ -16613,8 +16610,6 @@ snapshots:
       '@types/d3-path': 3.1.1
 
   '@types/d3-time-format@2.3.4': {}
-
-  '@types/d3-time-format@3.0.4': {}
 
   '@types/d3-time-format@4.0.3': {}
 
