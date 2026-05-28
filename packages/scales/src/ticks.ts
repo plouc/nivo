@@ -8,6 +8,8 @@ import {
     utcMinute,
     timeHour,
     utcHour,
+    timeDay,
+    utcDay,
     timeWeek,
     utcWeek,
     timeSunday,
@@ -28,7 +30,6 @@ import {
     utcMonth,
     timeYear,
     utcYear,
-    timeInterval,
 } from 'd3-time'
 import { ScaleValue, TicksSpec, AnyScale, ScaleWithBandwidth } from './types'
 
@@ -49,20 +50,6 @@ export const centerScale = <Value>(scale: ScaleWithBandwidth) => {
 
     return <T extends Value>(d: T) => (scale(d) ?? 0) + offset
 }
-
-const timeDay = timeInterval(
-    date => date.setHours(0, 0, 0, 0),
-    (date, step) => date.setDate(date.getDate() + step),
-    (start, end) => (end.getTime() - start.getTime()) / 864e5,
-    date => Math.floor(date.getTime() / 864e5)
-)
-
-const utcDay = timeInterval(
-    date => date.setUTCHours(0, 0, 0, 0),
-    (date, step) => date.setUTCDate(date.getUTCDate() + step),
-    (start, end) => (end.getTime() - start.getTime()) / 864e5,
-    date => Math.floor(date.getTime() / 864e5)
-)
 
 const timeByType: Record<string, [CountableTimeInterval, CountableTimeInterval]> = {
     millisecond: [timeMillisecond, utcMillisecond],
