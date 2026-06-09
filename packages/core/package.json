@@ -11,6 +11,10 @@
         "url": "https://github.com/plouc/nivo.git",
         "directory": "packages/core"
     },
+    "bugs": {
+        "url": "https://github.com/plouc/nivo/issues"
+    },
+    "homepage": "https://nivo.rocks",
     "main": "./dist/nivo-core.cjs.js",
     "module": "./dist/nivo-core.mjs",
     "types": "./index.d.ts",
