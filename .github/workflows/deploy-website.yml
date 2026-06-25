@@ -43,6 +43,12 @@ jobs:
         env:
           SITE_URL: ${{ vars.SITE_URL }}
 
+      - name: Build Storybook
+        run: make storybook-build
+
+      - name: Copy Storybook into the website
+        run: cp -a storybook/storybook-static website/public/storybook
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
