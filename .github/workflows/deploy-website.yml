@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      SITE_URL: ${{ vars.SITE_URL || 'https://nivo.rocks' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,8 +42,6 @@ jobs:
 
       - name: Build the website
         run: make website-build
-        env:
-          SITE_URL: ${{ vars.SITE_URL }}
 
       - name: Build Storybook
         run: make storybook-build
@@ -49,9 +49,16 @@ jobs:
       - name: Copy Storybook into the website
         run: cp -a storybook/storybook-static website/public/storybook
 
+      # Derive the bare host (e.g. "nivo.rocks") from SITE_URL ("https://nivo.rocks")
+      # so we can write a CNAME file without committing one to the repo.
+      - name: Resolve CNAME host
+        id: cname
+        run: echo "host=$(echo "$SITE_URL" | sed -E 's#^https?://##; s#/.*$##')" >> "$GITHUB_OUTPUT"
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./website/public
           publish_branch: gh-pages
+          cname: ${{ steps.cname.outputs.host }}
