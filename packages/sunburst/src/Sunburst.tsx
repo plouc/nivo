@@ -57,6 +57,9 @@ const InnerSunburst = <RawDatum,>({
     onMouseMove,
     tooltip = defaultProps.tooltip,
     role = defaultProps.role,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
     forwardedRef,
 }: InnerSunburstProps<RawDatum>) => {
     const { innerHeight, innerWidth, margin, outerHeight, outerWidth } = useDimensions(
@@ -146,6 +149,9 @@ const InnerSunburst = <RawDatum,>({
             defs={boundDefs}
             margin={margin}
             role={role}
+            ariaLabel={ariaLabel}
+            ariaLabelledBy={ariaLabelledBy}
+            ariaDescribedBy={ariaDescribedBy}
             ref={forwardedRef}
         >
             {layers.map((layer, i) => {

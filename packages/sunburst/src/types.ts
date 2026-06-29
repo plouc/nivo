@@ -1,3 +1,4 @@
+import { AriaAttributes } from 'react'
 import { Arc, ArcGenerator, ArcLabelsProps, ArcTransitionMode } from '@nivo/arcs'
 import { OrdinalColorScaleConfig, InheritedColorConfig } from '@nivo/colors'
 import { Box, ValueFormat, SvgDefsAndFill, MotionProps, PropertyAccessor } from '@nivo/core'
@@ -68,6 +69,9 @@ export type SunburstCommonProps<RawDatum> = {
     enableArcLabels: boolean
     layers: SunburstLayer<RawDatum>[]
     role: string
+    ariaLabel?: AriaAttributes['aria-label']
+    ariaLabelledBy?: AriaAttributes['aria-labelledby']
+    ariaDescribedBy?: AriaAttributes['aria-describedby']
     renderWrapper: boolean
     transitionMode: ArcTransitionMode
     isInteractive: boolean

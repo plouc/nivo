@@ -641,4 +641,25 @@ describe('Sunburst', () => {
             expect(customLayer.prop('radius')).toEqual(200)
         })
     })
+
+    describe('accessibility', () => {
+        it('should forward root aria properties to the SVG element', () => {
+            const wrapper = mount(
+                <Sunburst
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    ariaLabel="AriaLabel"
+                    ariaLabelledBy="AriaLabelledBy"
+                    ariaDescribedBy="AriaDescribedBy"
+                />
+            )
+
+            const svg = wrapper.find('svg')
+
+            expect(svg.prop('aria-label')).toBe('AriaLabel')
+            expect(svg.prop('aria-labelledby')).toBe('AriaLabelledBy')
+            expect(svg.prop('aria-describedby')).toBe('AriaDescribedBy')
+        })
+    })
 })
