@@ -49,6 +49,11 @@ jobs:
       - name: Copy Storybook into the website
         run: cp -a storybook/storybook-static website/public/storybook
 
+      # Source maps account for most of the build's weight and aren't needed
+      # in production, dropping them keeps the published site small.
+      - name: Remove source maps
+        run: find website/public -name '*.js.map' -delete
+
       # Derive the bare host (e.g. "nivo.rocks") from SITE_URL ("https://nivo.rocks")
       # so we can write a CNAME file without committing one to the repo.
       - name: Resolve CNAME host
@@ -61,4 +66,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./website/public
           publish_branch: gh-pages
+          # Publish as a single orphan commit so the gh-pages branch doesn't
+          # accumulate a full site snapshot on every deploy.
+          force_orphan: true
           cname: ${{ steps.cname.outputs.host }}
