@@ -70,3 +70,22 @@ jobs:
           # accumulate a full site snapshot on every deploy.
           force_orphan: true
           cname: ${{ steps.cname.outputs.host }}
+
+      # The domain sits behind Cloudflare with a cache-everything rule and a
+      # multi-hour edge TTL, flush the cache so the new deploy is visible
+      # immediately instead of whenever the TTL expires.
+      - name: Purge Cloudflare cache
+        env:
+          CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CF_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
+        run: |
+          if [ -z "$CF_API_TOKEN" ] || [ -z "$CF_ZONE_ID" ]; then
+            echo "Cloudflare secrets not configured, skipping cache purge."
+            exit 0
+          fi
+          curl -sf -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
+            -H "Authorization: Bearer ${CF_API_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}' \
+            | jq -e '.success' > /dev/null
+          echo "Cloudflare cache purged."
