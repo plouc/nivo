@@ -138,17 +138,19 @@ const Choropleth = memo(props => {
                     )
                 }
                 if (layer === 'legends') {
-                    return legends.map((legend, i) => {
-                        return (
-                            <BoxLegendSvg
-                                key={i}
-                                containerWidth={width}
-                                containerHeight={height}
-                                data={legendData}
-                                {...legend}
-                            />
-                        )
-                    })
+                    return (
+                        <Fragment key="legends">
+                            {legends.map((legend, i) => (
+                                <BoxLegendSvg
+                                    key={i}
+                                    containerWidth={width}
+                                    containerHeight={height}
+                                    data={legendData}
+                                    {...legend}
+                                />
+                            ))}
+                        </Fragment>
+                    )
                 }
 
                 return <Fragment key={i}>{layer({})}</Fragment>
