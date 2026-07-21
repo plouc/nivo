@@ -1,4 +1,6 @@
+import { createElement } from 'react'
 import { mount } from 'enzyme'
+import { BoxLegendSvg } from '@nivo/legends'
 import Choropleth from '../src/Choropleth'
 
 const features = [
@@ -48,19 +50,19 @@ describe('Choropleth legends', () => {
         }
 
         const wrapper = mount(
-            <Choropleth
-                width={600}
-                height={400}
-                features={features}
-                data={data}
-                domain={[0, 100]}
-                legends={legends}
-            />
+            createElement(Choropleth, {
+                width: 600,
+                height: 400,
+                features,
+                data,
+                domain: [0, 100],
+                legends,
+            })
         )
         console.error = originalError
 
         // the legend is still rendered after wrapping the layer in a Fragment
-        expect(wrapper.find('BoxLegendSvg').length).toBe(1)
+        expect(wrapper.find(BoxLegendSvg).length).toBe(1)
 
         const keyWarning = calls.find(args => /unique "?key"?/i.test(String(args[0])))
         expect(keyWarning).toBeUndefined()
