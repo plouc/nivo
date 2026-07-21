@@ -1,56 +1,60 @@
 {
-    "name": "@nivo/core",
-    "version": "0.99.0",
-    "license": "MIT",
-    "author": {
-        "name": "Raphaël Benitte",
-        "url": "https://github.com/plouc"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/plouc/nivo.git",
-        "directory": "packages/core"
-    },
-    "main": "./dist/nivo-core.cjs.js",
-    "module": "./dist/nivo-core.mjs",
-    "types": "./index.d.ts",
-    "files": [
-        "README.md",
-        "LICENSE.md",
-        "index.d.ts",
-        "dist/"
-    ],
-    "dependencies": {
-        "@nivo/theming": "workspace:*",
-        "@nivo/tooltip": "workspace:*",
-        "@react-spring/web": "9.4.5 || ^9.7.2 || ^10.0",
-        "@types/d3-shape": "^3.1.6",
-        "d3-color": "^3.1.0",
-        "d3-format": "^1.4.4",
-        "d3-interpolate": "^3.0.1",
-        "d3-scale": "^4.0.2",
-        "d3-scale-chromatic": "^3.0.0",
-        "d3-shape": "^3.2.0",
-        "d3-time-format": "^3.0.0",
-        "lodash": "^4.17.21",
-        "react-virtualized-auto-sizer": "^1.0.26",
-        "use-debounce": "^10.0.4"
-    },
-    "peerDependencies": {
-        "react": "^16.14 || ^17.0 || ^18.0 || ^19.0"
-    },
-    "publishConfig": {
-        "access": "public"
-    },
-    "funding": {
-        "type": "opencollective",
-        "url": "https://opencollective.com/nivo/donate"
-    },
-    "exports": {
-        ".": {
-            "types": "./index.d.ts",
-            "import": "./dist/nivo-core.mjs",
-            "require": "./dist/nivo-core.cjs.js"
-        }
+  "name": "@nivo/core",
+  "version": "0.99.0",
+  "license": "MIT",
+  "author": {
+    "name": "Rapha\u00ebl Benitte",
+    "url": "https://github.com/plouc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/plouc/nivo.git",
+    "directory": "packages/core"
+  },
+  "main": "./dist/nivo-core.cjs.js",
+  "module": "./dist/nivo-core.mjs",
+  "types": "./index.d.ts",
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "index.d.ts",
+    "dist/"
+  ],
+  "dependencies": {
+    "@nivo/theming": "workspace:*",
+    "@nivo/tooltip": "workspace:*",
+    "@react-spring/web": "9.4.5 || ^9.7.2 || ^10.0",
+    "@types/d3-shape": "^3.1.6",
+    "d3-color": "^3.1.0",
+    "d3-format": "^1.4.4",
+    "d3-interpolate": "^3.0.1",
+    "d3-scale": "^4.0.2",
+    "d3-scale-chromatic": "^3.0.0",
+    "d3-shape": "^3.2.0",
+    "d3-time-format": "^3.0.0",
+    "lodash": "^4.17.21",
+    "react-virtualized-auto-sizer": "^1.0.26",
+    "use-debounce": "^10.0.4"
+  },
+  "peerDependencies": {
+    "react": "^16.14 || ^17.0 || ^18.0 || ^19.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "funding": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/nivo/donate"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./dist/nivo-core.mjs",
+      "require": "./dist/nivo-core.cjs.js"
     }
+  },
+  "bugs": {
+    "url": "https://github.com/plouc/nivo/issues"
+  },
+  "homepage": "https://nivo.rocks"
 }

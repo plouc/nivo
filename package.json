@@ -12,7 +12,7 @@
     "url": "git://github.com/plouc/nivo"
   },
   "author": {
-    "name": "Raphaël Benitte",
+    "name": "Rapha\u00ebl Benitte",
     "url": "https://github.com/plouc"
   },
   "keywords": [],
@@ -121,5 +121,10 @@
       "puppeteer",
       "sharp"
     ]
-  }
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/plouc/nivo/issues"
+  },
+  "homepage": "https://nivo.rocks"
 }
