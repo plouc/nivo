@@ -244,6 +244,19 @@ export const useBoxPlot = <RawDatum extends BoxPlotDatum>({
     }
 }
 
+// Compute the SVG transform used to position (and orient) a box plot item.
+//
+// Both layouts intentionally emit a `translate(…) rotate(…)` transform with the
+// same structure so that react-spring can interpolate between them when the
+// `layout` changes: a vertical item uses `rotate(0)` (a no-op) while a
+// horizontal item uses `rotate(-90)`. Without a matching structure the spring
+// cannot interpolate the string and the item stays stuck in its previous
+// orientation. See https://github.com/plouc/nivo/issues/2561
+export const getBoxPlotItemTransform = (boxPlot: ComputedBoxPlotSummary): string =>
+    boxPlot.layout === 'vertical'
+        ? `translate(${boxPlot.x + boxPlot.width / 2}, ${boxPlot.coordinates.values[2]}) rotate(0)`
+        : `translate(${boxPlot.coordinates.values[2]}, ${boxPlot.y + boxPlot.height / 2}) rotate(-90)`
+
 export const useBoxPlotTransition = ({
     boxPlots,
     getBorderColor,
@@ -271,12 +284,7 @@ export const useBoxPlotTransition = ({
         valueDistance3: boxPlot.coordinates.values[3] - boxPlot.coordinates.values[2],
         valueDistance4: boxPlot.coordinates.values[4] - boxPlot.coordinates.values[2],
         // translate to the midpoint of the median line
-        transform:
-            boxPlot.layout === 'vertical'
-                ? `translate(${boxPlot.x + boxPlot.width / 2}, ${boxPlot.coordinates.values[2]})`
-                : `translate(${boxPlot.coordinates.values[2]}, ${
-                      boxPlot.y + boxPlot.height / 2
-                  }) rotate(-90)`,
+        transform: getBoxPlotItemTransform(boxPlot),
     })
 
     return useTransition<ComputedBoxPlotSummary, BoxPlotItemProps<BoxPlotDatum>['animatedProps']>(
