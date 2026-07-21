@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunknivo_website=self.webpackChunknivo_website||[]).push([[330],{21738:function(t,e,n){n.d(e,{KPi:function(){return r}});var i=n(45250);function r(t){return(0,i.k5)({tag:"svg",attr:{viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:"2",strokeLinecap:"round",strokeLinejoin:"round"},child:[{tag:"path",attr:{d:"M12 6v12"},child:[]},{tag:"path",attr:{d:"M17.196 9 6.804 15"},child:[]},{tag:"path",attr:{d:"m6.804 9 10.392 6"},child:[]}]})(t)}}}]);
+//# sourceMappingURL=85d67ef8-0820fe9c4d5b6db43163.js.map
