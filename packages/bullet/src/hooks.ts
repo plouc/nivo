@@ -22,7 +22,7 @@ export const useEnhancedData = (
                 const min = minValue ?? Math.min(...all)
 
                 const scale = createLinearScale(
-                    { clamp: true, min, max, type: 'linear', round: true },
+                    { clamp: true, min, max, type: 'linear', round: false },
                     { all, max, min },
                     layout === 'horizontal' ? width : height,
                     layout === 'horizontal' ? (reverse ? 'y' : 'x') : reverse ? 'x' : 'y'
