@@ -13,6 +13,18 @@ import { timeFormat } from 'd3-time-format'
 import { DateOrString, Weekday } from '../types'
 import isDate from 'lodash/isDate.js'
 
+// Date-only strings such as `2018-04-01` are parsed by `Date` as UTC midnight,
+// which shifts to the previous or next local day depending on the runtime's
+// timezone offset. `data` entries already dodge this (see the `T00:00:00`
+// suffix applied in TimeRange.tsx), so `from`/`to` need the same treatment to
+// stay aligned with the rest of the range, otherwise the first or last day of
+// the range can go missing depending on the client's timezone.
+const toLocalDay = (value: DateOrString): Date => {
+    if (isDate(value)) return timeDay(value)
+    const hasTimeComponent = /T\d{2}:\d{2}/.test(value)
+    return timeDay(new Date(hasTimeComponent ? value : `${value}T00:00:00`))
+}
+
 // Interfaces
 interface ComputeBaseProps {
     direction: 'horizontal' | 'vertical'
@@ -242,9 +254,11 @@ export const computeCellPositions = ({
     // we need to determine whether we need to add days to move to correct position
     const start = from ? from : data[0].date
     const end = to ? to : data[data.length - 1].date
-    const startDate = isDate(start) ? start : new Date(start)
-    const endDate = isDate(end) ? end : new Date(end)
-    const dateRange = timeDays(startDate, endDate).map(dayDate => {
+    const startDate = toLocalDay(start)
+    const endDate = toLocalDay(end)
+    // timeDays' upper bound is exclusive, so without the offset the last day
+    // of the range never makes it into the output
+    const dateRange = timeDays(startDate, timeDay.offset(endDate, 1)).map(dayDate => {
         return {
             date: dayDate,
             day: dayFormat(dayDate),
@@ -375,19 +389,11 @@ export const computeMonthLegends = ({
 }
 
 export const computeTotalDays = ({ from, to, data }: ComputeTotalDays) => {
-    let startDate
-    let endDate
-    if (from) {
-        startDate = isDate(from) ? from : new Date(from)
-    } else {
-        startDate = data[0].date
-    }
+    const startDate = toLocalDay(from ? from : data[0].date)
+    const endDate = toLocalDay(from && to ? to : data[data.length - 1].date)
 
-    if (from && to) {
-        endDate = isDate(to) ? to : new Date(to)
-    } else {
-        endDate = data[data.length - 1].date
-    }
-
-    return startDate.getDay() + timeDay.count(startDate, endDate)
+    // timeDay.count() doesn't include the end date itself, so we add 1 to keep
+    // this in sync with the number of cells computeCellPositions produces for
+    // the same range
+    return startDate.getDay() + timeDay.count(startDate, endDate) + 1
 }
