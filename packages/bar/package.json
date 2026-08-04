@@ -11,6 +11,10 @@
         "url": "https://github.com/plouc/nivo.git",
         "directory": "packages/bar"
     },
+    "bugs": {
+        "url": "https://github.com/plouc/nivo/issues"
+    },
+    "homepage": "https://nivo.rocks/bar",
     "keywords": [
         "nivo",
         "dataviz",
