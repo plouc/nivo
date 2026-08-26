@@ -79,3 +79,22 @@ describe('layout', () => {
         expect(sizes[2].height).toBeGreaterThan(sizes[0].height)
     })
 })
+
+describe('accessibility', () => {
+    it('should forward root aria properties to the SVG element', () => {
+        const wrapper = mount(
+            <Marimekko
+                {...commonProps}
+                ariaLabel="AriaLabel"
+                ariaLabelledBy="AriaLabelledBy"
+                ariaDescribedBy="AriaDescribedBy"
+            />
+        )
+
+        const svg = wrapper.find('svg')
+
+        expect(svg.prop('aria-label')).toBe('AriaLabel')
+        expect(svg.prop('aria-labelledby')).toBe('AriaLabelledBy')
+        expect(svg.prop('aria-describedby')).toBe('AriaDescribedBy')
+    })
+})
