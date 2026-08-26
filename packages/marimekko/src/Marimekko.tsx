@@ -52,6 +52,9 @@ const InnerMarimekko = <Datum,>({
     onMouseLeave,
     legends = svgDefaultProps.legends,
     role,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
     forwardedRef,
 }: MarimekkoSvgProps<Datum> & {
     forwardedRef: Ref<SVGSVGElement>
@@ -169,6 +172,9 @@ const InnerMarimekko = <Datum,>({
             margin={margin}
             defs={boundDefs}
             role={role}
+            ariaLabel={ariaLabel}
+            ariaLabelledBy={ariaLabelledBy}
+            ariaDescribedBy={ariaDescribedBy}
             ref={forwardedRef}
         >
             {layers.map((layer, i) => {

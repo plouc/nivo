@@ -1,3 +1,4 @@
+import { AriaAttributes } from 'react'
 import * as React from 'react'
 import {
     stackOffsetDiverging,
@@ -131,6 +132,9 @@ export interface MarimekkoCommonProps<Datum> {
     tooltip: BarTooltipType<Datum>
     legends: readonly LegendProps[]
     role?: string
+    ariaLabel?: AriaAttributes['aria-label']
+    ariaLabelledBy?: AriaAttributes['aria-labelledby']
+    ariaDescribedBy?: AriaAttributes['aria-describedby']
 }
 
 export type MouseEventHandler<Datum, ElementType> = (
