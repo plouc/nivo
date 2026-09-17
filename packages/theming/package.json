@@ -32,7 +32,7 @@
         "!dist/tsconfig.tsbuildinfo"
     ],
     "dependencies": {
-        "lodash": "^4.17.21"
+        "lodash": "^4.18.1"
     },
     "peerDependencies": {
         "react": "^16.14 || ^17.0 || ^18.0 || ^19.0"

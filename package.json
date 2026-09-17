@@ -55,7 +55,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "jsdom": "^22.0.0",
     "lerna": "^8.2.2",
-    "lodash": "^4.17.21",
+    "lodash": "^4.18.1",
     "playwright": "^1.52.0",
     "prettier": "^3.5.3",
     "puppeteer": "^19.11.1",
@@ -76,6 +76,7 @@
     "yargs": "^17.7.2"
   },
   "resolutions": {
+    "lodash": "^4.18.1",
     "@types/eslint": "7.29.0",
     "cheerio": "1.0.0-rc.10",
     "react": "18.3.1",
@@ -105,6 +106,9 @@
   },
   "packageManager": "pnpm@10.11.0",
   "pnpm": {
+    "overrides": {
+      "lodash": "^4.18.1"
+    },
     "onlyBuiltDependencies": [
       "@parcel/watcher",
       "@swc/core",
