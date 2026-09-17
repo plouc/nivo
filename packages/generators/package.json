@@ -33,7 +33,7 @@
         "d3-random": "^3.0.1",
         "d3-time": "^1.0.10",
         "d3-time-format": "^3.0.0",
-        "lodash": "^4.17.21"
+        "lodash": "^4.18.1"
     },
     "publishConfig": {
         "access": "public"
