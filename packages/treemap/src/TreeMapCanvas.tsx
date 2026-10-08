@@ -30,10 +30,17 @@ const findNodeUnderCursor = <Datum extends object>(
     margin: Margin,
     x: number,
     y: number
-) =>
-    nodes.find(node =>
-        isCursorInRect(node.x + margin.left, node.y + margin.top, node.width, node.height, x, y)
-    )
+) => {
+    // Check in reverse drawing order so children take precedence over their ancestors.
+    for (let index = nodes.length - 1; index >= 0; index--) {
+        const node = nodes[index]
+        if (
+            isCursorInRect(node.x + margin.left, node.y + margin.top, node.width, node.height, x, y)
+        ) {
+            return node
+        }
+    }
+}
 
 type InnerTreeMapCanvasProps<Datum extends object> = Omit<
     TreeMapCanvasProps<Datum>,
