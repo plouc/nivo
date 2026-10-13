@@ -1,4 +1,4 @@
-import { createElement, useCallback, MouseEvent } from 'react'
+import { createElement, useCallback, MouseEvent, AriaAttributes } from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { useAnimatedPath, useMotionConfig } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
@@ -17,6 +17,11 @@ interface SankeyLinksItemProps<N extends DefaultNode, L extends DefaultLink> {
     isInteractive: SankeyCommonProps<N, L>['isInteractive']
     onClick?: SankeyCommonProps<N, L>['onClick']
     tooltip: SankeyCommonProps<N, L>['linkTooltip']
+    ariaLabel?: AriaAttributes['aria-label']
+    ariaLabelledBy?: AriaAttributes['aria-labelledby']
+    ariaDescribedBy?: AriaAttributes['aria-describedby']
+    ariaHidden?: AriaAttributes['aria-hidden']
+    ariaDisabled?: AriaAttributes['aria-disabled']
 }
 
 export const SankeyLinksItem = <N extends DefaultNode, L extends DefaultLink>({
@@ -31,6 +36,11 @@ export const SankeyLinksItem = <N extends DefaultNode, L extends DefaultLink>({
     tooltip,
     isInteractive,
     onClick,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
+    ariaHidden,
+    ariaDisabled,
 }: SankeyLinksItemProps<N, L>) => {
     const linkId = `${link.source.id}.${link.target.id}.${link.index}`
 
@@ -86,6 +96,11 @@ export const SankeyLinksItem = <N extends DefaultNode, L extends DefaultLink>({
                 fill={enableGradient ? `url("#${encodeURI(linkId)}")` : animatedProps.color}
                 d={animatedPath}
                 fillOpacity={animatedProps.opacity}
+                aria-label={ariaLabel}
+                aria-labelledby={ariaLabelledBy}
+                aria-describedby={ariaDescribedBy}
+                aria-hidden={ariaHidden}
+                aria-disabled={ariaDisabled}
                 onMouseEnter={isInteractive ? handleMouseEnter : undefined}
                 onMouseMove={isInteractive ? handleMouseMove : undefined}
                 onMouseLeave={isInteractive ? handleMouseLeave : undefined}

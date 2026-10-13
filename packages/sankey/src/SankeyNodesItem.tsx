@@ -1,4 +1,4 @@
-import { createElement, useCallback, MouseEvent } from 'react'
+import { createElement, useCallback, MouseEvent, AriaAttributes } from 'react'
 import { useSpring, animated } from '@react-spring/web'
 import { useMotionConfig } from '@nivo/core'
 import { useTooltip } from '@nivo/tooltip'
@@ -19,6 +19,11 @@ interface SankeyNodesItemProps<N extends DefaultNode, L extends DefaultLink> {
     isInteractive: SankeyCommonProps<N, L>['isInteractive']
     onClick?: SankeyCommonProps<N, L>['onClick']
     tooltip: SankeyCommonProps<N, L>['nodeTooltip']
+    ariaLabel?: AriaAttributes['aria-label']
+    ariaLabelledBy?: AriaAttributes['aria-labelledby']
+    ariaDescribedBy?: AriaAttributes['aria-describedby']
+    ariaHidden?: AriaAttributes['aria-hidden']
+    ariaDisabled?: AriaAttributes['aria-disabled']
 }
 
 export const SankeyNodesItem = <N extends DefaultNode, L extends DefaultLink>({
@@ -36,6 +41,11 @@ export const SankeyNodesItem = <N extends DefaultNode, L extends DefaultLink>({
     isInteractive,
     onClick,
     tooltip,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
+    ariaHidden,
+    ariaDisabled,
 }: SankeyNodesItemProps<N, L>) => {
     const { animate, config: springConfig } = useMotionConfig()
     const animatedProps = useSpring({
@@ -91,6 +101,11 @@ export const SankeyNodesItem = <N extends DefaultNode, L extends DefaultLink>({
             strokeWidth={borderWidth}
             stroke={borderColor}
             strokeOpacity={opacity}
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
+            aria-describedby={ariaDescribedBy}
+            aria-hidden={ariaHidden}
+            aria-disabled={ariaDisabled}
             onMouseEnter={isInteractive ? handleMouseEnter : undefined}
             onMouseMove={isInteractive ? handleMouseMove : undefined}
             onMouseLeave={isInteractive ? handleMouseLeave : undefined}
