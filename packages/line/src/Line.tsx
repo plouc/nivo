@@ -109,6 +109,11 @@ function InnerLine<Series extends LineSeries>(
         pointAriaDescribedBy,
         pointAriaHidden,
         pointAriaDisabled,
+        lineAriaLabel,
+        lineAriaLabelledBy,
+        lineAriaDescribedBy,
+        lineAriaHidden,
+        lineAriaDisabled,
         initialHiddenIds = svgDefaultProps.initialHiddenIds as InferSeriesId<Series>[],
         forwardedRef,
     } = props
@@ -212,6 +217,11 @@ function InnerLine<Series extends LineSeries>(
                 series={series}
                 lineGenerator={lineGenerator}
                 lineWidth={lineWidth}
+                ariaLabel={lineAriaLabel}
+                ariaLabelledBy={lineAriaLabelledBy}
+                ariaDescribedBy={lineAriaDescribedBy}
+                ariaHidden={lineAriaHidden}
+                ariaDisabled={lineAriaDisabled}
             />
         )
     }
