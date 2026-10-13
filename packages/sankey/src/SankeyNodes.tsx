@@ -22,6 +22,11 @@ interface SankeyNodesProps<N extends DefaultNode, L extends DefaultLink> {
     isInteractive: SankeyCommonProps<N, L>['isInteractive']
     onClick?: SankeyCommonProps<N, L>['onClick']
     tooltip: SankeyCommonProps<N, L>['nodeTooltip']
+    nodeAriaLabel?: SankeyCommonProps<N, L>['nodeAriaLabel']
+    nodeAriaLabelledBy?: SankeyCommonProps<N, L>['nodeAriaLabelledBy']
+    nodeAriaDescribedBy?: SankeyCommonProps<N, L>['nodeAriaDescribedBy']
+    nodeAriaHidden?: SankeyCommonProps<N, L>['nodeAriaHidden']
+    nodeAriaDisabled?: SankeyCommonProps<N, L>['nodeAriaDisabled']
 }
 
 export const SankeyNodes = <N extends DefaultNode, L extends DefaultLink>({
@@ -39,6 +44,11 @@ export const SankeyNodes = <N extends DefaultNode, L extends DefaultLink>({
     isInteractive,
     onClick,
     tooltip,
+    nodeAriaLabel,
+    nodeAriaLabelledBy,
+    nodeAriaDescribedBy,
+    nodeAriaHidden,
+    nodeAriaDisabled,
 }: SankeyNodesProps<N, L>) => {
     const getOpacity = (node: SankeyNodeDatum<N, L>) => {
         if (!currentNode && !currentLink) return nodeOpacity
@@ -65,6 +75,11 @@ export const SankeyNodes = <N extends DefaultNode, L extends DefaultLink>({
                     isInteractive={isInteractive}
                     onClick={onClick}
                     tooltip={tooltip}
+                    ariaLabel={nodeAriaLabel ? nodeAriaLabel(node) : undefined}
+                    ariaLabelledBy={nodeAriaLabelledBy ? nodeAriaLabelledBy(node) : undefined}
+                    ariaDescribedBy={nodeAriaDescribedBy ? nodeAriaDescribedBy(node) : undefined}
+                    ariaHidden={nodeAriaHidden ? nodeAriaHidden(node) : undefined}
+                    ariaDisabled={nodeAriaDisabled ? nodeAriaDisabled(node) : undefined}
                 />
             ))}
         </>

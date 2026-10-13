@@ -182,6 +182,16 @@ export interface SankeyCommonProps<N extends DefaultNode, L extends DefaultLink>
     ariaLabel: AriaAttributes['aria-label']
     ariaLabelledBy: AriaAttributes['aria-labelledby']
     ariaDescribedBy: AriaAttributes['aria-describedby']
+    nodeAriaLabel?: (node: SankeyNodeDatum<N, L>) => AriaAttributes['aria-label']
+    nodeAriaLabelledBy?: (node: SankeyNodeDatum<N, L>) => AriaAttributes['aria-labelledby']
+    nodeAriaDescribedBy?: (node: SankeyNodeDatum<N, L>) => AriaAttributes['aria-describedby']
+    nodeAriaHidden?: (node: SankeyNodeDatum<N, L>) => AriaAttributes['aria-hidden']
+    nodeAriaDisabled?: (node: SankeyNodeDatum<N, L>) => AriaAttributes['aria-disabled']
+    linkAriaLabel?: (link: SankeyLinkDatum<N, L>) => AriaAttributes['aria-label']
+    linkAriaLabelledBy?: (link: SankeyLinkDatum<N, L>) => AriaAttributes['aria-labelledby']
+    linkAriaDescribedBy?: (link: SankeyLinkDatum<N, L>) => AriaAttributes['aria-describedby']
+    linkAriaHidden?: (link: SankeyLinkDatum<N, L>) => AriaAttributes['aria-hidden']
+    linkAriaDisabled?: (link: SankeyLinkDatum<N, L>) => AriaAttributes['aria-disabled']
 }
 
 export type SankeySvgProps<N extends DefaultNode, L extends DefaultLink> = Partial<

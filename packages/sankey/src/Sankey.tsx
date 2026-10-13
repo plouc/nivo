@@ -72,6 +72,16 @@ const InnerSankey = <N extends DefaultNode, L extends DefaultLink>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    nodeAriaLabel,
+    nodeAriaLabelledBy,
+    nodeAriaDescribedBy,
+    nodeAriaHidden,
+    nodeAriaDisabled,
+    linkAriaLabel,
+    linkAriaLabelledBy,
+    linkAriaDescribedBy,
+    linkAriaHidden,
+    linkAriaDisabled,
     forwardedRef,
 }: InnerSankeyProps<N, L> & {
     forwardedRef: Ref<SVGSVGElement>
@@ -204,6 +214,11 @@ const InnerSankey = <N extends DefaultNode, L extends DefaultLink>({
                 isInteractive={isInteractive}
                 onClick={onClick}
                 tooltip={linkTooltip}
+                linkAriaLabel={linkAriaLabel}
+                linkAriaLabelledBy={linkAriaLabelledBy}
+                linkAriaDescribedBy={linkAriaDescribedBy}
+                linkAriaHidden={linkAriaHidden}
+                linkAriaDisabled={linkAriaDisabled}
             />
         )
     }
@@ -226,6 +241,11 @@ const InnerSankey = <N extends DefaultNode, L extends DefaultLink>({
                 isInteractive={isInteractive}
                 onClick={onClick}
                 tooltip={nodeTooltip}
+                nodeAriaLabel={nodeAriaLabel}
+                nodeAriaLabelledBy={nodeAriaLabelledBy}
+                nodeAriaDescribedBy={nodeAriaDescribedBy}
+                nodeAriaHidden={nodeAriaHidden}
+                nodeAriaDisabled={nodeAriaDisabled}
             />
         )
     }
