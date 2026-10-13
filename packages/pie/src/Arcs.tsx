@@ -18,6 +18,11 @@ interface ArcsProps<RawDatum> {
     setActiveId: (id: null | string | number) => void
     tooltip: CompletePieSvgProps<RawDatum>['tooltip']
     transitionMode: CompletePieSvgProps<RawDatum>['transitionMode']
+    arcAriaLabel?: CompletePieSvgProps<RawDatum>['arcAriaLabel']
+    arcAriaLabelledBy?: CompletePieSvgProps<RawDatum>['arcAriaLabelledBy']
+    arcAriaDescribedBy?: CompletePieSvgProps<RawDatum>['arcAriaDescribedBy']
+    arcAriaHidden?: CompletePieSvgProps<RawDatum>['arcAriaHidden']
+    arcAriaDisabled?: CompletePieSvgProps<RawDatum>['arcAriaDisabled']
 }
 
 export const Arcs = <RawDatum,>({
@@ -34,6 +39,11 @@ export const Arcs = <RawDatum,>({
     setActiveId,
     tooltip,
     transitionMode,
+    arcAriaLabel,
+    arcAriaLabelledBy,
+    arcAriaDescribedBy,
+    arcAriaHidden,
+    arcAriaDisabled,
 }: ArcsProps<RawDatum>) => {
     const { showTooltipFromEvent, hideTooltip } = useTooltip()
 
@@ -86,6 +96,11 @@ export const Arcs = <RawDatum,>({
             onMouseEnter={handleMouseEnter}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
+            ariaLabel={arcAriaLabel}
+            ariaLabelledBy={arcAriaLabelledBy}
+            ariaDescribedBy={arcAriaDescribedBy}
+            ariaHidden={arcAriaHidden}
+            ariaDisabled={arcAriaDisabled}
         />
     )
 }

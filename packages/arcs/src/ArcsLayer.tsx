@@ -1,4 +1,4 @@
-import { createElement } from 'react'
+import { createElement, AriaAttributes } from 'react'
 import { useTheme } from '@nivo/theming'
 import { InheritedColorConfig, useInheritedColor } from '@nivo/colors'
 import { DatumWithArcAndColor, ArcGenerator } from './types'
@@ -16,6 +16,11 @@ interface ArcsLayerProps<Datum extends DatumWithArcAndColor> {
     arcGenerator: ArcGenerator
     borderWidth: number
     borderColor: InheritedColorConfig<Datum>
+    ariaLabel?: (datum: Datum) => AriaAttributes['aria-label']
+    ariaLabelledBy?: (datum: Datum) => AriaAttributes['aria-labelledby']
+    ariaDescribedBy?: (datum: Datum) => AriaAttributes['aria-describedby']
+    ariaHidden?: (datum: Datum) => AriaAttributes['aria-hidden']
+    ariaDisabled?: (datum: Datum) => AriaAttributes['aria-disabled']
     onClick?: ArcMouseHandler<Datum>
     onMouseEnter?: ArcMouseHandler<Datum>
     onMouseMove?: ArcMouseHandler<Datum>
@@ -30,6 +35,11 @@ export const ArcsLayer = <Datum extends DatumWithArcAndColor>({
     arcGenerator,
     borderWidth,
     borderColor,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
+    ariaHidden,
+    ariaDisabled,
     onClick,
     onMouseEnter,
     onMouseMove,
@@ -84,6 +94,11 @@ export const ArcsLayer = <Datum extends DatumWithArcAndColor>({
                             arcGenerator
                         ),
                     },
+                    ariaLabel: ariaLabel ? ariaLabel(datum) : undefined,
+                    ariaLabelledBy: ariaLabelledBy ? ariaLabelledBy(datum) : undefined,
+                    ariaDescribedBy: ariaDescribedBy ? ariaDescribedBy(datum) : undefined,
+                    ariaHidden: ariaHidden ? ariaHidden(datum) : undefined,
+                    ariaDisabled: ariaDisabled ? ariaDisabled(datum) : undefined,
                     onClick,
                     onMouseEnter,
                     onMouseMove,
