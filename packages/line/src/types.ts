@@ -255,6 +255,11 @@ export interface LineSvgExtraProps<Series extends LineSeries> {
     pointAriaDescribedBy?: (point: Point<Series>) => AriaAttributes['aria-describedby']
     pointAriaHidden?: (point: Point<Series>) => AriaAttributes['aria-hidden']
     pointAriaDisabled?: (point: Point<Series>) => AriaAttributes['aria-disabled']
+    lineAriaLabel?: (series: ComputedSeries<Series>) => AriaAttributes['aria-label']
+    lineAriaLabelledBy?: (series: ComputedSeries<Series>) => AriaAttributes['aria-labelledby']
+    lineAriaDescribedBy?: (series: ComputedSeries<Series>) => AriaAttributes['aria-describedby']
+    lineAriaHidden?: (series: ComputedSeries<Series>) => AriaAttributes['aria-hidden']
+    lineAriaDisabled?: (series: ComputedSeries<Series>) => AriaAttributes['aria-disabled']
 }
 export type LineSvgProps<Series extends LineSeries> = DataProps<Series> &
     Dimensions &

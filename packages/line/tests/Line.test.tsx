@@ -5,6 +5,7 @@ import { Axis } from '@nivo/axes'
 import { Line } from '../src'
 import { LINE_UNIQUE_ID_PREFIX } from '../src/hooks'
 import { Lines } from '../src/Lines'
+import { LinesItem } from '../src/LinesItem'
 import { SlicesItem } from '../src/SlicesItem'
 
 // Handle useId mocks
@@ -561,5 +562,56 @@ describe('touch events with slices', () => {
         const wrapper = mount(<Line {...baseProps} onTouchEnd={onTouchEnd} />)
         wrapper.find(`[data-ref='slice:${LINE_UNIQUE_ID_PREFIX}1:0']`).simulate('touchend')
         expect(onTouchEnd).toHaveBeenCalledTimes(1)
+    })
+})
+
+describe('accessibility', () => {
+    it('should add aria attributes to lines', () => {
+        const data = [
+            {
+                id: 'A',
+                data: [
+                    { x: 0, y: 3 },
+                    { x: 1, y: 7 },
+                ],
+            },
+            {
+                id: 'B',
+                data: [
+                    { x: 0, y: 1 },
+                    { x: 1, y: 5 },
+                ],
+            },
+        ]
+        const wrapper = mount(
+            <Line
+                width={500}
+                height={300}
+                data={data}
+                animate={false}
+                lineAriaLabel={series => `Line ${series.id}`}
+                lineAriaLabelledBy={series => `label-${series.id}`}
+                lineAriaDescribedBy={series => `desc-${series.id}`}
+                lineAriaHidden={series => series.id === 'B'}
+                lineAriaDisabled={series => series.id === 'B'}
+            />
+        )
+
+        const lines = wrapper.find(LinesItem)
+        expect(lines).toHaveLength(2)
+
+        const lineB = lines.at(0).find('path')
+        expect(lineB.prop('aria-label')).toBe('Line B')
+        expect(lineB.prop('aria-labelledby')).toBe('label-B')
+        expect(lineB.prop('aria-describedby')).toBe('desc-B')
+        expect(lineB.prop('aria-hidden')).toBe(true)
+        expect(lineB.prop('aria-disabled')).toBe(true)
+
+        const lineA = lines.at(1).find('path')
+        expect(lineA.prop('aria-label')).toBe('Line A')
+        expect(lineA.prop('aria-labelledby')).toBe('label-A')
+        expect(lineA.prop('aria-describedby')).toBe('desc-A')
+        expect(lineA.prop('aria-hidden')).toBe(false)
+        expect(lineA.prop('aria-disabled')).toBe(false)
     })
 })

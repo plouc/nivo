@@ -681,6 +681,46 @@ const props: ChartProperty[] = [
         help: '[aria-disabled](https://www.w3.org/TR/wai-aria/#aria-disabled) for points, `enablePoints` must be `true`.',
         type: '(point: Point) => boolean | undefined',
     },
+    {
+        key: 'lineAriaLabel',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-label](https://www.w3.org/TR/wai-aria/#aria-label) for lines.',
+        type: '(series: ComputedSeries) => string | undefined',
+    },
+    {
+        key: 'lineAriaLabelledBy',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby) for lines.',
+        type: '(series: ComputedSeries) => string | undefined',
+    },
+    {
+        key: 'lineAriaDescribedBy',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby) for lines.',
+        type: '(series: ComputedSeries) => string | undefined',
+    },
+    {
+        key: 'lineAriaHidden',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-hidden](https://www.w3.org/TR/wai-aria/#aria-hidden) for lines.',
+        type: '(series: ComputedSeries) => boolean | undefined',
+    },
+    {
+        key: 'lineAriaDisabled',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-disabled](https://www.w3.org/TR/wai-aria/#aria-disabled) for lines.',
+        type: '(series: ComputedSeries) => boolean | undefined',
+    },
 ]
 
 export const groups = groupProperties(props)
