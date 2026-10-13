@@ -12,6 +12,7 @@ import {
     chartRef,
     ordinalColors,
     isInteractive,
+    commonAccessibilityProps,
 } from '../../../lib/chart-properties'
 import { ChartProperty, Flavor } from '../../../types'
 
@@ -717,6 +718,47 @@ const props: ChartProperty[] = [
                 },
             },
         },
+    },
+    ...commonAccessibilityProps(['svg'], defaultProps),
+    {
+        key: 'arcAriaLabel',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-label](https://www.w3.org/TR/wai-aria/#aria-label) for arcs.',
+        type: '(data: ComputedDatum) => string | undefined',
+    },
+    {
+        key: 'arcAriaLabelledBy',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-labelledby](https://www.w3.org/TR/wai-aria/#aria-labelledby) for arcs.',
+        type: '(data: ComputedDatum) => string | undefined',
+    },
+    {
+        key: 'arcAriaDescribedBy',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-describedby](https://www.w3.org/TR/wai-aria/#aria-describedby) for arcs.',
+        type: '(data: ComputedDatum) => string | undefined',
+    },
+    {
+        key: 'arcAriaHidden',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-hidden](https://www.w3.org/TR/wai-aria/#aria-hidden) for arcs.',
+        type: '(data: ComputedDatum) => boolean | undefined',
+    },
+    {
+        key: 'arcAriaDisabled',
+        flavors: ['svg'],
+        required: false,
+        group: 'Accessibility',
+        help: '[aria-disabled](https://www.w3.org/TR/wai-aria/#aria-disabled) for arcs.',
+        type: '(data: ComputedDatum) => boolean | undefined',
     },
 ]
 

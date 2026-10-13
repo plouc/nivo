@@ -72,6 +72,11 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    arcAriaLabel,
+    arcAriaLabelledBy,
+    arcAriaDescribedBy,
+    arcAriaHidden,
+    arcAriaDisabled,
     forwardedRef,
 }: PieSvgProps<RawDatum> & {
     forwardedRef: Ref<SVGSVGElement>
@@ -145,6 +150,11 @@ const InnerPie = <RawDatum extends MayHaveLabel>({
                 setActiveId={setActiveId}
                 tooltip={tooltip}
                 transitionMode={transitionMode}
+                arcAriaLabel={arcAriaLabel}
+                arcAriaLabelledBy={arcAriaLabelledBy}
+                arcAriaDescribedBy={arcAriaDescribedBy}
+                arcAriaHidden={arcAriaHidden}
+                arcAriaDisabled={arcAriaDisabled}
             />
         )
     }

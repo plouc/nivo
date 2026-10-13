@@ -805,6 +805,38 @@ describe('Pie', () => {
             expect(svg.props['aria-labelledby']).toBeUndefined()
             expect(svg.props['aria-describedby']).toBeUndefined()
         })
+
+        it('should add aria attributes to arcs', () => {
+            const instance = create(
+                <Pie
+                    width={400}
+                    height={400}
+                    data={sampleData}
+                    arcAriaLabel={datum => `Arc ${datum.id}`}
+                    arcAriaLabelledBy={datum => `label-${datum.id}`}
+                    arcAriaDescribedBy={datum => `desc-${datum.id}`}
+                    arcAriaHidden={datum => datum.id === 'B'}
+                    arcAriaDisabled={datum => datum.id === 'B'}
+                />
+            ).root
+
+            const arcs = instance.findAllByType(ArcShape)
+            expect(arcs).toHaveLength(3)
+
+            const paths = arcs.map(arc => arc.findByType('path'))
+
+            expect(paths[0].props['aria-label']).toBe('Arc A')
+            expect(paths[0].props['aria-labelledby']).toBe('label-A')
+            expect(paths[0].props['aria-describedby']).toBe('desc-A')
+            expect(paths[0].props['aria-hidden']).toBe(false)
+            expect(paths[0].props['aria-disabled']).toBe(false)
+
+            expect(paths[1].props['aria-label']).toBe('Arc B')
+            expect(paths[1].props['aria-labelledby']).toBe('label-B')
+            expect(paths[1].props['aria-describedby']).toBe('desc-B')
+            expect(paths[1].props['aria-hidden']).toBe(true)
+            expect(paths[1].props['aria-disabled']).toBe(true)
+        })
     })
 
     describe('layers', () => {

@@ -151,6 +151,11 @@ export type PieSvgProps<RawDatum> = DataProps<RawDatum> &
         ariaLabel?: AriaAttributes['aria-label']
         ariaLabelledBy?: AriaAttributes['aria-labelledby']
         ariaDescribedBy?: AriaAttributes['aria-describedby']
+        arcAriaLabel?: (data: ComputedDatum<RawDatum>) => AriaAttributes['aria-label']
+        arcAriaLabelledBy?: (data: ComputedDatum<RawDatum>) => AriaAttributes['aria-labelledby']
+        arcAriaDescribedBy?: (data: ComputedDatum<RawDatum>) => AriaAttributes['aria-describedby']
+        arcAriaHidden?: (data: ComputedDatum<RawDatum>) => AriaAttributes['aria-hidden']
+        arcAriaDisabled?: (data: ComputedDatum<RawDatum>) => AriaAttributes['aria-disabled']
     }
 
 export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
@@ -166,6 +171,11 @@ export type CompletePieSvgProps<RawDatum> = DataProps<RawDatum> &
         ariaLabel?: AriaAttributes['aria-label']
         ariaLabelledBy?: AriaAttributes['aria-labelledby']
         ariaDescribedBy?: AriaAttributes['aria-describedby']
+        arcAriaLabel?: (data: ComputedDatum<RawDatum>) => AriaAttributes['aria-label']
+        arcAriaLabelledBy?: (data: ComputedDatum<RawDatum>) => AriaAttributes['aria-labelledby']
+        arcAriaDescribedBy?: (data: ComputedDatum<RawDatum>) => AriaAttributes['aria-describedby']
+        arcAriaHidden?: (data: ComputedDatum<RawDatum>) => AriaAttributes['aria-hidden']
+        arcAriaDisabled?: (data: ComputedDatum<RawDatum>) => AriaAttributes['aria-disabled']
     }
 
 export type PieCanvasProps<RawDatum> = DataProps<RawDatum> &
