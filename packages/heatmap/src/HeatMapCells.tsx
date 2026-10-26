@@ -25,6 +25,11 @@ interface HeatMapCellsProps<Datum extends HeatMapDatum, ExtraProps extends objec
     onClick: HeatMapSvgProps<Datum, ExtraProps>['onClick']
     tooltip: NonNullable<HeatMapSvgProps<Datum, ExtraProps>['tooltip']>
     enableLabels: NonNullable<HeatMapSvgProps<Datum, ExtraProps>['enableLabels']>
+    cellAriaLabel?: HeatMapSvgProps<Datum, ExtraProps>['cellAriaLabel']
+    cellAriaLabelledBy?: HeatMapSvgProps<Datum, ExtraProps>['cellAriaLabelledBy']
+    cellAriaDescribedBy?: HeatMapSvgProps<Datum, ExtraProps>['cellAriaDescribedBy']
+    cellAriaHidden?: HeatMapSvgProps<Datum, ExtraProps>['cellAriaHidden']
+    cellAriaDisabled?: HeatMapSvgProps<Datum, ExtraProps>['cellAriaDisabled']
 }
 
 const enterTransition = <Datum extends HeatMapDatum>(cell: ComputedCell<Datum>) => ({
@@ -76,6 +81,11 @@ export const HeatMapCells = <Datum extends HeatMapDatum, ExtraProps extends obje
     onClick,
     tooltip,
     enableLabels,
+    cellAriaLabel,
+    cellAriaLabelledBy,
+    cellAriaDescribedBy,
+    cellAriaHidden,
+    cellAriaDisabled,
 }: HeatMapCellsProps<Datum, ExtraProps>) => {
     const { animate, config: springConfig } = useMotionConfig()
 
@@ -151,6 +161,11 @@ export const HeatMapCells = <Datum extends HeatMapDatum, ExtraProps extends obje
                     onMouseMove: handleMouseMove,
                     onMouseLeave: handleMouseLeave,
                     onClick: handleClick,
+                    ariaLabel: cellAriaLabel ? cellAriaLabel(cell) : undefined,
+                    ariaLabelledBy: cellAriaLabelledBy ? cellAriaLabelledBy(cell) : undefined,
+                    ariaDescribedBy: cellAriaDescribedBy ? cellAriaDescribedBy(cell) : undefined,
+                    ariaHidden: cellAriaHidden ? cellAriaHidden(cell) : undefined,
+                    ariaDisabled: cellAriaDisabled ? cellAriaDisabled(cell) : undefined,
                 })
             )}
         </>

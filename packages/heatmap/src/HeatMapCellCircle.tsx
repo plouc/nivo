@@ -13,6 +13,11 @@ const NonMemoizedHeatMapCellCircle = <Datum extends HeatMapDatum>({
     onMouseLeave,
     onClick,
     enableLabels,
+    ariaLabel,
+    ariaLabelledBy,
+    ariaDescribedBy,
+    ariaHidden,
+    ariaDisabled,
 }: CellComponentProps<Datum>) => {
     const theme = useTheme()
 
@@ -31,6 +36,11 @@ const NonMemoizedHeatMapCellCircle = <Datum extends HeatMapDatum>({
             data-testid={`cell.${cell.id}`}
             style={{ cursor: 'pointer' }}
             opacity={animatedProps.opacity}
+            aria-label={ariaLabel}
+            aria-labelledby={ariaLabelledBy}
+            aria-describedby={ariaDescribedBy}
+            aria-hidden={ariaHidden}
+            aria-disabled={ariaDisabled}
             {...handlers}
             transform={to([animatedProps.x, animatedProps.y], (x, y) => `translate(${x}, ${y})`)}
         >

@@ -89,6 +89,11 @@ export interface CellComponentProps<Datum extends HeatMapDatum> {
     onMouseLeave?: (cell: ComputedCell<Datum>) => (event: MouseEvent) => void
     onClick?: (cell: ComputedCell<Datum>) => (event: MouseEvent) => void
     enableLabels: boolean
+    ariaLabel?: AriaAttributes['aria-label']
+    ariaLabelledBy?: AriaAttributes['aria-labelledby']
+    ariaDescribedBy?: AriaAttributes['aria-describedby']
+    ariaHidden?: AriaAttributes['aria-hidden']
+    ariaDisabled?: AriaAttributes['aria-disabled']
 }
 export type CellComponent<Datum extends HeatMapDatum> = FunctionComponent<CellComponentProps<Datum>>
 
@@ -180,6 +185,11 @@ export type HeatMapSvgProps<Datum extends HeatMapDatum, ExtraProps extends objec
         onMouseEnter: (cell: ComputedCell<Datum>, event: MouseEvent) => void
         onMouseMove: (cell: ComputedCell<Datum>, event: MouseEvent) => void
         onMouseLeave: (cell: ComputedCell<Datum>, event: MouseEvent) => void
+        cellAriaLabel: (cell: ComputedCell<Datum>) => AriaAttributes['aria-label']
+        cellAriaLabelledBy: (cell: ComputedCell<Datum>) => AriaAttributes['aria-labelledby']
+        cellAriaDescribedBy: (cell: ComputedCell<Datum>) => AriaAttributes['aria-describedby']
+        cellAriaHidden: (cell: ComputedCell<Datum>) => AriaAttributes['aria-hidden']
+        cellAriaDisabled: (cell: ComputedCell<Datum>) => AriaAttributes['aria-disabled']
     }>
 
 export type HeatMapCanvasProps<Datum extends HeatMapDatum, ExtraProps extends object> = Partial<

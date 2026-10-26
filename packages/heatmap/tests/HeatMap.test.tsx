@@ -595,4 +595,36 @@ describe('accessibility', () => {
         expect(svg.prop('aria-labelledby')).toBe('AriaLabelledBy')
         expect(svg.prop('aria-describedby')).toBe('AriaDescribedBy')
     })
+
+    CELL_SHAPES.forEach(shape => {
+        describe(shape, () => {
+            it('should add aria attributes to cells', () => {
+                const wrapper = mount(
+                    <HeatMap
+                        {...baseProps}
+                        cellComponent={shape}
+                        cellAriaLabel={cell => `Cell ${cell.id}`}
+                        cellAriaLabelledBy={cell => `label-${cell.id}`}
+                        cellAriaDescribedBy={cell => `desc-${cell.id}`}
+                        cellAriaHidden={cell => cell.id === 'A.X'}
+                        cellAriaDisabled={cell => cell.id === 'A.X'}
+                    />
+                )
+
+                const cellAX = wrapper.find("g[data-testid='cell.A.X']")
+                expect(cellAX.prop('aria-label')).toBe('Cell A.X')
+                expect(cellAX.prop('aria-labelledby')).toBe('label-A.X')
+                expect(cellAX.prop('aria-describedby')).toBe('desc-A.X')
+                expect(cellAX.prop('aria-hidden')).toBe(true)
+                expect(cellAX.prop('aria-disabled')).toBe(true)
+
+                const cellAY = wrapper.find("g[data-testid='cell.A.Y']")
+                expect(cellAY.prop('aria-label')).toBe('Cell A.Y')
+                expect(cellAY.prop('aria-labelledby')).toBe('label-A.Y')
+                expect(cellAY.prop('aria-describedby')).toBe('desc-A.Y')
+                expect(cellAY.prop('aria-hidden')).toBe(false)
+                expect(cellAY.prop('aria-disabled')).toBe(false)
+            })
+        })
+    })
 })

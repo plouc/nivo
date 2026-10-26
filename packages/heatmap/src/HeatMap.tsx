@@ -68,6 +68,11 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
     ariaLabel,
     ariaLabelledBy,
     ariaDescribedBy,
+    cellAriaLabel,
+    cellAriaLabelledBy,
+    cellAriaDescribedBy,
+    cellAriaHidden,
+    cellAriaDisabled,
     forwardedRef,
 }: InnerHeatMapProps<Datum, ExtraProps>) => {
     const {
@@ -172,6 +177,11 @@ const InnerHeatMap = <Datum extends HeatMapDatum, ExtraProps extends object>({
                     onClick={onClick}
                     tooltip={tooltip}
                     enableLabels={enableLabels}
+                    cellAriaLabel={cellAriaLabel}
+                    cellAriaLabelledBy={cellAriaLabelledBy}
+                    cellAriaDescribedBy={cellAriaDescribedBy}
+                    cellAriaHidden={cellAriaHidden}
+                    cellAriaDisabled={cellAriaDisabled}
                 />
             </Fragment>
         )
