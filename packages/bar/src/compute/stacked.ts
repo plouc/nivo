@@ -195,8 +195,8 @@ export const generateStackedBars = <RawDatum extends BarDatum>({
         flattenDeep(stackedData as unknown as number[][]),
         valueScale.type
     )
-    const min = Math.min(...values)
-    const max = Math.max(...values)
+    const min = values.reduce((acc, value) => Math.min(acc, value), Infinity)
+    const max = values.reduce((acc, value) => Math.max(acc, value), -Infinity)
 
     const scale = computeScale(
         valueScale,

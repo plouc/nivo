@@ -101,11 +101,11 @@ const computeVariablesScales = <Datum extends BaseDatum>({
         const min =
             variable.min !== undefined && variable.min !== 'auto'
                 ? variable.min
-                : Math.min(...allValues!)
+                : allValues!.reduce((acc, value) => Math.min(acc, value), Infinity)
         const max =
             variable.max !== undefined && variable.max !== 'auto'
                 ? variable.max
-                : Math.max(...allValues!)
+                : allValues!.reduce((acc, value) => Math.max(acc, value), -Infinity)
 
         const scale = castLinearScale(scaleLinear().rangeRound(range).domain([min, max]))
 

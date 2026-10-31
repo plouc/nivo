@@ -67,8 +67,8 @@ export const useStackedData = <Datum>(
             })
         })
 
-        const min = Math.min(...allValues)
-        const max = Math.max(...allValues)
+        const min = allValues.reduce((acc, value) => Math.min(acc, value), Infinity)
+        const max = allValues.reduce((acc, value) => Math.max(acc, value), -Infinity)
 
         return {
             stacked,

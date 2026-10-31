@@ -92,8 +92,8 @@ export const useStream = <RawDatum extends StreamDatum>({
             })
         })
 
-        const minValue = Math.min(...allMin)
-        const maxValue = Math.max(...allMax)
+        const minValue = allMin.reduce((acc, value) => Math.min(acc, value), Infinity)
+        const maxValue = allMax.reduce((acc, value) => Math.max(acc, value), -Infinity)
 
         const xScale = createPointScale(
             { type: 'point' },
