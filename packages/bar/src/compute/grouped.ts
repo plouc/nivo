@@ -197,11 +197,11 @@ export const generateGroupedBars = <D extends BarDatum>({
 
     const clampMin = valueScale.min === 'auto' ? clampToZero : (value: number) => value
 
-    const values = data
-        .reduce<number[]>((acc, entry) => [...acc, ...keys.map(k => entry[k] as number)], [])
-        .filter(Boolean)
-    const min = clampMin(Math.min(...values))
-    const max = zeroIfNotFinite(Math.max(...values))
+    // avoid spreading: an accumulator spread is quadratic, and spreading into
+    // `Math.min`/`Math.max` overflows the call stack for large arrays.
+    const values = data.flatMap(entry => keys.map(k => entry[k] as number)).filter(Boolean)
+    const min = clampMin(values.reduce((acc, value) => Math.min(acc, value), Infinity))
+    const max = zeroIfNotFinite(values.reduce((acc, value) => Math.max(acc, value), -Infinity))
 
     const scale = computeScale(
         valueScale,

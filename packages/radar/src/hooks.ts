@@ -77,11 +77,11 @@ export const useRadar = <D extends Record<string, unknown>>({
     }, [keys, data, defs, fill, colorByKey])
 
     const { radius, radiusScale, centerX, centerY, angleStep } = useMemo(() => {
-        const allValues: number[] = data.reduce(
-            (acc: number[], d) => [...acc, ...keys.map(key => d[key] as number)],
-            [] as number[]
-        )
-        const computedMaxValue = maxValue !== 'auto' ? maxValue : Math.max(...allValues)
+        const allValues: number[] = data.flatMap(d => keys.map(key => d[key] as number))
+        const computedMaxValue =
+            maxValue !== 'auto'
+                ? maxValue
+                : allValues.reduce((max, value) => Math.max(max, value), -Infinity)
 
         const radius = Math.min(width, height) / 2
         const radiusScale = scaleLinear<number, number>()
