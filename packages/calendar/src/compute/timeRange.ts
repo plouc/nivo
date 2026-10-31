@@ -11,6 +11,7 @@ import {
 } from 'd3-time'
 import { timeFormat } from 'd3-time-format'
 import { DateOrString, Weekday } from '../types'
+import { indexDataByDay } from './indexDataByDay'
 import isDate from 'lodash/isDate.js'
 
 // Interfaces
@@ -251,8 +252,10 @@ export const computeCellPositions = ({
         }
     })
 
+    const dataByDay = indexDataByDay(data)
+
     const dataWithCellPosition = dateRange.map(day => {
-        const dayData = data.find(item => item.day === day.day)
+        const dayData = dataByDay.get(day.day)
 
         const { currentColumn, currentRow, firstWeek, year, month, date } = computeGrid({
             startDate,

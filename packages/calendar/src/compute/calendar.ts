@@ -6,6 +6,7 @@ import { timeFormat } from 'd3-time-format'
 import { timeDays, timeWeek, timeWeeks, timeMonths, timeYear } from 'd3-time'
 import { ScaleQuantize } from 'd3-scale'
 import { BBox, CalendarSvgProps, ColorScale, Datum, Year } from '../types'
+import { indexDataByDay } from './indexDataByDay'
 
 /**
  * Compute min/max values.
@@ -373,8 +374,10 @@ export const bindDaysData = ({
     colorScale: ScaleQuantize<string> | ColorScale
     days: Array<Omit<Datum, 'color' | 'data' | 'value'>>
 }) => {
+    const dataByDay = indexDataByDay(data)
+
     return days.map(day => {
-        const dayData = data.find(item => item.day === day.day)
+        const dayData = dataByDay.get(day.day)
 
         if (!dayData) {
             return { ...day, color: emptyColor }
