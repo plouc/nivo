@@ -289,17 +289,26 @@ export const useLine = <Series extends LineSeries>({
             color: getColor(seriesItem),
         }))
 
+        // index by id to avoid quadratic lookups with many series,
+        // first match wins, consistent with `Array.prototype.find`.
+        const rawSeriesById = new Map<unknown, (typeof rawSeries)[number]>()
+        rawSeries.forEach(seriesItem => {
+            if (!rawSeriesById.has(seriesItem.id)) rawSeriesById.set(seriesItem.id, seriesItem)
+        })
+
         const series = dataWithColor
             .map(datum => ({
-                ...rawSeries.find(seriesItem => seriesItem.id === datum.id)!,
+                ...rawSeriesById.get(datum.id)!,
                 color: datum.color,
             }))
             .filter(item => Boolean(item.id)) as unknown as ComputedSeries<Series>[]
 
+        const visibleIds = new Set<unknown>(series.map(seriesItem => seriesItem.id))
+
         const legendData = dataWithColor
             .map(item => ({
                 ...item,
-                hidden: !series.find(seriesItem => seriesItem.id === item.id),
+                hidden: !visibleIds.has(item.id),
             }))
             .reverse()
 
