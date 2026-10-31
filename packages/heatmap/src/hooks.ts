@@ -163,12 +163,15 @@ const useCellsStyle = <Datum extends HeatMapDatum = DefaultHeatMapDatum>({
     const formatValue = useValueFormatter(valueFormat)
     const getLabel = usePropertyAccessor(label)
 
+    // cells are restyled on every hover, a set avoids scanning the active ids for each cell.
+    const activeIdsSet = useMemo(() => new Set(activeIds), [activeIds])
+
     const styledCells = useMemo(
         () =>
             cells.map(cell => {
                 let computedOpacity = opacity
                 if (activeIds.length > 0) {
-                    computedOpacity = activeIds.includes(cell.id) ? activeOpacity : inactiveOpacity
+                    computedOpacity = activeIdsSet.has(cell.id) ? activeOpacity : inactiveOpacity
                 }
 
                 const sizeMultiplier = getSize(cell.value)
@@ -197,6 +200,7 @@ const useCellsStyle = <Datum extends HeatMapDatum = DefaultHeatMapDatum>({
             formatValue,
             getLabel,
             activeIds,
+            activeIdsSet,
             opacity,
             activeOpacity,
             inactiveOpacity,
