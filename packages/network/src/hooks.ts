@@ -213,6 +213,10 @@ export const useNetwork = <Node extends InputNode = InputNode, Link extends Inpu
             vx: 0,
             vy: 0,
         }))
+        // reversed so that the first node wins on duplicate ids, like `Array.find`.
+        const transientNodesById = new Map<string, TransientNode<Node>>(
+            _transientNodes.map(node => [node.id, node] as const).reverse()
+        )
         const _transientLinks: TransientLink<Node, Link>[] = links.map(link => ({
             data: { ...link },
             // populated by D3, via mutation
@@ -220,8 +224,8 @@ export const useNetwork = <Node extends InputNode = InputNode, Link extends Inpu
             // replace ids with objects, otherwise D3 does this automatically
             // which is a bit annoying with typings because then `source` & `target`
             // can be either strings (before the simulation) or an objects (after).
-            source: _transientNodes.find(node => node.id === link.source)!,
-            target: _transientNodes.find(node => node.id === link.target)!,
+            source: transientNodesById.get(link.source)!,
+            target: transientNodesById.get(link.target)!,
         }))
 
         const simulation = forceSimulation(_transientNodes)
@@ -269,13 +273,20 @@ export const useNetwork = <Node extends InputNode = InputNode, Link extends Inpu
     const computedLinks: ComputedLink<Node, Link>[] | null = useMemo(() => {
         if (transientLinks === null || computedNodes === null) return null
 
+        // this runs on every hover (`computedNodes` depends on the active nodes),
+        // index nodes by id to avoid a linear scan per link,
+        // reversed so that the first node wins on duplicate ids, like `Array.find`.
+        const computedNodesById = new Map<string, ComputedNode<Node>>(
+            computedNodes.map(node => [node.id, node] as const).reverse()
+        )
+
         return transientLinks.map(({ index, ...link }) => {
             const linkWithComputedNodes: Omit<ComputedLink<Node, Link>, 'color' | 'thickness'> = {
                 id: `${link.source.id}.${link.target.id}`,
                 data: link.data,
                 index,
-                source: computedNodes.find(node => node.id === link.source.id)!,
-                target: computedNodes.find(node => node.id === link.target.id)!,
+                source: computedNodesById.get(link.source.id)!,
+                target: computedNodesById.get(link.target.id)!,
             }
 
             return {
