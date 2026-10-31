@@ -632,6 +632,21 @@ describe('stackAxis', () => {
                     },
                 ])
             })
+
+            it(`should handle large series`, () => {
+                const size = 100_000
+                const all = Array.from({ length: size }, (_, i) => i)
+                const xy = { [otherAxis]: { all }, [axis]: {} }
+                const series = ['A', 'B', 'C'].map(id => ({
+                    id,
+                    data: all.map(v => ({ data: { [otherAxis]: v, [axis]: 1 } })),
+                }))
+
+                stackAxis(axis, xy, series)
+
+                expect(xy[axis]).toEqual({ minStacked: 1, maxStacked: 3 })
+                expect(series[2].data[size - 1].data[`${axis}Stacked`]).toBe(3)
+            })
         })
     })
 })
