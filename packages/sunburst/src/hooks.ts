@@ -69,6 +69,10 @@ export const useSunburst = <RawDatum>({
         // are going to be computed first
         const sortedNodes = sortBy(descendants, 'depth')
 
+        // index computed nodes by id to find parents without scanning all
+        // previous nodes, first match wins, consistent with `Array.find`.
+        const nodesById = new Map<DatumId, ComputedDatum<RawDatum>>()
+
         return sortedNodes.reduce<ComputedDatum<RawDatum>[]>((acc, descendant) => {
             const id = getId(descendant.data)
             // d3 hierarchy node value is optional by default as it depends on
@@ -92,7 +96,7 @@ export const useSunburst = <RawDatum>({
                 // as the parent is defined by the input data, and we sorted the data
                 // by `depth`, we can safely assume it's defined.
                 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                parent = acc.find(node => node.id === getId(descendant.parent!.data))
+                parent = nodesById.get(getId(descendant.parent!.data))
             }
 
             const normalizedNode: ComputedDatum<RawDatum> = {
@@ -114,7 +118,10 @@ export const useSunburst = <RawDatum>({
                 normalizedNode.color = getColor(normalizedNode)
             }
 
-            return [...acc, normalizedNode]
+            if (!nodesById.has(id)) nodesById.set(id, normalizedNode)
+            acc.push(normalizedNode)
+
+            return acc
         }, [])
     }, [
         data,

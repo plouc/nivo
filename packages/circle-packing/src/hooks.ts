@@ -71,6 +71,10 @@ export const useCirclePacking = <Datum>({
 
     const total = hierarchy.value ?? 0
 
+    // index computed nodes by id to find parents without scanning all
+    // previous nodes, first match wins, consistent with `Array.find`.
+    const nodesById = new Map<string, ComputedDatum<Datum>>()
+
     return sortedNodes.reduce<ComputedDatum<Datum>[]>((acc, descendant) => {
         const id = getId(descendant.data)
         const value = descendant.value!
@@ -79,7 +83,7 @@ export const useCirclePacking = <Datum>({
 
         let parent: ComputedDatum<Datum> | undefined
         if (descendant.parent) {
-            parent = acc.find(node => node.id === getId(descendant.parent!.data))
+            parent = nodesById.get(getId(descendant.parent!.data))
         }
 
         const normalizedNode: ComputedDatum<Datum> = {
@@ -103,7 +107,10 @@ export const useCirclePacking = <Datum>({
             normalizedNode.color = getColor(normalizedNode)
         }
 
-        return [...acc, normalizedNode]
+        if (!nodesById.has(id)) nodesById.set(id, normalizedNode)
+        acc.push(normalizedNode)
+
+        return acc
     }, [])
 }
 
