@@ -77,42 +77,47 @@ function usePoints<Series extends LineSeries>({
     formatY: (y: InferY<Series>) => string
 }) {
     return useMemo(() => {
-        return series.reduce((acc, seriesItem, seriesIndex) => {
-            return [
-                ...acc,
-                ...seriesItem.data
-                    .filter(datum => datum.position.x !== null && datum.position.y !== null)
-                    .map((datum, indexInSeries) => {
-                        const point: Omit<Point<Series>, 'color' | 'borderColor'> & {
-                            color?: string
-                            borderColor?: string
-                        } = {
-                            id: `${seriesItem.id}.${indexInSeries}`,
-                            indexInSeries,
-                            absIndex: acc.length + indexInSeries,
-                            seriesIndex,
-                            seriesId: seriesItem.id,
-                            seriesColor: seriesItem.color,
-                            x: datum.position.x,
-                            y: datum.position.y,
-                            data: {
-                                ...datum.data,
-                                xFormatted: formatX(datum.data.x as InferX<Series>),
-                                yFormatted: formatY(datum.data.y as InferY<Series>),
-                            },
-                        }
-                        point.color = getPointColor({
-                            series: seriesItem,
-                            point: point as Omit<Point<Series>, 'color' | 'borderColor'>,
-                        })
-                        point.borderColor = getPointBorderColor(
-                            point as Omit<Point<Series>, 'borderColor'>
-                        )
+        // push into a single array, spreading the accumulator
+        // for each series is quadratic in the number of series.
+        const points: Point<Series>[] = []
 
-                        return point as Point<Series>
-                    }),
-            ]
-        }, [] as Point<Series>[])
+        series.forEach((seriesItem, seriesIndex) => {
+            const offset = points.length
+
+            seriesItem.data
+                .filter(datum => datum.position.x !== null && datum.position.y !== null)
+                .forEach((datum, indexInSeries) => {
+                    const point: Omit<Point<Series>, 'color' | 'borderColor'> & {
+                        color?: string
+                        borderColor?: string
+                    } = {
+                        id: `${seriesItem.id}.${indexInSeries}`,
+                        indexInSeries,
+                        absIndex: offset + indexInSeries,
+                        seriesIndex,
+                        seriesId: seriesItem.id,
+                        seriesColor: seriesItem.color,
+                        x: datum.position.x,
+                        y: datum.position.y,
+                        data: {
+                            ...datum.data,
+                            xFormatted: formatX(datum.data.x as InferX<Series>),
+                            yFormatted: formatY(datum.data.y as InferY<Series>),
+                        },
+                    }
+                    point.color = getPointColor({
+                        series: seriesItem,
+                        point: point as Omit<Point<Series>, 'color' | 'borderColor'>,
+                    })
+                    point.borderColor = getPointBorderColor(
+                        point as Omit<Point<Series>, 'borderColor'>
+                    )
+
+                    points.push(point as Point<Series>)
+                })
+        })
+
+        return points
     }, [series, getPointColor, getPointBorderColor, formatX, formatY])
 }
 
