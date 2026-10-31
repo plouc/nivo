@@ -138,8 +138,8 @@ export const computeCells = <Datum extends HeatMapDatum, ExtraProps extends obje
         offsetY,
         xScale,
         yScale,
-        minValue: Math.min(...allValues),
-        maxValue: Math.max(...allValues),
+        minValue: allValues.reduce((acc, value) => Math.min(acc, value), Infinity),
+        maxValue: allValues.reduce((acc, value) => Math.max(acc, value), -Infinity),
         cells: cellsWithPosition,
     }
 }

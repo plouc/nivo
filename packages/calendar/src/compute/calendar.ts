@@ -16,8 +16,14 @@ export const computeDomain = (
     maxSpec: NonNullable<CalendarSvgProps['maxValue']>
 ) => {
     const allValues = data.map(d => d.value)
-    const minValue = minSpec === 'auto' ? Math.min(...allValues) : minSpec
-    const maxValue = maxSpec === 'auto' ? Math.max(...allValues) : maxSpec
+    const minValue =
+        minSpec === 'auto'
+            ? allValues.reduce((acc, value) => Math.min(acc, value), Infinity)
+            : minSpec
+    const maxValue =
+        maxSpec === 'auto'
+            ? allValues.reduce((acc, value) => Math.max(acc, value), -Infinity)
+            : maxSpec
 
     return [minValue, maxValue] as const
 }

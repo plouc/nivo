@@ -82,8 +82,8 @@ export const computeValueScale = <RawDatum>({
         >
     }
 
-    const min = Math.min(...(values as number[]))
-    const max = Math.max(...(values as number[]))
+    const min = (values as number[]).reduce((acc, value) => Math.min(acc, value), Infinity)
+    const max = (values as number[]).reduce((acc, value) => Math.max(acc, value), -Infinity)
 
     return computeScale(
         scale,
