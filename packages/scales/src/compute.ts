@@ -50,12 +50,33 @@ export type ComputedSerie<S = never, D extends SerieDatum = SerieDatum> = S & {
     }[]
 }
 
-type Compare = <T>(a: T, b: T) => boolean
-
 export const getOtherAxis = (axis: ScaleAxis): ScaleAxis => (axis === 'x' ? 'y' : 'x')
 
 export const compareValues = (a: string | number, b: string | number) => a === b
 export const compareDateValues = (a: Date, b: Date) => a.getTime() === b.getTime()
+
+/**
+ * Dates are compared by time, other values by identity.
+ */
+const getLookupKey = (value: unknown) => (isDate(value) ? value.getTime() : value)
+
+/**
+ * Same result as `Math.min(...values)` / `Math.max(...values)`,
+ * without spreading, which overflows the call stack for large arrays.
+ */
+const getMinMax = (values: unknown[]) => {
+    let min = Infinity
+    let max = -Infinity
+
+    for (const value of values) {
+        const n = Number(value)
+        if (Number.isNaN(n)) return { min: NaN, max: NaN }
+        if (n < min) min = n
+        if (n > max) max = n
+    }
+
+    return { min, max }
+}
 
 export function computeScale<Input extends ScaleValue>(
     spec: ScaleSpec,
@@ -235,7 +256,7 @@ export const generateSeriesAxis = <Axis extends ScaleAxis, Value extends ScaleVa
                 v => v
             )
 
-            return { all, min: Math.min(...all), max: Math.max(...all) }
+            return { all, ...getMinMax(all) }
         }
         case 'time': {
             const all = uniqBy(values as Date[], v => v.getTime())
@@ -259,14 +280,28 @@ export const stackAxis = <S = never, D extends SerieDatum = SerieDatum>(
     series: NestedSerie<S, D>[]
 ) => {
     const otherAxis = getOtherAxis(axis)
+    const stackedKey = axis === 'x' ? 'xStacked' : 'yStacked'
     const all: number[] = []
 
+    // index each serie by its other axis value once, instead of scanning
+    // every serie for each unique value (O(values × series × data)).
+    // first match wins, consistent with `Array.prototype.find`.
+    const indexes = series.map(serie => {
+        const index = new Map<unknown, (typeof serie.data)[number]>()
+        serie.data.forEach(d => {
+            const key = getLookupKey(d.data[otherAxis])
+            if (!index.has(key)) index.set(key, d)
+        })
+
+        return index
+    })
+
     xy[otherAxis].all.forEach(v => {
-        const compare = (isDate(v) ? compareDateValues : compareValues) as Compare
+        const key = getLookupKey(v)
         const stack: Array<number | null> = []
 
-        series.forEach(serie => {
-            const datum = serie.data.find(d => compare(d.data[otherAxis], v))
+        indexes.forEach(index => {
+            const datum = index.get(key)
             let value = null
             let stackValue = null
 
@@ -282,7 +317,7 @@ export const stackAxis = <S = never, D extends SerieDatum = SerieDatum>(
                     }
                 }
 
-                datum.data[axis === 'x' ? 'xStacked' : 'yStacked'] = stackValue
+                datum.data[stackedKey] = stackValue
             }
 
             stack.push(stackValue)
@@ -293,8 +328,9 @@ export const stackAxis = <S = never, D extends SerieDatum = SerieDatum>(
         })
     })
 
-    xy[axis].minStacked = Math.min(...all)
-    xy[axis].maxStacked = Math.max(...all)
+    const { min, max } = getMinMax(all)
+    xy[axis].minStacked = min
+    xy[axis].maxStacked = max
 }
 
 const stackX = <S = never, D extends SerieDatum = SerieDatum>(
