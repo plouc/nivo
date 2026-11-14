@@ -21,23 +21,40 @@ export const precisionCutOffs: ((date: Date) => void)[] = [
     date => date.setMonth(0),
 ]
 
-export const precisionCutOffsByType: Record<TIME_PRECISION, ((date: Date) => void)[]> = {
+export const utcPrecisionCutOffs: ((date: Date) => void)[] = [
+    date => date.setUTCMilliseconds(0),
+    date => date.setUTCSeconds(0),
+    date => date.setUTCMinutes(0),
+    date => date.setUTCHours(0),
+    date => date.setUTCDate(1),
+    date => date.setUTCMonth(0),
+]
+
+const getCutOffsByType = (
+    cutOffs: ((date: Date) => void)[]
+): Record<TIME_PRECISION, ((date: Date) => void)[]> => ({
     millisecond: [],
-    second: precisionCutOffs.slice(0, 1),
-    minute: precisionCutOffs.slice(0, 2),
-    hour: precisionCutOffs.slice(0, 3),
-    day: precisionCutOffs.slice(0, 4),
-    month: precisionCutOffs.slice(0, 5),
-    year: precisionCutOffs.slice(0, 6),
-}
+    second: cutOffs.slice(0, 1),
+    minute: cutOffs.slice(0, 2),
+    hour: cutOffs.slice(0, 3),
+    day: cutOffs.slice(0, 4),
+    month: cutOffs.slice(0, 5),
+    year: cutOffs.slice(0, 6),
+})
 
-export const createPrecisionMethod = (precision: TIME_PRECISION) => (date: Date) => {
-    precisionCutOffsByType[precision].forEach(cutOff => {
-        cutOff(date)
-    })
+export const precisionCutOffsByType = getCutOffsByType(precisionCutOffs)
+export const utcPrecisionCutOffsByType = getCutOffsByType(utcPrecisionCutOffs)
 
-    return date
-}
+export const createPrecisionMethod =
+    (precision: TIME_PRECISION, useUTC = false) =>
+    (date: Date) => {
+        const cutOffsByType = useUTC ? utcPrecisionCutOffsByType : precisionCutOffsByType
+        cutOffsByType[precision].forEach(cutOff => {
+            cutOff(date)
+        })
+
+        return date
+    }
 
 export const createDateNormalizer = ({
     format = 'native',
@@ -48,7 +65,7 @@ export const createDateNormalizer = ({
     precision?: TIME_PRECISION
     useUTC?: boolean
 }) => {
-    const precisionFn = createPrecisionMethod(precision)
+    const precisionFn = createPrecisionMethod(precision, useUTC)
 
     return (value: Date | string | undefined) => {
         if (value === undefined) {
